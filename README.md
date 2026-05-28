@@ -4,7 +4,10 @@ KRackedbakes flavour finder quiz.
 
 Live site: https://kracked.pages.dev/
 
-This is a lightweight customer-facing quiz for KRackedbakes, a real dessert business selling through Take App. Instead of sending shoppers straight into a product list, the quiz turns browsing into a guided recommendation flow: customers answer a few preference questions, get matched to a bake, then click through to the matching product page on Take App.
+This is a lightweight customer-facing quiz for KRackedbakes, a real dessert business selling through our home-based bakery. Instead of sending shoppers straight into a product list, the quiz turns browsing into a guided recommendation flow: customers answer a few preference questions, get matched to a bake, then click through to the matching product page on Take App.
+
+https://www.instagram.com/krackedbakes/
+https://take.app/krackedbakes
 
 ## Why This Exists
 
