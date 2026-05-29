@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>KRacked Dessert Profile</title>
-  <meta name="description" content="Find your KRacked pastry profile and get matched to a bake.">
+  <title>KRacked Dessert Mood Read</title>
+  <meta name="description" content="Find out what pastry mood you're craving today.">
   <style>
     :root {
       --ink: #f7f1e8;
       --muted: #b9ad9b;
       --paper: #070605;
-      --panel: rgba(13, 11, 9, 0.88);
+      --panel: rgba(13, 11, 9, 0.9);
       --panel-strong: rgba(18, 15, 12, 0.96);
       --cream: #f0e2cf;
       --line: rgba(240, 226, 207, 0.16);
-      --line-strong: rgba(240, 226, 207, 0.32);
+      --line-strong: rgba(240, 226, 207, 0.34);
       --gold: #c6a261;
       --gold-bright: #e4c77f;
       --radius: 8px;
@@ -28,8 +28,8 @@
       margin: 0;
       color: var(--ink);
       background:
-        linear-gradient(90deg, rgba(0,0,0,0.92), rgba(0,0,0,0.72) 46%, rgba(0,0,0,0.46)),
-        linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.7)),
+        linear-gradient(90deg, rgba(0,0,0,0.92), rgba(0,0,0,0.75) 48%, rgba(0,0,0,0.5)),
+        linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.72)),
         url("kracked-bg.png") center right / cover fixed no-repeat,
         var(--paper);
     }
@@ -38,100 +38,20 @@
     a { color: inherit; }
 
     .app {
-      width: min(1180px, calc(100% - 32px));
+      width: min(1040px, calc(100% - 32px));
       min-height: 100vh;
       margin: 0 auto;
-      padding: 28px 0 36px;
+      padding: 28px 0;
       display: grid;
       align-items: center;
     }
 
-    .layout {
-      display: grid;
-      grid-template-columns: 1fr;
-      justify-items: center;
-      gap: clamp(18px, 3vw, 30px);
-      width: 100%;
-    }
-
-    .brand {
-      display: grid;
-      justify-items: center;
-      max-width: 900px;
-      text-align: center;
-    }
-
-    .brand-logo {
-      width: 118px;
-      height: 118px;
-      margin-bottom: 20px;
-      border: 1px solid rgba(240,226,207,0.2);
-      border-radius: 50%;
-      background: #050403;
-      box-shadow: 0 18px 48px rgba(0,0,0,0.52), 0 0 0 8px rgba(198,162,97,0.07);
-      object-fit: cover;
-    }
-
-    .brand.is-compact {
-      grid-template-columns: auto 1fr;
-      justify-items: start;
-      align-items: center;
-      gap: 14px 18px;
-      width: min(980px, 100%);
-      text-align: left;
-    }
-
-    .brand.is-compact .brand-logo {
-      width: 76px;
-      height: 76px;
-      grid-row: span 2;
-      margin-bottom: 0;
-    }
-
-    .brand.is-compact .intro,
-    .brand.is-compact .meta {
-      display: none;
-    }
-
-    .eyebrow {
-      margin: 0 0 12px;
-      color: var(--gold-bright);
-      font-size: 12px;
-      font-weight: 850;
-      letter-spacing: 0;
-      text-transform: uppercase;
-    }
-
-    h1, h2, h3, h4, p { margin-top: 0; }
-
-    h1 {
-      margin-bottom: 16px;
-      color: var(--cream);
-      font-size: clamp(42px, 7vw, 72px);
-      line-height: 0.96;
-      letter-spacing: 0;
-    }
-
-    .intro {
-      color: rgba(247,241,232,0.78);
-      font-size: 17px;
-      line-height: 1.55;
-    }
-
-    .meta {
-      margin: 22px 0 0;
-      color: var(--gold-bright);
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    .quiz-shell {
-      width: min(980px, 100%);
+    .shell {
       overflow: hidden;
       border: 1px solid var(--line);
-      border-radius: 14px;
+      border-radius: 16px;
       background: var(--panel);
-      box-shadow: 0 28px 90px rgba(0,0,0,0.58);
+      box-shadow: 0 28px 90px rgba(0,0,0,0.6);
       backdrop-filter: blur(18px);
     }
 
@@ -139,21 +59,48 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      padding: 16px 18px;
+      gap: 14px;
+      min-height: 68px;
+      padding: 14px 18px;
       border-bottom: 1px solid var(--line);
-      background: rgba(0,0,0,0.25);
+      background: rgba(0,0,0,0.22);
+    }
+
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-logo {
+      width: 54px;
+      height: 54px;
+      border: 1px solid rgba(240,226,207,0.2);
+      border-radius: 50%;
+      background: #050403;
+      box-shadow: 0 12px 34px rgba(0,0,0,0.45), 0 0 0 6px rgba(198,162,97,0.06);
+      object-fit: cover;
+      flex: 0 0 auto;
+    }
+
+    .brand-name {
+      margin: 0;
+      color: var(--gold-bright);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0;
+      text-transform: uppercase;
     }
 
     .progress {
       display: flex;
       align-items: center;
       gap: 12px;
-      min-width: 130px;
     }
 
     .progress-track {
-      width: 74px;
+      width: 86px;
       height: 5px;
       overflow: hidden;
       border-radius: 999px;
@@ -177,28 +124,62 @@
     }
 
     .screen {
-      min-height: clamp(420px, 52vh, 500px);
-      padding: clamp(22px, 4vw, 34px);
-    }
-
-    .screen:not(#resultScreen):not(.hidden) {
+      min-height: min(650px, calc(100vh - 160px));
+      padding: clamp(24px, 5vw, 46px);
       display: grid;
       align-content: center;
     }
 
-    .screen h2 {
-      max-width: 620px;
+    .screen.result-screen {
+      align-content: start;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--gold-bright);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, h4, p { margin-top: 0; }
+
+    h1 {
+      max-width: 820px;
+      margin-bottom: 18px;
+      color: var(--cream);
+      font-size: clamp(44px, 8vw, 88px);
+      line-height: 0.94;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      max-width: 760px;
       margin-bottom: 10px;
       color: var(--cream);
-      font-size: clamp(30px, 4vw, 44px);
-      line-height: 1.05;
+      font-size: clamp(34px, 5vw, 60px);
+      line-height: 1.02;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      color: var(--cream);
       letter-spacing: 0;
     }
 
     .copy {
-      max-width: 620px;
+      max-width: 650px;
       color: var(--muted);
-      line-height: 1.5;
+      font-size: 17px;
+      line-height: 1.52;
+    }
+
+    .meta {
+      margin: 22px 0 0;
+      color: var(--gold-bright);
+      font-size: 13px;
+      font-weight: 850;
     }
 
     .btn {
@@ -223,7 +204,7 @@
 
     .btn:focus-visible,
     .choice:focus-visible,
-    input[type="range"]:focus-visible {
+    .seg:focus-visible {
       outline: 3px solid rgba(228,199,127,0.92);
       outline-offset: 3px;
     }
@@ -241,17 +222,13 @@
       color: var(--muted);
     }
 
-    .btn[disabled] {
-      opacity: 0.42;
-      cursor: not-allowed;
-      transform: none;
-    }
+    .btn[hidden] { display: none; }
 
     .actions {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-top: 24px;
+      margin-top: 26px;
     }
 
     .choices {
@@ -267,7 +244,7 @@
       overflow: hidden;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding: 22px;
+      padding: 20px;
       color: var(--ink);
       background:
         radial-gradient(circle at 88% 14%, rgba(198,162,97,0.12), transparent 34%),
@@ -276,7 +253,7 @@
       text-align: left;
       display: grid;
       align-content: space-between;
-      gap: 20px;
+      gap: 16px;
     }
 
     .choice::before {
@@ -291,7 +268,7 @@
     }
 
     .choice:hover,
-    .choice[aria-pressed="true"] {
+    .choice.is-selected {
       border-color: rgba(228,199,127,0.72);
       background:
         linear-gradient(145deg, rgba(198,162,97,0.22), rgba(255,255,255,0.055));
@@ -299,7 +276,7 @@
     }
 
     .choice:hover::before,
-    .choice[aria-pressed="true"]::before {
+    .choice.is-selected::before {
       opacity: 1;
     }
 
@@ -310,7 +287,6 @@
       place-items: center;
       width: 40px;
       height: 40px;
-      margin-bottom: 4px;
       border: 1px solid rgba(228,199,127,0.38);
       border-radius: 50%;
       color: var(--gold-bright);
@@ -328,8 +304,8 @@
       stroke-linejoin: round;
     }
 
-    .choice:hover .choice-icon,
-    .choice[aria-pressed="true"] .choice-icon {
+    .choice.is-selected .choice-icon,
+    .choice:hover .choice-icon {
       color: #130f0a;
       border-color: rgba(228,199,127,0.9);
       background: var(--gold-bright);
@@ -341,7 +317,7 @@
       z-index: 1;
       display: block;
       color: var(--cream);
-      font-size: clamp(23px, 3vw, 30px);
+      font-size: clamp(21px, 3vw, 28px);
       font-weight: 900;
       line-height: 1.1;
     }
@@ -355,7 +331,94 @@
       line-height: 1.35;
     }
 
-    .craving-type,
+    .helper {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .error {
+      margin: 14px 0 0;
+      color: #f3c0ad;
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .tune-grid {
+      display: grid;
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    fieldset {
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+
+    legend {
+      padding: 0;
+    }
+
+    .tune-row {
+      display: grid;
+      gap: 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+      background: rgba(255,255,255,0.045);
+    }
+
+    .tune-label {
+      color: var(--cream);
+      font-weight: 900;
+    }
+
+    .segments {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .seg {
+      min-height: 44px;
+      border: 1px solid rgba(240,226,207,0.18);
+      border-radius: var(--radius);
+      color: var(--muted);
+      background: rgba(255,255,255,0.04);
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .seg.is-selected {
+      border-color: rgba(228,199,127,0.78);
+      color: #120f0b;
+      background: var(--gold-bright);
+    }
+
+    .result-head {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      border: 1px solid rgba(228,199,127,0.32);
+      border-radius: 999px;
+      padding: 7px 10px;
+      color: var(--gold-bright);
+      background: rgba(198,162,97,0.1);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .idea-panel,
     .discount-box {
       border: 1px solid var(--line);
       border-radius: 12px;
@@ -363,85 +426,27 @@
       background: rgba(255,255,255,0.045);
     }
 
-    .craving-type {
+    .idea-panel {
       margin: 20px 0 22px;
     }
 
-    .craving-type h3,
-    .discount-box h3 {
-      margin-bottom: 8px;
-      color: var(--cream);
-      font-size: clamp(22px, 3vw, 30px);
-      line-height: 1.08;
-    }
-
-    .discount-box {
-      margin-top: 18px;
-      background:
-        radial-gradient(circle at 92% 10%, rgba(228,199,127,0.16), transparent 28%),
-        rgba(255,255,255,0.045);
-    }
-
-    .main-pick .discount-box h3 {
-      font-size: 18px;
-      line-height: 1.25;
-    }
-
-    .code-row {
+    .idea-list {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-      margin-top: 12px;
+      gap: 8px;
+      padding: 0;
+      margin: 12px 0 0;
+      list-style: none;
     }
 
-    .discount-code {
-      border: 1px solid rgba(228,199,127,0.42);
-      border-radius: var(--radius);
-      padding: 10px 12px;
-      color: var(--gold-bright);
-      background: rgba(0,0,0,0.22);
-      font-weight: 900;
-      letter-spacing: 0.04em;
-    }
-
-    .note {
-      margin: 10px 0 0;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.4;
-    }
-
-    .slider-box {
-      margin-top: 26px;
-      padding: 20px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: rgba(255,255,255,0.045);
-    }
-
-    .slider-current {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 18px;
+    .idea-list li {
+      border: 1px solid rgba(240,226,207,0.18);
+      border-radius: 999px;
+      padding: 8px 11px;
       color: var(--cream);
-      font-weight: 900;
-    }
-
-    input[type="range"] {
-      width: 100%;
-      accent-color: var(--gold);
-    }
-
-    .stops {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 6px;
-      margin-top: 12px;
-      color: var(--muted);
-      font-size: 11px;
-      text-align: center;
+      background: rgba(0,0,0,0.16);
+      font-size: 13px;
+      font-weight: 750;
     }
 
     .result-hero {
@@ -470,9 +475,9 @@
     }
 
     .main-pick h3 {
-      margin-bottom: 8px;
+      margin-bottom: 0;
       color: var(--cream);
-      font-size: clamp(28px, 4vw, 42px);
+      font-size: clamp(30px, 5vw, 48px);
       line-height: 1.02;
     }
 
@@ -485,6 +490,45 @@
     .reason {
       color: var(--muted);
       line-height: 1.45;
+    }
+
+    .discount-box {
+      margin-top: 10px;
+      background:
+        radial-gradient(circle at 92% 10%, rgba(228,199,127,0.16), transparent 28%),
+        rgba(255,255,255,0.045);
+    }
+
+    .discount-box h4 {
+      margin-bottom: 8px;
+      color: var(--cream);
+      font-size: 18px;
+      line-height: 1.25;
+    }
+
+    .code-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 12px;
+    }
+
+    .discount-code {
+      border: 1px solid rgba(228,199,127,0.42);
+      border-radius: var(--radius);
+      padding: 10px 12px;
+      color: var(--gold-bright);
+      background: rgba(0,0,0,0.22);
+      font-weight: 900;
+      letter-spacing: 0.04em;
+    }
+
+    .note {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
     }
 
     .secondary {
@@ -543,17 +587,19 @@
 
     .hidden { display: none; }
 
-    @media (max-width: 860px) {
+    @media (max-width: 760px) {
       body { background-attachment: scroll; }
-      .app { align-items: start; padding: 18px 0; }
-      .brand { max-width: none; text-align: left; justify-items: start; }
-      .brand-logo { width: 82px; height: 82px; margin-bottom: 16px; }
-      .brand.is-compact { grid-template-columns: auto 1fr; }
-      .brand.is-compact .brand-logo { width: 58px; height: 58px; }
-      .brand.is-compact h1 { font-size: 36px; }
-      .screen { min-height: auto; }
-      .choices { grid-template-columns: 1fr; }
-      .choice { min-height: 96px; padding: 18px; }
+      .app { align-items: start; padding: 14px 0; width: min(100% - 20px, 1040px); }
+      .topbar { padding: 12px; }
+      .brand-logo { width: 44px; height: 44px; }
+      .brand-name { font-size: 11px; }
+      .progress-track { width: 58px; }
+      .screen { min-height: auto; padding: 22px; }
+      h1 { font-size: clamp(42px, 14vw, 62px); }
+      h2 { font-size: clamp(32px, 10vw, 48px); }
+      .choices { grid-template-columns: 1fr; gap: 10px; }
+      .choice { min-height: 104px; padding: 17px; }
+      .segments { grid-template-columns: 1fr; }
       .result-hero { grid-template-columns: 1fr; }
       .product-image { min-height: 280px; }
       .product-grid { grid-template-columns: 1fr; }
@@ -573,329 +619,714 @@
 </head>
 <body>
   <main class="app">
-    <div class="layout">
-      <section class="brand" id="brandPanel">
-        <img class="brand-logo" src="https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:256/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmmmfa3ml000004l42e17909a.png" alt="KRackedbakes logo">
-        <p class="eyebrow">Dessert mood read</p>
-        <h1>What are you craving right now?</h1>
-        <p class="intro">
-          Some days it's deep cocoa. Some days it's butter. Some days it's soft, some days it's chaos.
-          Pick what sounds like you today and we'll read the craving.
-        </p>
-        <p class="meta">6 quick picks · around 30-45 seconds</p>
-      </section>
-
-      <section class="quiz-shell" aria-label="KRacked dessert profile quiz">
-        <div class="topbar" id="topbar" hidden>
-          <button class="btn btn-ghost" id="backButton" type="button">Back</button>
-          <div class="progress" aria-label="Quiz progress">
-            <div class="progress-track" aria-hidden="true">
-              <div class="progress-fill" id="progressFill"></div>
-            </div>
-            <p class="step-count" id="stepCopy">1 of 6</p>
-          </div>
+    <section class="shell" aria-label="KRacked dessert mood read">
+      <div class="topbar">
+        <div class="brand-mark">
+          <img class="brand-logo" src="https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:256/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmmmfa3ml000004l42e17909a.png" alt="KRackedbakes logo">
+          <p class="brand-name">KRacked</p>
         </div>
-
-        <section class="screen" id="startScreen">
-          <p class="eyebrow">Dessert mood read</p>
-          <h2>What are you craving right now?</h2>
-          <p class="copy">
-            Pick what sounds like you today. We'll read the craving and show you what kind of bake fits.
-          </p>
-          <div class="actions">
-            <button class="btn btn-primary" id="startButton" type="button">Read my craving</button>
+        <button class="btn btn-ghost" id="backButton" type="button" hidden>Back</button>
+        <div class="progress" id="progress" aria-label="Quiz progress" hidden>
+          <div class="progress-track" aria-hidden="true">
+            <div class="progress-fill" id="progressFill"></div>
           </div>
-        </section>
-
-        <form class="screen hidden" id="quizScreen" novalidate></form>
-        <section class="screen hidden" id="resultScreen" aria-live="polite"></section>
-      </section>
-    </div>
+          <p class="step-count" id="stepCopy">1 of 6</p>
+        </div>
+      </div>
+      <div class="screen" id="screen" tabindex="-1"></div>
+    </section>
   </main>
 
   <script>
+    const STORAGE = {
+      state: "krackedQuizState",
+      result: "krackedQuizResult",
+      code: "krackedQuizCode",
+      session: "krackedQuizSession"
+    };
+
     const quiz = {
-      meta: { quizId: "kracked-dessert-profile-v3-fast", quizVersion: "live", resultCardCount: 2 },
+      meta: { quizId: "kracked-craving-read-v1", quizVersion: "live", questionCount: 6 },
       discountCodes: Array.from({ length: 50 }, (_, index) => `KRACK5-${String(index + 1).padStart(3, "0")}`),
       products: [
-        {
-          id: "tiramisu_rolls",
-          name: "3 Tiramisu Rolls",
-          priceLabel: "$12.90",
-          available: true,
-          seasonal: false,
-          linkUrl: "https://take.app/krackedbakes/p/cmmmesaaz000i04l14yc3kebn",
-          image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmmono9vx000104l45e194ert.jpeg"
-        },
         {
           id: "hot_cocoa_cookies",
           name: "6 Hot Cocoa Cookies",
           priceLabel: "$13.90",
-          available: true,
-          seasonal: false,
           linkUrl: "https://take.app/krackedbakes/p/cmmmexc6h000104juop7cfe8i",
-          image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmmonmbi0000104kz7p8477pj.jpeg"
-        },
-        {
-          id: "french_brioche_loaf",
-          name: "French Brioche Loaf",
-          priceLabel: "$14.90",
-          available: true,
-          seasonal: false,
-          linkUrl: "https://take.app/krackedbakes/p/cmmmew9md001m04jujtgqqz4l",
-          image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmmonn1sh000004l42u2dgqqc.jpeg"
+          image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmmonmbi0000104kz7p8477pj.jpeg",
+          dims: { dark: 4, chew: 3, soft: 2, sweet: 2, rich: 3, lateNight: 2 }
         },
         {
           id: "brookies",
           name: "8 Brookies",
           priceLabel: "$18.90",
-          available: true,
-          seasonal: false,
           linkUrl: "https://take.app/krackedbakes/p/cmmmeuznz001104lbet8awdc9",
-          image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmmonns8c000104js0hgf8so5.jpeg"
+          image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmmonns8c000104js0hgf8so5.jpeg",
+          dims: { dark: 3, novelty: 2, chew: 3, rich: 4, sweet: 2, sharing: 1 }
         },
         {
-          id: "nutella_cookie_pie",
-          name: "Scoopable Nutella Stuffed Hot Cocoa Cookie Pies",
+          id: "tiramisu_rolls",
+          name: "3 Tiramisu Rolls",
+          priceLabel: "$12.90",
+          linkUrl: "https://take.app/krackedbakes/p/cmmmesaaz000i04l14yc3kebn",
+          image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmmono9vx000104l45e194ert.jpeg",
+          dims: { cream: 4, soft: 2, creamy: 4, sweet: 1, rich: 2, brunch: 1 }
+        },
+        {
+          id: "french_brioche_loaf",
+          name: "French Brioche Loaf",
+          priceLabel: "$14.90",
+          linkUrl: "https://take.app/krackedbakes/p/cmmmew9md001m04jujtgqqz4l",
+          image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmmonn1sh000004l42u2dgqqc.jpeg",
+          dims: { butter: 4, soft: 4, sweet: 1, brunch: 3, familiarity: 2 }
+        },
+        {
+          id: "streuseltalers",
+          name: "2 Streuseltalers",
           priceLabel: "$19.90",
-          available: true,
-          seasonal: true,
           linkUrl: "https://take.app/krackedbakes/p/cmpi02d5j00000bji89ahs4wu",
-          image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmpi029ie00000bkm4si24eqo.png"
+          image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmpi029ie00000bkm4si24eqo.png",
+          dims: { bright: 4, fruity: 4, crumbly: 3, novelty: 2, sweet: 1, brunch: 1 }
         }
       ],
-      profiles: [
-        {
-          id: "dcs",
-          name: "The Dark Comfort Seeker",
-          short: "Deep cocoa. Soft centre. No weak desserts today.",
-          craving: "Something rich, chewy, and properly chocolatey.",
-          productRank: [
-            ["hot_cocoa_cookies", "Cocoa-heavy, soft-centred comfort for the craving you picked."],
-            ["brookies", "Dense, chewy, and still very much in your lane."],
-            ["nutella_cookie_pie", "The high-intensity version when you want extra."]
+      families: {
+        dark: {
+          id: "dark",
+          icon: "drop",
+          title: "Dark & Deep",
+          tags: "cocoa · chewy · rich",
+          prompt: "What kind of chocolate mood?",
+          profile: "The Dark Comfort Seeker",
+          description: "Deep cocoa. Soft centre. No weak desserts today.",
+          ideas: ["fudgy brownies", "dark chocolate cookies", "hot-cocoa bakes", "brownie-cookie hybrids"],
+          dims: { dark: 4, rich: 2, chew: 1 },
+          followups: [
+            { id: "brownie", icon: "square", title: "Fudgy Brownie", tags: "dense · dark · rich", dims: { dark: 2, rich: 3 } },
+            { id: "cookie", icon: "circle", title: "Chewy Cookie", tags: "pull · bite · cocoa", dims: { dark: 2, chew: 3 } },
+            { id: "cocoa", icon: "swirl", title: "Hot-Cocoa Comfort", tags: "soft · warm · mellow", dims: { dark: 2, soft: 2 } },
+            { id: "nutty", icon: "leaf", title: "Dark + Nutty", tags: "toast · depth · edge", dims: { dark: 2, nutty: 3 } }
           ]
         },
-        {
-          id: "ccr",
-          name: "The Cafe Cloud Romantic",
-          short: "Creamy, mellow, and a little grown-up.",
-          craving: "Something soft with coffee-cocoa energy.",
-          productRank: [
-            ["tiramisu_rolls", "Creamy, soft, and the cleanest fit for your cafe-mood craving."],
-            ["french_brioche_loaf", "Buttery and restrained enough for your profile."],
-            ["hot_cocoa_cookies", "A cocoa pivot when you want more depth."]
+        butter: {
+          id: "butter",
+          icon: "arch",
+          title: "Soft & Buttery",
+          tags: "warm · bakery · comfort",
+          prompt: "What kind of buttery thing?",
+          profile: "The Butter-Led Loyalist",
+          description: "Warm crumb, butter first, nothing too loud.",
+          ideas: ["pull-apart brioche", "salt-butter rolls", "milk bread", "buttery breakfast loaves"],
+          dims: { butter: 4, soft: 2, familiarity: 2 },
+          followups: [
+            { id: "brioche", icon: "arch", title: "Pull-Apart Brioche", tags: "soft · milky · warm", dims: { butter: 2, soft: 3, brunch: 1 } },
+            { id: "flaky", icon: "crescent", title: "Flaky Layers", tags: "crisp · butter · shards", dims: { butter: 2, flaky: 3 } },
+            { id: "toast", icon: "stack", title: "Toast + Butter", tags: "simple · golden · familiar", dims: { butter: 3, familiarity: 2 } },
+            { id: "savoury", icon: "spark", title: "Salt-Butter Savoury", tags: "salty · rich · grown-up", dims: { butter: 2, salty: 3 } }
           ]
         },
-        {
-          id: "bfl",
-          name: "The Butter-First Loyalist",
-          short: "Soft, warm, and not trying too hard.",
-          craving: "Something buttery, low-drama, and easy to come back to.",
-          productRank: [
-            ["french_brioche_loaf", "The clearest match for a butter-led, soft-crumb craving."],
-            ["tiramisu_rolls", "Soft and composed when you want dessert lighter."],
-            ["brookies", "A richer detour without going full chaos."]
+        cream: {
+          id: "cream",
+          icon: "swirl",
+          title: "Creamy & Calm",
+          tags: "coffee · custard · soft",
+          prompt: "What kind of creamy mood?",
+          profile: "The Cafe Cloud Romantic",
+          description: "Smooth, soft, and a little grown-up.",
+          ideas: ["tiramisu rolls", "custard buns", "cream-filled brioche", "cocoa cream cakes"],
+          dims: { cream: 4, creamy: 3, soft: 1 },
+          followups: [
+            { id: "tiramisu", icon: "swirl", title: "Tiramisu Coffee", tags: "coffee · cocoa · cream", dims: { cream: 3, creamy: 2 } },
+            { id: "custard", icon: "cloud", title: "Vanilla Custard", tags: "smooth · soft · mellow", dims: { cream: 2, creamy: 3, sweet: 1 } },
+            { id: "milkbread", icon: "arch", title: "Milk-Bread Soft", tags: "pillowy · gentle · warm", dims: { cream: 1, soft: 3, butter: 1 } },
+            { id: "cocoaCream", icon: "drop", title: "Cocoa Cream", tags: "soft · cocoa · calm", dims: { cream: 2, dark: 2 } }
           ]
         },
-        {
-          id: "hih",
-          name: "The Hybrid Indulgence Hunter",
-          short: "Layered, chewy, and allergic to boring.",
-          craving: "Something mixed-texture with dessert mash-up energy.",
-          productRank: [
-            ["brookies", "The most direct match for your layered, hybrid craving."],
-            ["hot_cocoa_cookies", "Chewy, rich, and still indulgent."],
-            ["nutella_cookie_pie", "High-drama backup when you want something extra."]
+        bright: {
+          id: "bright",
+          icon: "burst",
+          title: "Bright & Fresh",
+          tags: "citrus · berry · sharp finish",
+          prompt: "What kind of bright?",
+          profile: "The Bright Crumble Type",
+          description: "Fresh lift, fruit edge, and a clean finish.",
+          ideas: ["lemon streusel buns", "berry danishes", "yuzu cakes", "crumble bars", "fruit galettes"],
+          dims: { bright: 4, fruity: 3, adventurous: 1 },
+          followups: [
+            { id: "lemon", icon: "burst", title: "Lemon", tags: "sharp · clean · bright", dims: { bright: 3, fruity: 1 } },
+            { id: "yuzu", icon: "spark", title: "Yuzu", tags: "zippy · floral · tart", dims: { bright: 3, adventurous: 2 } },
+            { id: "berry", icon: "circle", title: "Berry Jammy", tags: "fruit · sweet · lush", dims: { bright: 2, fruity: 3, sweet: 1 } },
+            { id: "crumble", icon: "crack", title: "Fruit Crumble", tags: "crumbly · fruit · warm", dims: { bright: 2, fruity: 2, crumbly: 3 } }
           ]
         },
-        {
-          id: "gst",
-          name: "The Gentle Sweet Tooth",
-          short: "Soft sweetness, clean finish, no sugar spiral.",
-          craving: "Something balanced, gentle, and easy to finish.",
-          productRank: [
-            ["tiramisu_rolls", "Balanced sweetness and soft structure fit the mood."],
-            ["french_brioche_loaf", "Low-intensity, butter-led comfort."],
-            ["hot_cocoa_cookies", "A richer swing when you still want comfort."]
+        local: {
+          id: "local",
+          icon: "leaf",
+          title: "Local & Nostalgic",
+          tags: "kaya · pandan · sesame",
+          prompt: "Which flavour memory sounds right?",
+          profile: "The Nostalgic Twist Chaser",
+          description: "Familiar flavours, soft comfort, a little memory lane.",
+          ideas: ["kaya buns", "pandan rolls", "black sesame cookies", "coconut buns", "peanut-sesame pastries"],
+          dims: { local: 5, nutty: 1, familiarity: 2 },
+          followups: [
+            { id: "kaya", icon: "stack", title: "Kaya Butter", tags: "toast · coconut · soft", dims: { local: 3, butter: 2, brunch: 1 } },
+            { id: "pandan", icon: "leaf", title: "Pandan Coconut", tags: "green · fragrant · mellow", dims: { local: 3, soft: 1 } },
+            { id: "sesame", icon: "circle", title: "Black Sesame", tags: "nutty · dark · roasty", dims: { local: 2, nutty: 3, dark: 1 } },
+            { id: "peanut", icon: "square", title: "Peanut-Toasty", tags: "roasted · familiar · bite", dims: { local: 2, nutty: 3, familiarity: 1 } }
           ]
         },
-        {
-          id: "spc",
-          name: "The Seasonal Plot-Twist Chaser",
-          short: "Limited, layered, and a little chaotic.",
-          craving: "Something extra, limited-feeling, and richer than usual.",
-          productRank: [
-            ["nutella_cookie_pie", "Your drop-chaser answers point straight at the extra one."],
-            ["brookies", "Still layered and expressive."],
-            ["hot_cocoa_cookies", "A strong fallback for indulgence."]
+        novelty: {
+          id: "novelty",
+          icon: "spark",
+          title: "Plot Twist",
+          tags: "layered · gooey · unexpected",
+          prompt: "What kind of curveball?",
+          profile: "The Plot-Twist Hunter",
+          description: "You want the menu to do something interesting.",
+          ideas: ["stuffed cookies", "gooey pies", "sweet-salty buns", "limited seasonal drops", "hybrid blondies"],
+          dims: { novelty: 5, adventurous: 2, rich: 1 },
+          followups: [
+            { id: "gooey", icon: "drop", title: "Gooey Centre", tags: "molten · soft · rich", dims: { novelty: 2, soft: 2, rich: 2 } },
+            { id: "stuffed", icon: "crack", title: "Stuffed + Layered", tags: "filled · extra · bite", dims: { novelty: 3, chew: 2 } },
+            { id: "salty", icon: "spark", title: "Sweet-Salty", tags: "contrast · rich · sharp", dims: { novelty: 2, salty: 3 } },
+            { id: "limited", icon: "burst", title: "Limited Seasonal", tags: "new · bold · now", dims: { novelty: 3, adventurous: 2 } }
           ]
         }
+      },
+      textureOptions: [
+        { id: "soft", icon: "cloud", title: "Soft Centre", tags: "gentle · warm · plush", dims: { soft: 2 } },
+        { id: "chew", icon: "circle", title: "Chewy Pull", tags: "bite · stretch · cookie", dims: { chew: 2 } },
+        { id: "flaky", icon: "crescent", title: "Flaky Shards", tags: "crisp · layered · butter", dims: { flaky: 2, butter: 1 } },
+        { id: "creamy", icon: "swirl", title: "Creamy Middle", tags: "smooth · cool · soft", dims: { creamy: 2, cream: 1 } },
+        { id: "crumbly", icon: "crack", title: "Crumbly Top", tags: "streusel · bite · edge", dims: { crumbly: 2 } },
+        { id: "fruity", icon: "burst", title: "Fruity Lift", tags: "bright · tart · fresh", dims: { fruity: 2, bright: 1 } },
+        { id: "nutty", icon: "leaf", title: "Nutty Toast", tags: "roasty · warm · deep", dims: { nutty: 2 } },
+        { id: "salty", icon: "spark", title: "Salty Contrast", tags: "sharp · savoury · balance", dims: { salty: 2 } }
       ],
-      questions: [
-        {
-          id: "flavour",
-          title: "Pick your current mood.",
-          microcopy: "First instinct wins.",
-          options: [
-            ["dark", "drop", "Dark Cocoa", "fudgy · deep · proper dessert", { dcs: 3, hih: 1, spc: 1 }],
-            ["coffee", "swirl", "Cream & Coffee", "smooth · mellow · cafe mood", { ccr: 3, gst: 1 }],
-            ["butter", "arch", "Butter First", "soft · warm · not too sweet", { bfl: 3, gst: 1 }],
-            ["wild", "spark", "Chaos Drop", "limited · layered · extra", { hih: 2, spc: 3 }, true]
-          ]
-        },
-        {
-          id: "texture",
-          title: "Choose the texture.",
-          microcopy: "This usually decides the bake.",
-          options: [
-            ["fudgy", "square", "Rich Fudge", "dense · soft centre · dark", { dcs: 3, hih: 1 }],
-            ["creamy", "cloud", "Cream Soft", "airy · smooth · gentle", { ccr: 3, gst: 1 }],
-            ["bready", "arch", "Pillowy", "soft · pull-apart · warm", { bfl: 3, gst: 1 }],
-            ["mixed", "crack", "Chewy Mix", "gooey · layered · bite", { hih: 3, spc: 2 }]
-          ]
-        },
-        {
-          id: "sweetness",
-          title: "How sweet are we going?",
-          microcopy: "Choose the closest stop.",
-          type: "slider",
-          labels: { 0: "Barely", 25: "Mild", 50: "Balanced", 75: "Dessert", 100: "Full send" },
-          buckets: [
-            [0, 24, { bfl: 3, gst: 2 }],
-            [25, 49, { bfl: 2, gst: 3, ccr: 1 }],
-            [50, 50, { ccr: 2, gst: 2, bfl: 1 }],
-            [51, 74, { dcs: 2, hih: 2, ccr: 1 }],
-            [75, 100, { spc: 3, hih: 2, dcs: 2 }]
-          ]
-        },
-        {
-          id: "richness",
-          title: "How rich is the craving?",
-          microcopy: "Still approximate. No precision needed.",
-          type: "slider",
-          labels: { 0: "Airy", 25: "Light", 50: "Balanced", 75: "Rich", 100: "Dense" },
-          buckets: [
-            [0, 24, { ccr: 2, gst: 2, bfl: 2 }],
-            [25, 49, { ccr: 3, gst: 2, bfl: 1 }],
-            [50, 50, { bfl: 1, gst: 2, hih: 1 }],
-            [51, 74, { dcs: 3, hih: 2, spc: 1 }],
-            [75, 100, { spc: 3, dcs: 2, hih: 2 }]
-          ]
-        },
-        {
-          id: "vibe",
-          title: "Pick the vibe.",
-          microcopy: "Mood matters.",
-          options: [
-            ["late", "moon", "Late Night", "reward · warm · focused", { dcs: 3, spc: 1 }],
-            ["coffee", "swirl", "Slow Break", "cream · calm · cafe", { ccr: 3, gst: 1 }],
-            ["morning", "arch", "Morning Bite", "buttery · easy · soft", { bfl: 3, gst: 1 }],
-            ["sharing", "spark", "Share Box", "variety · generous · fun", { hih: 2, spc: 1, bfl: 1 }]
-          ]
-        },
-        {
-          id: "energy",
-          title: "Classic or drop energy?",
-          microcopy: "Final tie-breaker.",
-          options: [
-            ["usual", "circle", "Classic", "reliable · familiar · clean", { bfl: 2, dcs: 1, gst: 1 }],
-            ["polished", "swirl", "Polished", "balanced · smooth · quiet", { ccr: 2, gst: 2 }],
-            ["indulgent", "flame", "Full Send", "rich · sweet · worth it", { dcs: 2, hih: 2 }],
-            ["limited", "spark", "Limited Drop", "new · bold · now", { spc: 3, hih: 1 }, true]
-          ]
-        }
+      moments: [
+        { id: "brunch", icon: "arch", title: "Breakfast / Brunch", tags: "morning · soft · easy", dims: { brunch: 3, butter: 1 } },
+        { id: "coffee", icon: "swirl", title: "Coffee Break", tags: "pause · cream · calm", dims: { cream: 2, soft: 1 } },
+        { id: "postDinner", icon: "circle", title: "Post-Dinner", tags: "dessert · finish · sweet", dims: { sweet: 2, rich: 1 } },
+        { id: "lateNight", icon: "moon", title: "Late-Night", tags: "reward · dark · quiet", dims: { lateNight: 3, dark: 1 } },
+        { id: "sharing", icon: "stack", title: "Sharing Box", tags: "variety · generous · group", dims: { sharing: 3, novelty: 1 } },
+        { id: "curious", icon: "spark", title: "Just Curious", tags: "new · open · browse", dims: { adventurous: 2, novelty: 1 } }
       ],
-      fallbackOrder: ["bfl", "ccr", "dcs", "gst", "hih", "spc"]
+      openness: [
+        { id: "classic", icon: "circle", title: "Keep It Classic", tags: "safe · familiar · clean", dims: { familiarity: 3 } },
+        { id: "halfway", icon: "swirl", title: "Meet Me Halfway", tags: "balanced · small twist", dims: { familiarity: 1, adventurous: 1 } },
+        { id: "surprise", icon: "spark", title: "Surprise Me", tags: "bold · strange · new", dims: { adventurous: 3, novelty: 1 } }
+      ],
+      profileOrder: ["dark", "butter", "cream", "bright", "local", "novelty"]
     };
 
-    quiz.questions.forEach((question) => {
-      if (question.options) {
-        question.options = question.options.map(([id, icon, title, tags, weights, novelty]) => ({
-          id, icon, title, tags, weights, novelty: Boolean(novelty)
-        }));
-      }
-      if (question.buckets) {
-        question.buckets = question.buckets.map(([min, max, weights]) => ({ min, max, weights }));
-      }
-    });
-    quiz.profiles.forEach((profile) => {
-      profile.productRank = profile.productRank.map(([productId, why]) => ({ productId, why }));
-    });
-
-    const state = { step: 0, answers: {}, result: null, discountCode: "" };
-    const profileIds = quiz.profiles.map((profile) => profile.id);
     const productById = Object.fromEntries(quiz.products.map((product) => [product.id, product]));
-    const profileById = Object.fromEntries(quiz.profiles.map((profile) => [profile.id, profile]));
-    const brandPanel = document.getElementById("brandPanel");
-    const startScreen = document.getElementById("startScreen");
-    const quizScreen = document.getElementById("quizScreen");
-    const resultScreen = document.getElementById("resultScreen");
-    const topbar = document.getElementById("topbar");
+    let state = defaultState();
+
+    const screen = document.getElementById("screen");
     const backButton = document.getElementById("backButton");
+    const progress = document.getElementById("progress");
     const progressFill = document.getElementById("progressFill");
     const stepCopy = document.getElementById("stepCopy");
 
-    document.getElementById("startButton").addEventListener("click", () => {
-      track("quiz_start", baseEvent());
-      renderQuestion();
-    });
-    backButton.addEventListener("click", () => {
-      if (state.step > 0) {
-        state.step -= 1;
-        renderQuestion();
+    init();
+
+    function defaultState() {
+      return {
+        sessionId: getOrCreateSession(),
+        step: 0,
+        answers: { textures: [], intensity: { sweetness: "balanced", richness: "medium", familiarity: "twist" } },
+        result: null,
+        discountCode: ""
+      };
+    }
+
+    function init() {
+      const restored = readJson(STORAGE.state);
+      if (restored && restored.sessionId) state = normalizeState(restored);
+      window.addEventListener("hashchange", syncFromHash);
+      window.addEventListener("popstate", syncFromHash);
+      backButton.addEventListener("click", goBack);
+      syncFromHash();
+    }
+
+    function normalizeState(restored) {
+      const fresh = defaultState();
+      const answers = restored.answers || {};
+      return {
+        ...fresh,
+        ...restored,
+        answers: {
+          ...fresh.answers,
+          ...answers,
+          textures: Array.isArray(answers.textures) ? answers.textures : [],
+          intensity: {
+            ...fresh.answers.intensity,
+            ...(answers.intensity || {})
+          }
+        },
+        result: restored.result || readJson(STORAGE.result) || null,
+        discountCode: restored.discountCode || safeGet(STORAGE.code) || ""
+      };
+    }
+
+    function syncFromHash() {
+      const target = parseHash();
+      if (target === "result" && state.result) {
+        state.step = 7;
+        render();
+        return;
       }
-    });
-
-    function baseEvent(extra = {}) {
-      return { quiz_id: quiz.meta.quizId, quiz_version: quiz.meta.quizVersion, ...extra };
+      if (target.startsWith("q")) {
+        const step = Number(target.slice(1));
+        if (Number.isInteger(step) && step >= 1 && step <= 6) state.step = Math.min(step, maxReachableStep());
+      } else {
+        state.step = 0;
+      }
+      render();
     }
 
-    function track(name, params = {}) {
-      if (window.gtag) window.gtag("event", name, params);
-      else console.debug("[analytics]", name, params);
+    function parseHash() {
+      return (window.location.hash || "#intro").replace("#", "");
     }
 
-    function show(view) {
-      startScreen.classList.toggle("hidden", view !== "start");
-      quizScreen.classList.toggle("hidden", view !== "quiz");
-      resultScreen.classList.toggle("hidden", view !== "result");
-      topbar.hidden = view === "start" || view === "result";
-      brandPanel.classList.toggle("is-compact", view !== "start");
+    function maxReachableStep() {
+      if (!state.answers.family) return 1;
+      if (!state.answers.followup) return 2;
+      if (!state.answers.textures?.length) return 3;
+      if (!state.answers.moment) return 5;
+      if (!state.answers.openness) return 6;
+      return 6;
+    }
+
+    function setHash(value) {
+      if (window.location.hash !== `#${value}`) window.history.pushState(null, "", `#${value}`);
+    }
+
+    function persist() {
+      writeJson(STORAGE.state, state);
+      if (state.result) writeJson(STORAGE.result, state.result);
+      if (state.discountCode) safeSet(STORAGE.code, state.discountCode);
+    }
+
+    function render() {
+      const isIntro = state.step === 0;
+      const isResult = state.step === 7;
+      backButton.hidden = state.step <= 1 || isIntro || isResult;
+      progress.hidden = isIntro || isResult;
+      progressFill.style.width = `${Math.max(0, Math.min(100, (state.step / 6) * 100))}%`;
+      stepCopy.textContent = `${Math.min(state.step, 6)} of 6`;
+      screen.className = `screen${isResult ? " result-screen" : ""}`;
+
+      if (isIntro) renderIntro();
+      else if (isResult) renderResult();
+      else renderQuestion();
+
+      requestAnimationFrame(() => screen.focus({ preventScroll: true }));
+      persist();
+    }
+
+    function renderIntro() {
+      screen.innerHTML = `
+        <p class="eyebrow">Dessert mood read</p>
+        <h1>Find out what you're craving.</h1>
+        <p class="copy">Sweet tooth changes by the day. Pick what sounds good right now and we'll read the pastry mood.</p>
+        <p class="meta">6 quick reads · under 45 seconds</p>
+        <div class="actions">
+          <button class="btn btn-primary" id="startButton" type="button">Let's find out</button>
+        </div>
+      `;
+      document.getElementById("startButton").addEventListener("click", () => {
+        analyticsTrack("quiz_start", eventBase());
+        state.step = 1;
+        setHash("q1");
+        render();
+      });
     }
 
     function renderQuestion() {
-      show("quiz");
-      const question = quiz.questions[state.step];
-      const total = quiz.questions.length;
-      progressFill.style.width = `${(state.step / total) * 100}%`;
-      stepCopy.textContent = `${state.step + 1} of ${total}`;
-      backButton.disabled = state.step === 0;
-
-      quizScreen.innerHTML = `
-        <p class="eyebrow">Craving read</p>
-        <h2>${escapeHtml(question.title)}</h2>
-        <p class="copy">${escapeHtml(question.microcopy)}</p>
-        ${question.type === "slider" ? renderSlider(question) : renderChoices(question)}
+      const question = getQuestion();
+      const helper = question.helper ? `<p class="helper">${escapeHtml(question.helper)}</p>` : "";
+      screen.innerHTML = `
+        <fieldset>
+          <legend>
+            <p class="eyebrow">${escapeHtml(question.eyebrow)}</p>
+            <h2>${escapeHtml(question.prompt)}</h2>
+          </legend>
+          ${helper}
+          ${question.type === "multi" ? renderMulti(question) : question.type === "intensity" ? renderIntensity() : renderSingle(question)}
+        </fieldset>
+        <p class="error" id="stepError" hidden></p>
+        ${question.needsContinue ? `<div class="actions"><button class="btn btn-primary" id="continueButton" type="button">${escapeHtml(question.continueLabel)}</button></div>` : ""}
       `;
 
-      if (question.type === "slider") bindSlider(question);
-      else bindChoices(question);
+      analyticsTrack("step_view", eventBase({ step: state.step, step_type: question.type }));
+      if (question.type === "multi") bindMulti(question);
+      else if (question.type === "intensity") bindIntensity();
+      else bindSingle(question);
+      if (question.needsContinue) document.getElementById("continueButton").addEventListener("click", continueFromStep);
     }
 
-    function renderChoices(question) {
-      const saved = state.answers[question.id];
+    function getQuestion() {
+      if (state.step === 1) {
+        return { type: "single", eyebrow: "Craving read", prompt: "Where is the craving leaning?", options: Object.values(quiz.families), answerKey: "family" };
+      }
+      if (state.step === 2) {
+        const family = quiz.families[state.answers.family] || quiz.families.dark;
+        return { type: "single", eyebrow: "Craving read", prompt: family.prompt, options: family.followups, answerKey: "followup" };
+      }
+      if (state.step === 3) {
+        return { type: "multi", eyebrow: "Texture read", prompt: "What needs to happen in the bite?", helper: "Pick up to 2.", options: quiz.textureOptions, needsContinue: true, continueLabel: "Continue" };
+      }
+      if (state.step === 4) {
+        return { type: "intensity", eyebrow: "Tuning", prompt: "Set the intensity.", needsContinue: true, continueLabel: "Continue" };
+      }
+      if (state.step === 5) {
+        return { type: "single", eyebrow: "Eating moment", prompt: "When are you eating this?", options: quiz.moments, answerKey: "moment" };
+      }
+      return { type: "single", eyebrow: "Final read", prompt: "How far should we stretch you?", options: quiz.openness, answerKey: "openness" };
+    }
+
+    function renderSingle(question) {
+      return `<div class="choices" role="group" aria-label="${escapeHtml(question.prompt)}">
+        ${question.options.map((option) => choiceButton(option, state.answers[question.answerKey] === option.id)).join("")}
+      </div>`;
+    }
+
+    function renderMulti(question) {
+      const selected = new Set(state.answers.textures || []);
+      return `<div class="choices" role="group" aria-label="${escapeHtml(question.prompt)}">
+        ${question.options.map((option) => choiceButton(option, selected.has(option.id), true)).join("")}
+      </div>`;
+    }
+
+    function choiceButton(option, selected, checkbox = false) {
       return `
-        <div class="choices" role="group" aria-label="${escapeHtml(question.title)}">
-          ${question.options.map((option) => `
-            <button class="choice" type="button" data-option="${option.id}" aria-pressed="${saved === option.id}">
-              <span class="choice-icon" aria-hidden="true">${iconSvg(option.icon)}</span>
-              <span class="choice-title">${escapeHtml(option.title)}</span>
-              <span class="choice-tags">${escapeHtml(option.tags)}</span>
-            </button>
-          `).join("")}
+        <button class="choice${selected ? " is-selected" : ""}" type="button" data-option="${option.id}" aria-pressed="${selected}" ${checkbox ? `aria-label="${escapeHtml(option.title)} ${selected ? "selected" : "not selected"}"` : ""}>
+          <span class="choice-icon" aria-hidden="true">${iconSvg(option.icon)}</span>
+          <span class="choice-title">${escapeHtml(option.title)}</span>
+          <span class="choice-tags">${escapeHtml(option.tags)}</span>
+        </button>
+      `;
+    }
+
+    function renderIntensity() {
+      const controls = [
+        ["sweetness", "Sweetness", [["gentle", "gentle"], ["balanced", "balanced"], ["full", "full-send"]]],
+        ["richness", "Richness", [["light", "light"], ["medium", "medium"], ["dense", "dense"]]],
+        ["familiarity", "Familiarity", [["classic", "classic"], ["twist", "twist"], ["adventurous", "adventurous"]]]
+      ];
+      return `<div class="tune-grid">
+        ${controls.map(([key, label, options]) => `
+          <div class="tune-row">
+            <span class="tune-label">${label}: ${escapeHtml(labelForIntensity(key))}</span>
+            <div class="segments" role="group" aria-label="${label}">
+              ${options.map(([value, text]) => `<button class="seg${state.answers.intensity[key] === value ? " is-selected" : ""}" type="button" data-intensity="${key}" data-value="${value}">${text}</button>`).join("")}
+            </div>
+          </div>
+        `).join("")}
+      </div>`;
+    }
+
+    function labelForIntensity(key) {
+      return state.answers.intensity[key];
+    }
+
+    function bindSingle(question) {
+      screen.querySelectorAll(".choice").forEach((button) => {
+        button.addEventListener("click", () => {
+          state.answers[question.answerKey] = button.dataset.option;
+          if (question.answerKey === "family") {
+            state.answers.followup = "";
+          }
+          analyticsTrack("answer_select", eventBase({ step: state.step, answer_id: button.dataset.option }));
+          setTimeout(() => advance(), 150);
+        });
+      });
+    }
+
+    function bindMulti() {
+      screen.querySelectorAll(".choice").forEach((button) => {
+        button.addEventListener("click", () => {
+          const id = button.dataset.option;
+          const selected = new Set(state.answers.textures || []);
+          if (selected.has(id)) selected.delete(id);
+          else if (selected.size < 2) selected.add(id);
+          else {
+            showError("Pick up to 2 textures.");
+            return;
+          }
+          state.answers.textures = [...selected];
+          analyticsTrack("texture_select", eventBase({ textures: state.answers.textures.join(",") }));
+          renderQuestion();
+        });
+      });
+    }
+
+    function bindIntensity() {
+      screen.querySelectorAll(".seg").forEach((button) => {
+        button.addEventListener("click", () => {
+          state.answers.intensity[button.dataset.intensity] = button.dataset.value;
+          analyticsTrack("intensity_set", eventBase({ key: button.dataset.intensity, value: button.dataset.value }));
+          renderQuestion();
+        });
+      });
+    }
+
+    function continueFromStep() {
+      if (state.step === 3 && (!state.answers.textures || state.answers.textures.length === 0)) {
+        showError("Pick at least 1 texture.");
+        return;
+      }
+      advance();
+    }
+
+    function showError(message) {
+      const error = document.getElementById("stepError");
+      error.textContent = message;
+      error.hidden = false;
+    }
+
+    function advance() {
+      if (state.step < 6) {
+        state.step += 1;
+        setHash(`q${state.step}`);
+        render();
+      } else {
+        completeQuiz();
+      }
+    }
+
+    function goBack() {
+      if (state.step <= 1) return;
+      state.step -= 1;
+      setHash(`q${state.step}`);
+      render();
+    }
+
+    function completeQuiz() {
+      state.result = computeResult();
+      state.discountCode = assignDiscountCode();
+      state.step = 7;
+      writeJson(STORAGE.result, state.result);
+      safeSet(STORAGE.code, state.discountCode);
+      analyticsTrack("quiz_complete", eventBase({ profile: state.result.profile.id, product: state.result.main.product.id, confidence: state.result.confidence }));
+      setHash("result");
+      render();
+    }
+
+    function computeResult() {
+      const dims = {};
+      addDims(dims, quiz.families[state.answers.family]?.dims);
+      const followup = quiz.families[state.answers.family]?.followups.find((option) => option.id === state.answers.followup);
+      addDims(dims, followup?.dims);
+      (state.answers.textures || []).forEach((id) => addDims(dims, quiz.textureOptions.find((option) => option.id === id)?.dims));
+      addIntensityDims(dims);
+      addDims(dims, quiz.moments.find((option) => option.id === state.answers.moment)?.dims);
+      addDims(dims, quiz.openness.find((option) => option.id === state.answers.openness)?.dims);
+
+      const family = quiz.families[state.answers.family] || quiz.families.dark;
+      const profile = {
+        id: family.id,
+        name: family.profile,
+        description: family.description,
+        ideas: family.ideas,
+        tags: resultTags(dims)
+      };
+
+      const rankedProducts = quiz.products
+        .map((product) => ({ product, score: scoreProduct(dims, product), reason: productReason(family.id, product.id) }))
+        .sort((a, b) => b.score - a.score);
+      const main = rankedProducts[0];
+      const secondary = rankedProducts.slice(1, 3);
+      const gap = main.score - rankedProducts[1].score;
+      const familyCovered = family.id !== "local" || main.product.id === "french_brioche_loaf";
+      const confidence = family.id === "local" ? "weak" : gap >= 5 ? "strong" : gap >= 2 ? "medium" : "weak";
+      return { profile, dims, main, secondary, confidence, familyCovered };
+    }
+
+    function addDims(target, dims = {}) {
+      Object.entries(dims).forEach(([key, value]) => {
+        target[key] = (target[key] || 0) + value;
+      });
+    }
+
+    function addIntensityDims(dims) {
+      const { sweetness, richness, familiarity } = state.answers.intensity;
+      if (sweetness === "gentle") addDims(dims, { sweet: -1, familiarity: 1 });
+      if (sweetness === "balanced") addDims(dims, { sweet: 1 });
+      if (sweetness === "full") addDims(dims, { sweet: 3, rich: 1 });
+      if (richness === "light") addDims(dims, { rich: -1, cream: 1 });
+      if (richness === "medium") addDims(dims, { rich: 1 });
+      if (richness === "dense") addDims(dims, { rich: 3, dark: 1 });
+      if (familiarity === "classic") addDims(dims, { familiarity: 3 });
+      if (familiarity === "twist") addDims(dims, { novelty: 1, adventurous: 1 });
+      if (familiarity === "adventurous") addDims(dims, { novelty: 2, adventurous: 3 });
+    }
+
+    function scoreProduct(dims, product) {
+      return Object.entries(product.dims).reduce((sum, [key, value]) => sum + (dims[key] || 0) * value, 0);
+    }
+
+    function productReason(familyId, productId) {
+      if (familyId === "local") {
+        return "KRacked does not currently have a kaya or pandan bake on the menu, but this is the closest live bridge for the craving you built.";
+      }
+      const reasons = {
+        hot_cocoa_cookies: "Best fit for a cocoa-led craving with a soft comfort finish.",
+        brookies: "Best when the craving leans dense, chewy, and hybrid.",
+        tiramisu_rolls: "Best when the craving wants cream, coffee, and a softer landing.",
+        french_brioche_loaf: "Best when the craving is buttery, soft, and low-drama.",
+        streuseltalers: "Best when the craving needs fruit lift and crumbly texture."
+      };
+      return reasons[productId] || "Closest fit on the current menu.";
+    }
+
+    function resultTags(dims) {
+      return Object.entries(dims)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 3)
+        .map(([key]) => ({
+          lateNight: "late-night",
+          novelty: "curveball",
+          adventurous: "adventurous",
+          familiarity: "familiar",
+          brunch: "brunch",
+          chew: "chewy",
+          soft: "soft",
+          rich: "rich",
+          bright: "bright",
+          fruity: "fruity",
+          butter: "buttery",
+          cream: "creamy",
+          dark: "cocoa",
+          local: "nostalgic",
+          sharing: "sharing"
+        }[key] || key));
+    }
+
+    function renderResult() {
+      const result = state.result || readJson(STORAGE.result);
+      if (!result) {
+        state.step = 0;
+        setHash("intro");
+        render();
+        return;
+      }
+      state.result = result;
+      const label = result.confidence === "strong" ? "Your KRacked match" : result.confidence === "medium" ? "Closest KRacked match right now" : "Closest fit on the current menu";
+      const code = assignDiscountCode();
+      screen.innerHTML = `
+        <div class="result-head">
+          <p class="eyebrow">Your pastry mood today</p>
+          <h2>${escapeHtml(result.profile.name)}</h2>
+          <p class="copy">${escapeHtml(result.profile.description)}</p>
+          <div class="tag-row">${result.profile.tags.map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}</div>
+        </div>
+
+        <section class="idea-panel">
+          <p class="eyebrow">You'd probably like...</p>
+          <ul class="idea-list">${result.profile.ideas.map((idea) => `<li>${escapeHtml(idea)}</li>`).join("")}</ul>
+        </section>
+
+        <div class="result-hero">
+          <div class="product-image" style="background-image: url('${result.main.product.image}')"></div>
+          <article class="main-pick">
+            <p class="eyebrow">${escapeHtml(label)}</p>
+            <h3>${escapeHtml(result.main.product.name)}</h3>
+            <p class="price">${escapeHtml(result.main.product.priceLabel)}</p>
+            <p class="reason">${escapeHtml(result.main.reason)}</p>
+            <a class="btn btn-primary" href="${result.main.product.linkUrl}" target="_blank" rel="noopener" data-product-id="${result.main.product.id}" data-slot="main">Order this bake</a>
+            <div class="discount-box">
+              <p class="eyebrow">5% test code</p>
+              <h4>Use code ${escapeHtml(code)} for 5% off your order.</h4>
+              <div class="code-row">
+                <span class="discount-code">${escapeHtml(code)}</span>
+                <button class="btn" id="copyCodeButton" type="button">Copy code</button>
+              </div>
+              <p class="note">Test code for now — we'll confirm validity before launch.</p>
+            </div>
+          </article>
+        </div>
+
+        <section class="secondary">
+          <p class="eyebrow">Also worth a look</p>
+          <div class="product-grid">${result.secondary.map((item) => secondaryCard(item)).join("")}</div>
+        </section>
+
+        <div class="actions">
+          <button class="btn" id="retakeButton" type="button">Retake</button>
+          <button class="btn btn-ghost" id="copyResultButton" type="button">Copy my result</button>
         </div>
       `;
+      bindResultActions(result, code);
+    }
+
+    function secondaryCard(item) {
+      return `
+        <article class="mini-product">
+          <div class="mini-image" style="background-image: url('${item.product.image}')"></div>
+          <div>
+            <p class="eyebrow">Worth a look</p>
+            <h4>${escapeHtml(item.product.name)}</h4>
+            <p class="reason">${escapeHtml(item.reason)}</p>
+            <a class="btn" href="${item.product.linkUrl}" target="_blank" rel="noopener" data-product-id="${item.product.id}" data-slot="secondary">View bake</a>
+          </div>
+        </article>
+      `;
+    }
+
+    function bindResultActions(result, code) {
+      screen.querySelectorAll("[data-product-id]").forEach((link) => {
+        link.addEventListener("click", () => analyticsTrack("product_cta_click", eventBase({ product_id: link.dataset.productId, slot: link.dataset.slot })));
+      });
+      document.getElementById("retakeButton").addEventListener("click", () => {
+        analyticsTrack("retake_quiz", eventBase({ profile: result.profile.id }));
+        resetQuiz();
+      });
+      document.getElementById("copyResultButton").addEventListener("click", async () => {
+        analyticsTrack("copy_result", eventBase({ profile: result.profile.id }));
+        await copyText(`My pastry mood today is ${result.profile.name}. I'd probably like ${result.profile.ideas.slice(0, 3).join(", ")}. Closest KRacked match: ${result.main.product.name}.`, "copyResultButton");
+      });
+      document.getElementById("copyCodeButton").addEventListener("click", async () => {
+        analyticsTrack("copy_code", eventBase({ code }));
+        await copyText(`Use code ${code} for 5% off your order.`, "copyCodeButton", `Code: ${code}`);
+      });
+    }
+
+    function resetQuiz() {
+      clearStorage();
+      state = defaultState();
+      setHash("intro");
+      render();
+    }
+
+    function assignDiscountCode() {
+      if (state.discountCode) return state.discountCode;
+      const stored = safeGet(STORAGE.code);
+      if (stored && quiz.discountCodes.includes(stored)) {
+        state.discountCode = stored;
+        return stored;
+      }
+      const code = quiz.discountCodes[Math.floor(Math.random() * quiz.discountCodes.length)];
+      state.discountCode = code;
+      safeSet(STORAGE.code, code);
+      return code;
+    }
+
+    async function copyText(text, buttonId, fallbackText = "Copy failed") {
+      const button = document.getElementById(buttonId);
+      const original = button.textContent;
+      try {
+        if (!navigator.clipboard) throw new Error("Clipboard unavailable");
+        await navigator.clipboard.writeText(text);
+        button.textContent = "Copied";
+      } catch {
+        button.textContent = fallbackText;
+      }
+      setTimeout(() => {
+        button.textContent = original;
+      }, 1800);
     }
 
     function iconSvg(icon) {
@@ -909,282 +1340,77 @@
         crack: '<svg viewBox="0 0 32 32"><path d="M7 9h18L15 20h10L9 27l6-12H8Z"></path></svg>',
         moon: '<svg viewBox="0 0 32 32"><path d="M22 24A10 10 0 0 1 16 6a9 9 0 1 0 6 18Z"></path></svg>',
         circle: '<svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="10"></circle><circle cx="16" cy="16" r="4"></circle></svg>',
-        flame: '<svg viewBox="0 0 32 32"><path d="M16 28c5 0 8-3.4 8-8 0-4-2.4-7.2-6-10 .2 3-1 5-3.3 6.5C14 13.8 12.8 11.5 11 9c-.5 4-3 6.7-3 11 0 4.6 3 8 8 8Z"></path></svg>'
+        flame: '<svg viewBox="0 0 32 32"><path d="M16 28c5 0 8-3.4 8-8 0-4-2.4-7.2-6-10 .2 3-1 5-3.3 6.5C14 13.8 12.8 11.5 11 9c-.5 4-3 6.7-3 11 0 4.6 3 8 8 8Z"></path></svg>',
+        burst: '<svg viewBox="0 0 32 32"><path d="M16 4v6M16 22v6M4 16h6M22 16h6M7.5 7.5l4.2 4.2M20.3 20.3l4.2 4.2M24.5 7.5l-4.2 4.2M11.7 20.3l-4.2 4.2"></path><circle cx="16" cy="16" r="3"></circle></svg>',
+        leaf: '<svg viewBox="0 0 32 32"><path d="M26 6C14 7 8 13 8 23c10 0 16-6 18-17Z"></path><path d="M8 23c4-6 8-9 14-12"></path></svg>',
+        crescent: '<svg viewBox="0 0 32 32"><path d="M24 22c-8 2-14-2-16-10 4 4 10 5 17 2-3 2-3 5-1 8Z"></path></svg>',
+        stack: '<svg viewBox="0 0 32 32"><path d="M8 12h16v5H8zM10 17h12v5H10z"></path><path d="M11 10c1-2 3-3 5-3s4 1 5 3"></path></svg>'
       };
       return icons[icon] || icons.circle;
     }
 
-    function renderSlider(question) {
-      const value = state.answers[question.id] ?? 50;
-      return `
-        <div class="slider-box">
-          <label class="slider-current" for="${question.id}">
-            <span>${escapeHtml(question.title)}</span>
-            <span id="${question.id}-value">${value}: ${escapeHtml(question.labels[value])}</span>
-          </label>
-          <input id="${question.id}" name="${question.id}" type="range" min="0" max="100" step="25" value="${value}" aria-valuetext="${escapeHtml(question.labels[value])}">
-          <div class="stops" aria-hidden="true">
-            ${Object.entries(question.labels).map(([stop, label]) => `<span>${stop}<br>${escapeHtml(label)}</span>`).join("")}
-          </div>
-        </div>
-        <div class="actions">
-          <button class="btn btn-primary" id="continueButton" type="button">Continue</button>
-        </div>
-      `;
-    }
-
-    function bindChoices(question) {
-      quizScreen.querySelectorAll(".choice").forEach((button) => {
-        button.addEventListener("click", () => {
-          state.answers[question.id] = button.dataset.option;
-          const selected = question.options.find((option) => option.id === button.dataset.option);
-          track("quiz_question_answered", baseEvent({
-            question_id: question.id,
-            answer_id: button.dataset.option,
-            step_index: state.step + 1,
-            question_type: "single"
-          }));
-          setTimeout(() => nextStep(), 170);
-        });
-      });
-    }
-
-    function bindSlider(question) {
-      const slider = document.getElementById(question.id);
-      const label = document.getElementById(`${question.id}-value`);
-      state.answers[question.id] = Number(slider.value);
-      slider.addEventListener("input", () => {
-        const value = Number(slider.value);
-        state.answers[question.id] = value;
-        label.textContent = `${value}: ${question.labels[value]}`;
-        slider.setAttribute("aria-valuetext", question.labels[value]);
-      });
-      document.getElementById("continueButton").addEventListener("click", () => {
-        const value = Number(state.answers[question.id]);
-        track("quiz_slider_set", baseEvent({
-          question_id: question.id,
-          value,
-          bucket_label: question.labels[value],
-          step_index: state.step + 1
-        }));
-        nextStep();
-      });
-    }
-
-    function nextStep() {
-      if (state.step < quiz.questions.length - 1) {
-        state.step += 1;
-        renderQuestion();
-      } else {
-        state.result = computeResult();
-        state.discountCode = assignDiscountCode();
-        renderResult();
-      }
-    }
-
-    function assignDiscountCode() {
-      if (state.discountCode) return state.discountCode;
-      const stored = getStoredDiscountCode();
-      if (stored && quiz.discountCodes.includes(stored)) {
-        state.discountCode = stored;
-        return stored;
-      }
-      const code = quiz.discountCodes[Math.floor(Math.random() * quiz.discountCodes.length)];
-      state.discountCode = code;
-      setStoredDiscountCode(code);
-      return code;
-    }
-
-    function getStoredDiscountCode() {
+    function analyticsTrack(name, props = {}) {
       try {
-        return sessionStorage.getItem("krackedDiscountCode");
+        if (window.zaraz?.track) window.zaraz.track(name, props);
+        else if (location.hostname === "localhost" || location.hostname === "127.0.0.1") console.debug("[analytics]", name, props);
       } catch {
-        return "";
+        // Analytics must never block the quiz.
       }
     }
 
-    function setStoredDiscountCode(code) {
+    function eventBase(extra = {}) {
+      return { quiz_id: quiz.meta.quizId, quiz_version: quiz.meta.quizVersion, session_id: state.sessionId, attempt_id: state.sessionId, ...extra };
+    }
+
+    function getOrCreateSession() {
+      const existing = safeGet(STORAGE.session);
+      if (existing) return existing;
+      const session = `kracked-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+      safeSet(STORAGE.session, session);
+      return session;
+    }
+
+    function clearStorage() {
+      Object.values(STORAGE).forEach((key) => {
+        try {
+          localStorage.removeItem(key);
+        } catch {
+          // Local storage can be unavailable in some privacy modes.
+        }
+      });
+    }
+
+    function readJson(key) {
       try {
-        sessionStorage.setItem("krackedDiscountCode", code);
+        const value = localStorage.getItem(key);
+        return value ? JSON.parse(value) : null;
       } catch {
-        // Session storage can be unavailable in some privacy modes; keeping state is enough for the current result.
+        return null;
       }
     }
 
-    function computeResult() {
-      const raw = Object.fromEntries(profileIds.map((id) => [id, 0]));
-      const primary = Object.fromEntries(profileIds.map((id) => [id, 0]));
-      let noveltyChosen = false;
-
-      quiz.questions.forEach((question) => {
-        let weights = {};
-        if (question.type === "slider") {
-          weights = bucketFor(question, Number(state.answers[question.id]))?.weights || {};
-        } else {
-          const selected = question.options.find((option) => option.id === state.answers[question.id]);
-          weights = selected?.weights || {};
-          noveltyChosen = noveltyChosen || Boolean(selected?.novelty);
-        }
-        profileIds.forEach((id) => {
-          raw[id] += weights[id] || 0;
-          if (["flavour", "texture"].includes(question.id)) primary[id] += weights[id] || 0;
-        });
-      });
-
-      const ranked = [...profileIds].sort((a, b) => {
-        if (raw[b] !== raw[a]) return raw[b] - raw[a];
-        if (primary[b] !== primary[a]) return primary[b] - primary[a];
-        if (!noveltyChosen && a === "spc" && b !== "spc") return 1;
-        if (!noveltyChosen && b === "spc" && a !== "spc") return -1;
-        return quiz.fallbackOrder.indexOf(a) - quiz.fallbackOrder.indexOf(b);
-      });
-
-      const top = ranked[0];
-      const runnerUp = ranked[1];
-      const gap = raw[top] - raw[runnerUp];
-      const confidence = gap >= 4 ? "Strong fit" : gap >= 2 ? "Close call" : "Mixed profile";
-      return { top, runnerUp, raw, ranked, confidence, recommendations: recommendations(profileById[top], profileById[runnerUp]) };
-    }
-
-    function bucketFor(question, value) {
-      return question.buckets.find((bucket) => value >= bucket.min && value <= bucket.max);
-    }
-
-    function recommendations(profile, runnerUp) {
-      const seen = new Set();
-      const all = [];
-      add(profile);
-      if (all.length < 3) add(runnerUp);
-
-      function add(source) {
-        source.productRank.forEach((entry) => {
-          const product = productById[entry.productId];
-          if (!product || !product.available || seen.has(product.id)) return;
-          seen.add(product.id);
-          all.push({ ...entry, product });
-        });
+    function writeJson(key, value) {
+      try {
+        localStorage.setItem(key, JSON.stringify(value));
+      } catch {
+        // Local storage can be unavailable in some privacy modes.
       }
-
-      return { main: all[0], secondary: all.slice(1, 3) };
     }
 
-    function renderResult() {
-      show("result");
-      const { top, runnerUp, raw, ranked, confidence, recommendations } = state.result;
-      const profile = profileById[top];
-      const main = recommendations.main;
-      const secondaryIds = recommendations.secondary.map((item) => item.product.id);
-      const discountCode = assignDiscountCode();
-
-      track("quiz_completed", baseEvent({
-        top_profile_id: top,
-        runner_up_profile_id: runnerUp,
-        score_gap: raw[top] - raw[runnerUp],
-        confidence_label: confidence
-      }));
-      track("quiz_result_viewed", baseEvent({
-        top_profile_id: top,
-        main_product_id: main.product.id,
-        secondary_product_ids: secondaryIds.join(",")
-      }));
-
-      resultScreen.innerHTML = `
-        <p class="eyebrow">Your craving profile is...</p>
-        <h2>${escapeHtml(profile.name)}</h2>
-        <p class="copy">${escapeHtml(profile.short)}</p>
-
-        <section class="craving-type">
-          <p class="eyebrow">You're probably craving</p>
-          <h3>${escapeHtml(profile.craving)}</h3>
-        </section>
-
-        <div class="result-hero">
-          <div class="product-image" style="background-image: url('${main.product.image}')"></div>
-          <article class="main-pick">
-            <p class="eyebrow">Your KRacked match</p>
-            <h3>${escapeHtml(main.product.name)}</h3>
-            <p class="price">${escapeHtml(main.product.priceLabel)}${main.product.seasonal ? " · Limited-time" : ""}</p>
-            <p class="reason">${escapeHtml(main.why)}</p>
-            <a class="btn btn-primary" href="${main.product.linkUrl}" target="_blank" rel="noopener" data-product-id="${main.product.id}" data-product-name="${escapeHtml(main.product.name)}" data-slot="main">Order this bake</a>
-            <div class="discount-box">
-              <p class="eyebrow">5% test code</p>
-              <h3>Use code ${escapeHtml(discountCode)} for 5% off your order.</h3>
-              <div class="code-row">
-                <span class="discount-code">${escapeHtml(discountCode)}</span>
-                <button class="btn" id="copyCodeButton" type="button">Copy code</button>
-              </div>
-              <p class="note">Test code for now — we'll confirm validity before launch.</p>
-            </div>
-          </article>
-        </div>
-
-        <section class="secondary">
-          <p class="eyebrow">Also very you</p>
-          <div class="product-grid">
-            ${recommendations.secondary.map((item, index) => secondaryCard(item, index)).join("")}
-          </div>
-        </section>
-
-        <div class="actions">
-          <button class="btn" id="retakeButton" type="button">Retake</button>
-          <button class="btn btn-ghost" id="copyButton" type="button">Copy my result</button>
-        </div>
-      `;
-
-      resultScreen.querySelectorAll("[data-product-id]").forEach((link, index) => {
-        link.addEventListener("click", () => {
-          track("select_item", baseEvent({
-            item_list_name: "quiz_results",
-            item_id: link.dataset.productId,
-            item_name: link.dataset.productName,
-            index,
-            profile_id: top,
-            slot: link.dataset.slot
-          }));
-        });
-      });
-
-      document.getElementById("retakeButton").addEventListener("click", () => {
-        state.step = 0;
-        state.answers = {};
-        state.result = null;
-        track("quiz_retake", baseEvent({ top_profile_id: top }));
-        renderQuestion();
-      });
-
-      document.getElementById("copyButton").addEventListener("click", async () => {
-        const text = `My craving profile is ${profile.name}. I'm probably craving ${profile.craving} KRacked match: ${main.product.name}.`;
-        try {
-          await navigator.clipboard.writeText(text);
-          document.getElementById("copyButton").textContent = "Copied";
-        } catch {
-          document.getElementById("copyButton").textContent = "Copy failed";
-        }
-      });
-
-      document.getElementById("copyCodeButton").addEventListener("click", async () => {
-        const codeText = `Use code ${discountCode} for 5% off your order.`;
-        try {
-          await navigator.clipboard.writeText(codeText);
-          document.getElementById("copyCodeButton").textContent = "Copied";
-        } catch {
-          document.getElementById("copyCodeButton").textContent = `Code: ${discountCode}`;
-        }
-      });
+    function safeGet(key) {
+      try {
+        return localStorage.getItem(key);
+      } catch {
+        return null;
+      }
     }
 
-    function secondaryCard(item, index) {
-      return `
-        <article class="mini-product">
-          <div class="mini-image" style="background-image: url('${item.product.image}')"></div>
-          <div>
-            <p class="eyebrow">Backup pick</p>
-            <h4>${escapeHtml(item.product.name)}</h4>
-            <p class="reason">${escapeHtml(item.why)}</p>
-            <a class="btn" href="${item.product.linkUrl}" target="_blank" rel="noopener" data-product-id="${item.product.id}" data-product-name="${escapeHtml(item.product.name)}" data-slot="secondary">View bake</a>
-          </div>
-        </article>
-      `;
+    function safeSet(key, value) {
+      try {
+        localStorage.setItem(key, value);
+      } catch {
+        // Local storage can be unavailable in some privacy modes.
+      }
     }
 
     function escapeHtml(value) {
