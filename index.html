@@ -1,125 +1,100 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-SG">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>KRackedbakes Flavour Finder</title>
-  <meta name="description" content="Find your KRackedbakes flavour profile and get a personalised bake recommendation.">
-  <link rel="icon" href="https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/rs:fill:48:48/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmmmfa3ml000004l42e17909a.png">
+  <title>KRacked Dessert Profile</title>
+  <meta name="description" content="Find your KRacked pastry profile and get matched to a bake.">
   <style>
     :root {
       --ink: #f7f1e8;
-      --muted: #b7aa98;
-      --paper: #0b0907;
-      --panel: rgba(10, 9, 8, 0.82);
-      --panel-strong: rgba(15, 14, 12, 0.94);
-      --cream: #efe4d2;
-      --line: rgba(239, 228, 210, 0.16);
-      --black: #050504;
-      --black-2: #11100e;
-      --gold: #c4a46a;
-      --gold-soft: rgba(196, 164, 106, 0.14);
-      --shadow: 0 28px 80px rgba(0, 0, 0, 0.48);
+      --muted: #b9ad9b;
+      --paper: #070605;
+      --panel: rgba(13, 11, 9, 0.88);
+      --panel-strong: rgba(18, 15, 12, 0.96);
+      --cream: #f0e2cf;
+      --line: rgba(240, 226, 207, 0.16);
+      --line-strong: rgba(240, 226, 207, 0.32);
+      --gold: #c6a261;
+      --gold-bright: #e4c77f;
       --radius: 8px;
-      --ease: 180ms ease;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
-      margin: 0;
       min-height: 100vh;
+      margin: 0;
       color: var(--ink);
       background:
-        linear-gradient(90deg, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.72) 42%, rgba(0, 0, 0, 0.54) 100%),
-        linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.52)),
+        linear-gradient(90deg, rgba(0,0,0,0.92), rgba(0,0,0,0.72) 46%, rgba(0,0,0,0.46)),
+        linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.7)),
         url("kracked-bg.png") center right / cover fixed no-repeat,
-        #050504;
+        var(--paper);
     }
 
-    button,
-    input {
-      font: inherit;
-    }
-
-    a {
-      color: inherit;
-    }
+    button, input { font: inherit; }
+    a { color: inherit; }
 
     .app {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: min(1240px, calc(100% - 48px));
+      width: min(1120px, calc(100% - 32px));
       min-height: 100vh;
       margin: 0 auto;
-      padding: 44px 0;
-    }
-
-    .shell {
+      padding: 28px 0;
       display: grid;
-      grid-template-columns: minmax(280px, 0.82fr) minmax(520px, 1.18fr);
-      gap: clamp(28px, 5vw, 68px);
       align-items: center;
-      width: 100%;
     }
 
-    .brand-panel {
-      padding: 8px 0;
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.78fr) minmax(360px, 1.22fr);
+      gap: clamp(22px, 5vw, 62px);
+      align-items: center;
     }
 
-    .brand-logo {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      border: 1px solid rgba(239, 228, 210, 0.2);
-      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.4);
-      background: var(--black);
-      object-fit: cover;
+    .brand {
+      max-width: 430px;
     }
 
     .eyebrow {
-      margin: 22px 0 10px;
-      color: var(--gold);
+      margin: 0 0 12px;
+      color: var(--gold-bright);
       font-size: 12px;
-      font-weight: 750;
+      font-weight: 850;
       letter-spacing: 0;
       text-transform: uppercase;
     }
 
-    h1,
-    h2,
-    h3,
-    p {
-      margin-top: 0;
-    }
+    h1, h2, h3, h4, p { margin-top: 0; }
 
     h1 {
-      max-width: 430px;
-      margin-bottom: 14px;
-      font-size: clamp(40px, 7vw, 72px);
+      margin-bottom: 16px;
+      color: var(--cream);
+      font-size: clamp(42px, 8vw, 74px);
       line-height: 0.94;
       letter-spacing: 0;
-      color: var(--cream);
     }
 
     .intro {
-      max-width: 420px;
-      color: rgba(247, 241, 232, 0.76);
+      color: rgba(247,241,232,0.78);
       font-size: 17px;
       line-height: 1.55;
     }
 
-    .quiz-card {
-      width: min(700px, 100%);
+    .meta {
+      margin: 22px 0 0;
+      color: var(--gold-bright);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .quiz-shell {
       overflow: hidden;
       border: 1px solid var(--line);
-      border-radius: 16px;
+      border-radius: 14px;
       background: var(--panel);
-      box-shadow: var(--shadow);
+      box-shadow: 0 28px 90px rgba(0,0,0,0.58);
       backdrop-filter: blur(18px);
     }
 
@@ -128,150 +103,175 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      padding: 18px 20px;
+      padding: 16px 18px;
       border-bottom: 1px solid var(--line);
-      background: rgba(0, 0, 0, 0.22);
+      background: rgba(0,0,0,0.25);
     }
 
     .progress {
       display: flex;
-      gap: 8px;
       align-items: center;
-      flex: 1;
+      gap: 12px;
+      min-width: 130px;
     }
 
-    .dot {
-      height: 8px;
-      flex: 1;
-      border-radius: 999px;
-      background: rgba(239, 228, 210, 0.16);
+    .progress-track {
+      width: 74px;
+      height: 5px;
       overflow: hidden;
+      border-radius: 999px;
+      background: rgba(240,226,207,0.15);
     }
 
-    .dot.is-active,
-    .dot.is-done {
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: inherit;
       background: var(--gold);
+      transition: width 180ms ease;
     }
 
     .step-count {
-      min-width: 58px;
+      margin: 0;
       color: var(--muted);
       font-size: 12px;
-      font-weight: 800;
-      text-align: right;
-      text-transform: uppercase;
+      font-weight: 850;
+      white-space: nowrap;
     }
 
-    .step {
-      display: none;
-      padding: 26px;
+    .screen {
+      min-height: 540px;
+      padding: clamp(22px, 4vw, 34px);
     }
 
-    .step.is-active {
-      display: block;
-    }
-
-    .step h2 {
-      margin-bottom: 8px;
-      font-size: 30px;
+    .screen h2 {
+      max-width: 620px;
+      margin-bottom: 10px;
+      color: var(--cream);
+      font-size: clamp(30px, 4vw, 44px);
       line-height: 1.05;
       letter-spacing: 0;
-      color: var(--cream);
     }
 
-    .step-copy {
-      margin-bottom: 22px;
+    .copy {
+      max-width: 620px;
       color: var(--muted);
-      line-height: 1.45;
+      line-height: 1.5;
+    }
+
+    .btn {
+      min-height: 48px;
+      border: 1px solid rgba(240,226,207,0.22);
+      border-radius: var(--radius);
+      padding: 12px 17px;
+      color: var(--ink);
+      background: rgba(255,255,255,0.055);
+      cursor: pointer;
+      font-weight: 850;
+      text-decoration: none;
+      text-align: center;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(228,199,127,0.62);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .btn:focus-visible,
+    .choice:focus-visible,
+    input[type="range"]:focus-visible {
+      outline: 3px solid rgba(228,199,127,0.92);
+      outline-offset: 3px;
+    }
+
+    .btn-primary {
+      border-color: rgba(198,162,97,0.72);
+      color: #130f0a;
+      background: linear-gradient(180deg, #edcf84, #bd9350);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.28);
+    }
+
+    .btn-ghost {
+      border-color: transparent;
+      background: transparent;
+      color: var(--muted);
+    }
+
+    .btn[disabled] {
+      opacity: 0.42;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
     }
 
     .choices {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 12px;
+      margin-top: 24px;
     }
 
     .choice {
-      min-height: 118px;
-      padding: 18px;
+      min-height: 112px;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: rgba(255, 255, 255, 0.045);
+      padding: 17px;
       color: var(--ink);
-      text-align: left;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.055), rgba(255,255,255,0.025));
       cursor: pointer;
-      transition: transform var(--ease), border-color var(--ease), background var(--ease), box-shadow var(--ease);
+      text-align: left;
+      display: grid;
+      align-content: space-between;
+      gap: 14px;
     }
 
-    .choice:hover {
-      transform: translateY(-2px);
-      border-color: rgba(196, 164, 106, 0.44);
-      background: rgba(255, 255, 255, 0.07);
-      box-shadow: 0 18px 34px rgba(0, 0, 0, 0.22);
+    .choice:hover,
+    .choice[aria-pressed="true"] {
+      border-color: rgba(228,199,127,0.72);
+      background:
+        linear-gradient(145deg, rgba(198,162,97,0.22), rgba(255,255,255,0.055));
+      box-shadow: inset 0 0 0 1px rgba(228,199,127,0.12), 0 16px 34px rgba(0,0,0,0.24);
     }
 
-    .choice.is-selected {
-      border-color: rgba(196, 164, 106, 0.75);
-      background: linear-gradient(145deg, rgba(196, 164, 106, 0.2), rgba(255, 255, 255, 0.055));
+    .choice-title {
+      display: block;
       color: var(--cream);
-      box-shadow: 0 18px 38px rgba(0, 0, 0, 0.34);
+      font-size: 18px;
+      font-weight: 900;
+      line-height: 1.1;
     }
 
-    .choice-icon {
+    .choice-tags {
       display: block;
-      width: 36px;
-      height: 1px;
-      margin-bottom: 20px;
-      background: var(--gold);
-      color: transparent;
-      font-size: 0;
-    }
-
-    .choice.is-selected .choice-icon {
-      background: var(--cream);
-      color: transparent;
-    }
-
-    .choice strong {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 16px;
-      line-height: 1.2;
-      color: var(--cream);
-    }
-
-    .choice span:not(.choice-icon) {
-      display: block;
-      color: rgba(247, 241, 232, 0.72);
+      color: var(--muted);
       font-size: 13px;
       line-height: 1.35;
-      opacity: 1;
     }
 
-    .slider-group {
-      display: grid;
-      gap: 18px;
-      margin: 10px 0 20px;
-    }
-
-    .slider-row {
-      padding: 16px;
+    .slider-box {
+      margin-top: 26px;
+      padding: 20px;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: rgba(255, 255, 255, 0.045);
+      background: rgba(255,255,255,0.045);
     }
 
-    .slider-label {
+    .slider-current {
       display: flex;
       justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 10px;
-      font-weight: 800;
-    }
-
-    .slider-value {
-      color: var(--gold);
-      font-size: 13px;
+      gap: 12px;
+      margin-bottom: 18px;
+      color: var(--cream);
+      font-weight: 900;
     }
 
     input[type="range"] {
@@ -279,747 +279,662 @@
       accent-color: var(--gold);
     }
 
-    .scale {
-      display: flex;
-      justify-content: space-between;
+    .stops {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      margin-top: 12px;
       color: var(--muted);
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .actions {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      margin-top: 24px;
-    }
-
-    .step[data-step="0"] .actions,
-    .step[data-step="1"] .actions {
-      display: none;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 44px;
-      padding: 0 18px;
-      border: 1px solid transparent;
-      border-radius: var(--radius);
-      background: var(--cream);
-      color: var(--black);
-      font-weight: 850;
-      text-decoration: none;
-      cursor: pointer;
-      transition: transform var(--ease), background var(--ease), box-shadow var(--ease);
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-      background: #ffffff;
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
-    }
-
-    .btn.secondary {
-      border-color: var(--line);
-      background: transparent;
-      color: var(--cream);
-    }
-
-    .btn.secondary:hover {
-      background: rgba(255, 255, 255, 0.08);
-      box-shadow: none;
-    }
-
-    .btn[disabled] {
-      cursor: not-allowed;
-      opacity: 0.45;
-      transform: none;
-      box-shadow: none;
-    }
-
-    .result-wrap {
-      display: none;
-    }
-
-    .result-wrap.is-active {
-      display: block;
+      font-size: 11px;
+      text-align: center;
     }
 
     .result-hero {
       display: grid;
-      grid-template-columns: minmax(170px, 210px) minmax(0, 1fr);
+      grid-template-columns: minmax(0, 0.92fr) minmax(260px, 1.08fr);
       gap: 22px;
-      align-items: center;
-      padding: 22px;
-      border: 1px solid rgba(196, 164, 106, 0.28);
-      border-radius: 14px;
-      background:
-        linear-gradient(145deg, rgba(0, 0, 0, 0.72), rgba(196, 164, 106, 0.1)),
-        var(--panel-strong);
-      color: var(--cream);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 22px 54px rgba(0, 0, 0, 0.36);
+      align-items: stretch;
     }
 
-    .product-photo {
-      width: 100%;
-      height: auto;
-      aspect-ratio: 1;
+    .product-image {
+      min-height: 340px;
+      border: 1px solid var(--line);
       border-radius: 12px;
-      background: var(--black);
-      object-fit: cover;
-      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.42);
+      background: center / cover no-repeat;
+      box-shadow: inset 0 -90px 90px rgba(0,0,0,0.3);
     }
 
-    .result-hero .eyebrow {
-      margin: 0 0 8px;
-      color: var(--gold);
-    }
-
-    .result-hero h2 {
-      max-width: 100%;
-      margin-bottom: 10px;
-      font-size: clamp(28px, 3.2vw, 40px);
-      line-height: 1;
-      color: var(--cream);
-      overflow-wrap: anywhere;
-    }
-
-    .result-hero p {
-      margin-bottom: 0;
-      color: rgba(247, 241, 232, 0.74);
-      line-height: 1.42;
-    }
-
-    .result-hero > div {
-      min-width: 0;
-    }
-
-    .result-kicker {
-      max-width: 100%;
-      margin-bottom: 8px;
-      color: rgba(247, 241, 232, 0.72);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(18px, 2vw, 23px);
-      font-style: italic;
-      line-height: 1.16;
-      overflow-wrap: anywhere;
-    }
-
-    .reward-grid {
+    .main-pick {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 14px;
+      align-content: center;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: clamp(20px, 4vw, 30px);
+      background: var(--panel-strong);
     }
 
-    .reward {
-      padding: 14px;
+    .main-pick h3 {
+      margin-bottom: 8px;
+      color: var(--cream);
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.02;
+    }
+
+    .price {
+      color: var(--gold-bright);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .reason {
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .secondary {
+      margin-top: 22px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .mini-product {
+      display: grid;
+      grid-template-columns: 94px 1fr;
+      gap: 12px;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: rgba(255, 255, 255, 0.045);
+      padding: 12px;
+      background: rgba(255,255,255,0.045);
     }
 
-    .reward-label {
-      display: block;
-      margin-bottom: 4px;
-      color: var(--gold);
-      font-size: 12px;
-      font-weight: 800;
-      text-transform: uppercase;
+    .mini-image {
+      min-height: 94px;
+      border-radius: 6px;
+      background: center / cover no-repeat;
     }
 
-    .reward strong {
-      display: block;
+    .mini-product h4 {
+      margin-bottom: 6px;
       color: var(--cream);
-      font-size: 17px;
-      line-height: 1.18;
-      overflow-wrap: anywhere;
+      line-height: 1.12;
     }
 
-    .code-box {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-top: 14px;
-      padding: 14px;
-      border: 1px solid rgba(196, 164, 106, 0.34);
-      border-radius: var(--radius);
-      background: var(--gold-soft);
-    }
-
-    .code {
-      font-size: 24px;
-      font-weight: 950;
-      letter-spacing: 0;
-    }
-
-    .mini {
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.35;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 14px 0 0;
-    }
-
-    .tag {
-      padding: 7px 9px;
-      border-radius: 999px;
-      background: rgba(239, 228, 210, 0.1);
-      color: var(--cream);
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    .hidden {
-      display: none !important;
-    }
+    .hidden { display: none; }
 
     @media (max-width: 860px) {
-      body {
-        background:
-          linear-gradient(180deg, rgba(0, 0, 0, 0.86), rgba(0, 0, 0, 0.72)),
-          url("kracked-bg.png") center right / cover fixed no-repeat,
-          #050504;
-      }
-
-      .app {
-        display: block;
-        width: min(100% - 28px, 680px);
-        min-height: auto;
-        margin: 0 auto;
-        padding: 22px 0 36px;
-      }
-
-      .shell {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-
-      .quiz-card {
-        width: 100%;
-      }
-
-      .brand-panel {
-        position: static;
-        padding: 10px 4px 0;
-      }
-
-      h1 {
-        max-width: 680px;
-      }
-
-      .intro {
-        max-width: 680px;
-      }
+      body { background-attachment: scroll; }
+      .app { align-items: start; padding: 18px 0; }
+      .layout { grid-template-columns: 1fr; gap: 18px; }
+      .brand { max-width: none; }
+      .brand.is-compact h1 { font-size: 36px; }
+      .screen { min-height: auto; }
+      .choices { grid-template-columns: 1fr; }
+      .choice { min-height: 84px; }
+      .result-hero { grid-template-columns: 1fr; }
+      .product-image { min-height: 280px; }
+      .product-grid { grid-template-columns: 1fr; }
+      .actions .btn, .main-pick .btn { width: 100%; }
     }
 
-    @media (max-width: 560px) {
-      .app {
-        width: min(100% - 20px, 1040px);
-        padding-top: 16px;
-      }
-
-      .choices,
-      .reward-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .step {
-        padding: 18px;
-      }
-
-      .result-hero {
-        grid-template-columns: 1fr;
-      }
-
-      .product-photo {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 1;
-      }
-
-      .actions {
-        flex-direction: column-reverse;
-      }
-
-      .btn {
-        width: 100%;
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
       }
     }
   </style>
 </head>
 <body>
   <main class="app">
-    <div class="shell">
-      <section class="brand-panel" aria-label="KRackedbakes intro">
-        <img class="brand-logo" src="https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:256/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmmmfa3ml000004l42e17909a.png" alt="KRackedbakes logo">
-        <p class="eyebrow">KRackedbakes flavour finder</p>
-        <h1>Find your next muse.</h1>
-        <p class="intro">Take the quiz, find your flavour match, then krack into your next box.</p>
+    <div class="layout">
+      <section class="brand" id="brandPanel">
+        <p class="eyebrow">KRacked dessert profile</p>
+        <h1>Find your pastry profile</h1>
+        <p class="intro">
+          A quick read on the bakes you naturally reach for: flavour, texture, mood, and how intense dessert should feel.
+        </p>
+        <p class="meta">6 quick picks · around 30-45 seconds</p>
       </section>
 
-      <section class="quiz-card" aria-label="Flavour quiz">
-        <div class="topbar">
-          <div class="progress" aria-hidden="true">
-            <span class="dot is-active"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
+      <section class="quiz-shell" aria-label="KRacked dessert profile quiz">
+        <div class="topbar" id="topbar" hidden>
+          <button class="btn btn-ghost" id="backButton" type="button">Back</button>
+          <div class="progress" aria-label="Quiz progress">
+            <div class="progress-track" aria-hidden="true">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <p class="step-count" id="stepCopy">1 of 6</p>
           </div>
-          <div class="step-count" id="stepCount">Step 1/4</div>
         </div>
 
-        <form id="quiz">
-          <section class="step is-active" data-step="0">
-            <h2>What are you craving?</h2>
-            <p class="step-copy">Choose the direction your sweet tooth is leaning. Tap a card to continue.</p>
-            <div class="choices" data-name="craving">
-              <button class="choice" type="button" data-value="deep" aria-pressed="false">
-                <span class="choice-icon" aria-hidden="true"></span>
-                <strong>Deep chocolate</strong>
-                <span>Cocoa, dark edges, full dessert energy.</span>
-              </button>
-              <button class="choice" type="button" data-value="nutty" aria-pressed="false">
-                <span class="choice-icon" aria-hidden="true"></span>
-                <strong>Nutty and mellow</strong>
-                <span>Hazelnut, praline, brown-butter comfort.</span>
-              </button>
-              <button class="choice" type="button" data-value="creamy" aria-pressed="false">
-                <span class="choice-icon" aria-hidden="true"></span>
-                <strong>Creamy classics</strong>
-                <span>Custard, brioche, soft richness.</span>
-              </button>
-              <button class="choice" type="button" data-value="bright" aria-pressed="false">
-                <span class="choice-icon" aria-hidden="true"></span>
-                <strong>Bright and fresh</strong>
-                <span>Lemon, berry, light sweetness, clean finish.</span>
-              </button>
-            </div>
-            <div class="actions">
-              <span></span>
-              <button class="btn next" type="button" disabled>Continue</button>
-            </div>
-          </section>
+        <section class="screen" id="startScreen">
+          <p class="eyebrow">KRacked match finder</p>
+          <h2>Dessert profile first. KRacked match second.</h2>
+          <p class="copy">
+            Fast, visual, and product-led without feeling like a hard sell. Pick by instinct and get a KRacked match.
+          </p>
+          <div class="actions">
+            <button class="btn btn-primary" id="startButton" type="button">Start the profile</button>
+          </div>
+        </section>
 
-          <section class="step" data-step="1">
-            <h2>Pick your texture lane.</h2>
-            <p class="step-copy">This decides whether we send you cookie, bread, roll, or crumble. Tap a card to continue.</p>
-            <div class="choices" data-name="texture">
-              <button class="choice" type="button" data-value="chewy" aria-pressed="false">
-                <span class="choice-icon" aria-hidden="true"></span>
-                <strong>Chewy centre</strong>
-                <span>Soft middle, crisp-ish edge, cookie first.</span>
-              </button>
-              <button class="choice" type="button" data-value="fudgy" aria-pressed="false">
-                <span class="choice-icon" aria-hidden="true"></span>
-                <strong>Fudgy and dense</strong>
-                <span>Brownie-brained. Maximum cocoa payoff.</span>
-              </button>
-              <button class="choice" type="button" data-value="pillowy" aria-pressed="false">
-                <span class="choice-icon" aria-hidden="true"></span>
-                <strong>Pillowy bread</strong>
-                <span>Soft, buttery, tear-and-share behaviour.</span>
-              </button>
-              <button class="choice" type="button" data-value="crumble" aria-pressed="false">
-                <span class="choice-icon" aria-hidden="true"></span>
-                <strong>Crumbly topping</strong>
-                <span>A little crunch, a little fruit, very snackable.</span>
-              </button>
-            </div>
-            <div class="actions">
-              <button class="btn secondary back" type="button">Back</button>
-              <button class="btn next" type="button" disabled>Continue</button>
-            </div>
-          </section>
-
-          <section class="step" data-step="2">
-            <h2>How intense should it be?</h2>
-            <p class="step-copy">Slide to tune the final recommendation.</p>
-            <div class="slider-group">
-              <label class="slider-row">
-                <span class="slider-label">Sweetness <span class="slider-value" id="sweetLabel">Balanced</span></span>
-                <input type="range" min="1" max="5" value="3" name="sweetness">
-                <span class="scale"><span>Not too sweet</span><span>Big sweet tooth</span></span>
-              </label>
-              <label class="slider-row">
-                <span class="slider-label">Richness <span class="slider-value" id="richLabel">Medium</span></span>
-                <input type="range" min="1" max="5" value="3" name="richness">
-                <span class="scale"><span>Light</span><span>Very rich</span></span>
-              </label>
-            </div>
-            <div class="actions">
-              <button class="btn secondary back" type="button">Back</button>
-              <button class="btn next" type="button">Reveal my muse</button>
-            </div>
-          </section>
-
-          <section class="step" data-step="3">
-            <div class="result-wrap" id="resultWrap" aria-live="polite">
-              <div class="result-hero">
-                <img class="product-photo" id="resultImage" alt="">
-                <div>
-                  <p class="eyebrow">Your muse is...</p>
-                  <p class="result-kicker" id="resultSummary"></p>
-                  <h2 id="resultName"></h2>
-                  <p id="resultBlurb"></p>
-                  <div class="tags" id="resultTags"></div>
-                </div>
-              </div>
-
-              <div class="reward-grid">
-                <div class="reward">
-                  <span class="reward-label">Why this works</span>
-                  <strong id="resultReason"></strong>
-                </div>
-                <div class="reward">
-                  <span class="reward-label">Your picks</span>
-                  <strong id="resultChoices"></strong>
-                </div>
-              </div>
-
-              <div class="code-box">
-                <div>
-                  <span class="reward-label">One-use 5% code</span>
-                  <div class="code" id="discountCode">KRACKED5</div>
-                  <div class="mini">Use this code on your next order.</div>
-                </div>
-                <button class="btn secondary" type="button" id="copyCode">Copy</button>
-              </div>
-
-              <div class="actions">
-                <button class="btn secondary" type="button" id="restart">Start over</button>
-                <a class="btn" id="orderLink" href="#" target="_blank" rel="noreferrer">Order this bake - $35+ free delivery</a>
-              </div>
-            </div>
-          </section>
-        </form>
+        <form class="screen hidden" id="quizScreen" novalidate></form>
+        <section class="screen hidden" id="resultScreen" aria-live="polite"></section>
       </section>
     </div>
   </main>
 
   <script>
-    const CONFIG = {
-      hostedUrl: "https://kracked.pages.dev/",
-      discountCodes: Array.from({ length: 50 }, (_, index) => `KRACKED5-${String(index + 1).padStart(2, "0")}`),
+    const quiz = {
+      meta: { quizId: "kracked-dessert-profile-v3-fast", quizVersion: "live", resultCardCount: 2 },
       products: [
         {
-          id: "triple-chocolate",
-          name: "6 Triple Chocolate Cookies",
-          url: "https://take.app/krackedbakes/p/cmo1hmyr7000f06jlfvq2l6hv",
-          image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:1080/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmo1hmo9v000106jl3r6m9prj.png",
-          profile: { craving: "deep", texture: "chewy", sweetness: 5, richness: 5 },
-          tags: ["Dark cocoa", "White chocolate", "Sweet tooth"],
-          blurb: "A bold cocoa cookie with a soft sweet centre. This is the pick when dessert needs to feel like dessert.",
-          reason: "You asked for chocolate depth, chew, and a proper sweet payoff."
+          id: "tiramisu_rolls",
+          name: "3 Tiramisu Rolls",
+          priceLabel: "$12.90",
+          available: true,
+          seasonal: false,
+          linkUrl: "https://take.app/krackedbakes/p/cmmmesaaz000i04l14yc3kebn",
+          image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmmono9vx000104l45e194ert.jpeg"
         },
         {
-          id: "hot-cocoa",
+          id: "hot_cocoa_cookies",
           name: "6 Hot Cocoa Cookies",
-          url: "https://take.app/krackedbakes/p/cmmmexc6h000104juop7cfe8i",
-          image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmmonmbi0000104kz7p8477pj.jpeg",
-          profile: { craving: "deep", texture: "chewy", sweetness: 4, richness: 4 },
-          tags: ["Cocoa", "Cozy", "Cookie box"],
-          blurb: "Chocolate comfort without going all the way to maximum intensity.",
-          reason: "You wanted cocoa, but with a softer landing than the triple chocolate route."
+          priceLabel: "$13.90",
+          available: true,
+          seasonal: false,
+          linkUrl: "https://take.app/krackedbakes/p/cmmmexc6h000104juop7cfe8i",
+          image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmmonmbi0000104kz7p8477pj.jpeg"
+        },
+        {
+          id: "french_brioche_loaf",
+          name: "French Brioche Loaf",
+          priceLabel: "$14.90",
+          available: true,
+          seasonal: false,
+          linkUrl: "https://take.app/krackedbakes/p/cmmmew9md001m04jujtgqqz4l",
+          image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmmonn1sh000004l42u2dgqqc.jpeg"
         },
         {
           id: "brookies",
           name: "8 Brookies",
-          url: "https://take.app/krackedbakes/p/cmmmeuznz001104lbet8awdc9",
-          image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmmonns8c000104js0hgf8so5.jpeg",
-          profile: { craving: "deep", texture: "fudgy", sweetness: 4, richness: 5 },
-          tags: ["Brownie", "Cookie", "Fudgy"],
-          blurb: "For the person who refuses to choose between brownie and cookie.",
-          reason: "Your answers leaned dense, rich, and chocolate-forward."
+          priceLabel: "$18.90",
+          available: true,
+          seasonal: false,
+          linkUrl: "https://take.app/krackedbakes/p/cmmmeuznz001104lbet8awdc9",
+          image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmmonns8c000104js0hgf8so5.jpeg"
         },
         {
-          id: "hazelnut",
-          name: "3 Marble Praline Hazelnut Cookies",
-          url: "https://take.app/krackedbakes/p/cmnx0ekgf001e04l4e15fzn3r",
-          image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmnx0dom1000304jr1g784t1o.png",
-          profile: { craving: "nutty", texture: "chewy", sweetness: 3, richness: 4 },
-          tags: ["Praline", "Hazelnut", "Marbled"],
-          blurb: "Nutty, polished, and not trying too hard. A very easy yes.",
-          reason: "You landed in the mellow-but-rich zone."
-        },
-        {
-          id: "tiramisu",
-          name: "3 Tiramisu Rolls",
-          url: "https://take.app/krackedbakes/p/cmmmesaaz000i04l14yc3kebn",
-          image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmmono9vx000104l45e194ert.jpeg",
-          profile: { craving: "creamy", texture: "pillowy", sweetness: 3, richness: 4 },
-          tags: ["Tiramisu", "Creamy", "Rolls"],
-          blurb: "Soft, creamy, and quietly rich without being too loud.",
-          reason: "Your profile points to comfort, cream, and a gentle hit of richness."
-        },
-        {
-          id: "brioche",
-          name: "French Brioche Loaf",
-          url: "https://take.app/krackedbakes/p/cmmmew9md001m04jujtgqqz4l",
-          image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmmonn1sh000004l42u2dgqqc.jpeg",
-          profile: { craving: "creamy", texture: "pillowy", sweetness: 2, richness: 3 },
-          tags: ["Buttery", "Soft", "Shareable"],
-          blurb: "A softer breakfast-to-snack lane. Less sugar rush, more real-food comfort.",
-          reason: "You chose a lighter, buttery profile over a heavy dessert."
-        },
-        {
-          id: "shio-pan",
-          name: "Garlic Butter Cream Cheese Shio Pan",
-          url: "https://take.app/krackedbakes/p/cmnx0teuu000804jrkpfixom0",
-          image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmob6jlnm000304jy4z362kac.png",
-          profile: { craving: "creamy", texture: "pillowy", sweetness: 1, richness: 4 },
-          tags: ["Savoury", "Garlic butter", "Cream cheese"],
-          blurb: "The plot twist. Salty, buttery, creamy, and not here for sugar.",
-          reason: "Your answers pulled away from sweetness but kept the rich comfort."
-        },
-        {
-          id: "streuseltalers",
-          name: "2 Streuseltalers (Lemon Blueberry Crumble)",
-          url: "https://take.app/krackedbakes/p/cmpi02d5j00000bji89ahs4wu",
-          image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmpi029ie00000bkm4si24eqo.png",
-          profile: { craving: "bright", texture: "crumble", sweetness: 3, richness: 2 },
-          tags: ["Lemon", "Blueberry", "Crumble"],
-          blurb: "A brighter finish with enough crumble to keep things fun.",
-          reason: "You chose fresh, lighter, and a little crunchy."
-        },
-        {
-          id: "kannelbullar",
-          name: "Kannelbullar (Swedish Knot)",
-          url: "https://take.app/krackedbakes/p/cmnb70x4f007p04ieytr6g4vk",
-          image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmnx0gmfk000104jv28y580t9.png",
-          profile: { craving: "nutty", texture: "pillowy", sweetness: 3, richness: 3 },
-          tags: ["Spiced", "Soft", "Snackable"],
-          blurb: "Soft, spiced, and made for the slow-break-open moment.",
-          reason: "You chose a gentle richness with a breadier texture."
-        },
-        {
-          id: "chocolate-brioche",
-          name: "3 Brioches aux pepites de chocolat",
-          url: "https://take.app/krackedbakes/p/cmnl3gvby001k04lasthm39sf",
-          image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmnx0i3cb000804icgp58hq0l.png",
-          profile: { craving: "creamy", texture: "pillowy", sweetness: 3, richness: 3 },
-          tags: ["Brioche", "Chocolate", "Soft"],
-          blurb: "Buttery brioche with chocolate tucked in, for when cookie feels too direct.",
-          reason: "Your answers favoured a soft bake with a familiar chocolate comfort."
+          id: "nutella_cookie_pie",
+          name: "Scoopable Nutella Stuffed Hot Cocoa Cookie Pies",
+          priceLabel: "$19.90",
+          available: true,
+          seasonal: true,
+          linkUrl: "https://take.app/krackedbakes/p/cmpi02d5j00000bji89ahs4wu",
+          image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmpi029ie00000bkm4si24eqo.png"
         }
-      ]
+      ],
+      profiles: [
+        {
+          id: "dcs",
+          name: "The Dark Comfort Seeker",
+          short: "Proper cocoa, soft centres, and reward-after-a-long-day energy.",
+          productRank: [
+            ["hot_cocoa_cookies", "Deep cocoa comfort without making you work for it."],
+            ["brookies", "Dense, chewy, and still very much in your lane."],
+            ["nutella_cookie_pie", "The high-intensity version when you want extra."]
+          ]
+        },
+        {
+          id: "ccr",
+          name: "The Cafe Cloud Romantic",
+          short: "Coffee notes, cream, softness, and a cleaner finish.",
+          productRank: [
+            ["tiramisu_rolls", "Creamy, soft, and the cleanest cafe-style fit."],
+            ["french_brioche_loaf", "Buttery and restrained enough for your profile."],
+            ["hot_cocoa_cookies", "A cocoa pivot when you want more depth."]
+          ]
+        },
+        {
+          id: "bfl",
+          name: "The Butter-First Loyalist",
+          short: "Butter, crumb, and comfort over flashy topping drama.",
+          productRank: [
+            ["french_brioche_loaf", "The clearest match for butter-led comfort."],
+            ["tiramisu_rolls", "Soft and composed when you want dessert lighter."],
+            ["brookies", "A richer detour without going full chaos."]
+          ]
+        },
+        {
+          id: "hih",
+          name: "The Hybrid Indulgence Hunter",
+          short: "Mash-ups, mixed textures, and dessert ideas colliding.",
+          productRank: [
+            ["brookies", "The most direct expression of your hybrid-dessert answers."],
+            ["hot_cocoa_cookies", "Chewy, rich, and still indulgent."],
+            ["nutella_cookie_pie", "High-drama backup when you want something extra."]
+          ]
+        },
+        {
+          id: "gst",
+          name: "The Gentle Sweet Tooth",
+          short: "Sweet, soft, and balanced without tipping into overload.",
+          productRank: [
+            ["tiramisu_rolls", "Balanced sweetness and soft structure fit you best."],
+            ["french_brioche_loaf", "Low-intensity, butter-led comfort."],
+            ["hot_cocoa_cookies", "A richer swing when you still want comfort."]
+          ]
+        },
+        {
+          id: "spc",
+          name: "The Seasonal Plot-Twist Chaser",
+          short: "Limited runs, richer drops, and a little menu chaos.",
+          productRank: [
+            ["nutella_cookie_pie", "Your drop-chaser answers point straight at the limited item."],
+            ["brookies", "Still layered and expressive."],
+            ["hot_cocoa_cookies", "A strong fallback for indulgence."]
+          ]
+        }
+      ],
+      questions: [
+        {
+          id: "flavour",
+          title: "Pick your flavour mood.",
+          microcopy: "First instinct wins.",
+          options: [
+            ["dark", "Dark Cocoa", "Rich · Fudgy · Deep", { dcs: 3, hih: 1, spc: 1 }],
+            ["coffee", "Coffee Cream", "Soft · Cocoa dust · Grown-up", { ccr: 3, gst: 1 }],
+            ["butter", "Butter Toast", "Milky · Toasty · Simple", { bfl: 3, gst: 1 }],
+            ["wild", "Something Extra", "Layered · New · Slightly chaotic", { hih: 2, spc: 3 }, true]
+          ]
+        },
+        {
+          id: "texture",
+          title: "What texture wins?",
+          microcopy: "This usually decides the bake.",
+          options: [
+            ["fudgy", "Fudgy", "Dense · Soft centre", { dcs: 3, hih: 1 }],
+            ["creamy", "Cloudy", "Airy · Creamy · Soft", { ccr: 3, gst: 1 }],
+            ["bready", "Pull-Apart", "Buttery · Bread-y", { bfl: 3, gst: 1 }],
+            ["mixed", "Mixed Bite", "Chewy · Gooey · Layered", { hih: 3, spc: 2 }]
+          ]
+        },
+        {
+          id: "sweetness",
+          title: "How sweet?",
+          microcopy: "Choose the closest stop.",
+          type: "slider",
+          labels: { 0: "Barely", 25: "Mild", 50: "Balanced", 75: "Dessert", 100: "Full send" },
+          buckets: [
+            [0, 24, { bfl: 3, gst: 2 }],
+            [25, 49, { bfl: 2, gst: 3, ccr: 1 }],
+            [50, 50, { ccr: 2, gst: 2, bfl: 1 }],
+            [51, 74, { dcs: 2, hih: 2, ccr: 1 }],
+            [75, 100, { spc: 3, hih: 2, dcs: 2 }]
+          ]
+        },
+        {
+          id: "richness",
+          title: "How rich should it feel?",
+          microcopy: "Still approximate. No precision needed.",
+          type: "slider",
+          labels: { 0: "Airy", 25: "Light", 50: "Balanced", 75: "Rich", 100: "Dense" },
+          buckets: [
+            [0, 24, { ccr: 2, gst: 2, bfl: 2 }],
+            [25, 49, { ccr: 3, gst: 2, bfl: 1 }],
+            [50, 50, { bfl: 1, gst: 2, hih: 1 }],
+            [51, 74, { dcs: 3, hih: 2, spc: 1 }],
+            [75, 100, { spc: 3, dcs: 2, hih: 2 }]
+          ]
+        },
+        {
+          id: "vibe",
+          title: "When are you eating it?",
+          microcopy: "Mood matters.",
+          options: [
+            ["late", "Late Night", "Reward · Full attention", { dcs: 3, spc: 1 }],
+            ["coffee", "Coffee Break", "Creamy · Calm", { ccr: 3, gst: 1 }],
+            ["morning", "Morning Bite", "Buttery · Easy", { bfl: 3, gst: 1 }],
+            ["sharing", "Sharing Box", "Variety · Group order", { hih: 2, spc: 1, bfl: 1 }]
+          ]
+        },
+        {
+          id: "energy",
+          title: "Classic or drop energy?",
+          microcopy: "Final tie-breaker.",
+          options: [
+            ["usual", "My Usual", "Reliable · No surprises", { bfl: 2, dcs: 1, gst: 1 }],
+            ["polished", "Polished", "Balanced · Not too loud", { ccr: 2, gst: 2 }],
+            ["indulgent", "Indulgent", "Rich · Worth it", { dcs: 2, hih: 2 }],
+            ["limited", "Limited Drop", "New · Viral · Now", { spc: 3, hih: 1 }, true]
+          ]
+        }
+      ],
+      fallbackOrder: ["bfl", "ccr", "dcs", "gst", "hih", "spc"]
     };
 
-    const state = {
-      step: 0,
-      discountCode: "",
-      answers: {
-        sweetness: 3,
-        richness: 3
+    quiz.questions.forEach((question) => {
+      if (question.options) {
+        question.options = question.options.map(([id, title, tags, weights, novelty]) => ({
+          id, title, tags, weights, novelty: Boolean(novelty)
+        }));
       }
-    };
-
-    const steps = Array.from(document.querySelectorAll(".step"));
-    const dots = Array.from(document.querySelectorAll(".dot"));
-    const stepCount = document.getElementById("stepCount");
-    const resultWrap = document.getElementById("resultWrap");
-
-    const ANSWER_LABELS = {
-      craving: {
-        deep: "deep chocolate",
-        nutty: "nutty and mellow",
-        creamy: "creamy classics",
-        bright: "bright and fresh"
-      },
-      texture: {
-        chewy: "chewy",
-        fudgy: "fudgy",
-        pillowy: "pillowy",
-        crumble: "crumbly"
-      },
-      sweetness: ["low-key", "lightly sweet", "balanced", "sweet", "very sweet"],
-      richness: ["airy", "soft", "rich", "very rich", "extra rich"]
-    };
-
-    function setStep(nextStep) {
-      state.step = nextStep;
-      steps.forEach((step, index) => step.classList.toggle("is-active", index === nextStep));
-      dots.forEach((dot, index) => {
-        dot.classList.toggle("is-active", index === nextStep);
-        dot.classList.toggle("is-done", index < nextStep);
-      });
-      stepCount.textContent = nextStep === 3 ? "Result" : `Step ${nextStep + 1}/4`;
-      if (nextStep === 3) renderResult();
-    }
-
-    function currentStepValid() {
-      if (state.step === 0) return Boolean(state.answers.craving);
-      if (state.step === 1) return Boolean(state.answers.texture);
-      return true;
-    }
-
-    function updateNextButtons() {
-      document.querySelectorAll(".step.is-active .next").forEach((button) => {
-        button.disabled = !currentStepValid();
-      });
-    }
-
-    function scoreProduct(product) {
-      let score = 0;
-      if (product.profile.craving === state.answers.craving) score += 42;
-      if (product.profile.texture === state.answers.texture) score += 36;
-      score += 12 - Math.abs(product.profile.sweetness - Number(state.answers.sweetness)) * 3;
-      score += 10 - Math.abs(product.profile.richness - Number(state.answers.richness)) * 2.5;
-      return score;
-    }
-
-    function getResult() {
-      return CONFIG.products
-        .map((product) => ({ ...product, score: scoreProduct(product) }))
-        .sort((a, b) => b.score - a.score)[0];
-    }
-
-    function getNextDiscountCode() {
-      const storageKey = "krackedDiscountIndex";
-      try {
-        const currentIndex = Number(localStorage.getItem(storageKey) || "0");
-        const code = CONFIG.discountCodes[currentIndex % CONFIG.discountCodes.length];
-        localStorage.setItem(storageKey, String((currentIndex + 1) % CONFIG.discountCodes.length));
-        return code;
-      } catch (error) {
-        return CONFIG.discountCodes[Math.floor(Math.random() * CONFIG.discountCodes.length)];
+      if (question.buckets) {
+        question.buckets = question.buckets.map(([min, max, weights]) => ({ min, max, weights }));
       }
+    });
+    quiz.profiles.forEach((profile) => {
+      profile.productRank = profile.productRank.map(([productId, why]) => ({ productId, why }));
+    });
+
+    const state = { step: 0, answers: {}, result: null };
+    const profileIds = quiz.profiles.map((profile) => profile.id);
+    const productById = Object.fromEntries(quiz.products.map((product) => [product.id, product]));
+    const profileById = Object.fromEntries(quiz.profiles.map((profile) => [profile.id, profile]));
+
+    const brandPanel = document.getElementById("brandPanel");
+    const startScreen = document.getElementById("startScreen");
+    const quizScreen = document.getElementById("quizScreen");
+    const resultScreen = document.getElementById("resultScreen");
+    const topbar = document.getElementById("topbar");
+    const backButton = document.getElementById("backButton");
+    const progressFill = document.getElementById("progressFill");
+    const stepCopy = document.getElementById("stepCopy");
+
+    document.getElementById("startButton").addEventListener("click", () => {
+      track("quiz_start", baseEvent());
+      renderQuestion();
+    });
+    backButton.addEventListener("click", () => {
+      if (state.step > 0) {
+        state.step -= 1;
+        renderQuestion();
+      }
+    });
+
+    function baseEvent(extra = {}) {
+      return { quiz_id: quiz.meta.quizId, quiz_version: quiz.meta.quizVersion, ...extra };
+    }
+
+    function track(name, params = {}) {
+      if (window.gtag) window.gtag("event", name, params);
+      else console.debug("[analytics]", name, params);
+    }
+
+    function show(view) {
+      startScreen.classList.toggle("hidden", view !== "start");
+      quizScreen.classList.toggle("hidden", view !== "quiz");
+      resultScreen.classList.toggle("hidden", view !== "result");
+      topbar.hidden = view === "start" || view === "result";
+      brandPanel.classList.toggle("is-compact", view !== "start");
+    }
+
+    function renderQuestion() {
+      show("quiz");
+      const question = quiz.questions[state.step];
+      const total = quiz.questions.length;
+      progressFill.style.width = `${(state.step / total) * 100}%`;
+      stepCopy.textContent = `${state.step + 1} of ${total}`;
+      backButton.disabled = state.step === 0;
+
+      quizScreen.innerHTML = `
+        <p class="eyebrow">Quick pick</p>
+        <h2>${escapeHtml(question.title)}</h2>
+        <p class="copy">${escapeHtml(question.microcopy)}</p>
+        ${question.type === "slider" ? renderSlider(question) : renderChoices(question)}
+      `;
+
+      if (question.type === "slider") bindSlider(question);
+      else bindChoices(question);
+    }
+
+    function renderChoices(question) {
+      const saved = state.answers[question.id];
+      return `
+        <div class="choices" role="group" aria-label="${escapeHtml(question.title)}">
+          ${question.options.map((option) => `
+            <button class="choice" type="button" data-option="${option.id}" aria-pressed="${saved === option.id}">
+              <span class="choice-title">${escapeHtml(option.title)}</span>
+              <span class="choice-tags">${escapeHtml(option.tags)}</span>
+            </button>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    function renderSlider(question) {
+      const value = state.answers[question.id] ?? 50;
+      return `
+        <div class="slider-box">
+          <label class="slider-current" for="${question.id}">
+            <span>${escapeHtml(question.title)}</span>
+            <span id="${question.id}-value">${value}: ${escapeHtml(question.labels[value])}</span>
+          </label>
+          <input id="${question.id}" name="${question.id}" type="range" min="0" max="100" step="25" value="${value}" aria-valuetext="${escapeHtml(question.labels[value])}">
+          <div class="stops" aria-hidden="true">
+            ${Object.entries(question.labels).map(([stop, label]) => `<span>${stop}<br>${escapeHtml(label)}</span>`).join("")}
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn btn-primary" id="continueButton" type="button">Continue</button>
+        </div>
+      `;
+    }
+
+    function bindChoices(question) {
+      quizScreen.querySelectorAll(".choice").forEach((button) => {
+        button.addEventListener("click", () => {
+          state.answers[question.id] = button.dataset.option;
+          const selected = question.options.find((option) => option.id === button.dataset.option);
+          track("quiz_question_answered", baseEvent({
+            question_id: question.id,
+            answer_id: button.dataset.option,
+            step_index: state.step + 1,
+            question_type: "single"
+          }));
+          setTimeout(() => nextStep(), 170);
+        });
+      });
+    }
+
+    function bindSlider(question) {
+      const slider = document.getElementById(question.id);
+      const label = document.getElementById(`${question.id}-value`);
+      state.answers[question.id] = Number(slider.value);
+      slider.addEventListener("input", () => {
+        const value = Number(slider.value);
+        state.answers[question.id] = value;
+        label.textContent = `${value}: ${question.labels[value]}`;
+        slider.setAttribute("aria-valuetext", question.labels[value]);
+      });
+      document.getElementById("continueButton").addEventListener("click", () => {
+        const value = Number(state.answers[question.id]);
+        track("quiz_slider_set", baseEvent({
+          question_id: question.id,
+          value,
+          bucket_label: question.labels[value],
+          step_index: state.step + 1
+        }));
+        nextStep();
+      });
+    }
+
+    function nextStep() {
+      if (state.step < quiz.questions.length - 1) {
+        state.step += 1;
+        renderQuestion();
+      } else {
+        state.result = computeResult();
+        renderResult();
+      }
+    }
+
+    function computeResult() {
+      const raw = Object.fromEntries(profileIds.map((id) => [id, 0]));
+      const primary = Object.fromEntries(profileIds.map((id) => [id, 0]));
+      let noveltyChosen = false;
+
+      quiz.questions.forEach((question) => {
+        let weights = {};
+        if (question.type === "slider") {
+          weights = bucketFor(question, Number(state.answers[question.id]))?.weights || {};
+        } else {
+          const selected = question.options.find((option) => option.id === state.answers[question.id]);
+          weights = selected?.weights || {};
+          noveltyChosen = noveltyChosen || Boolean(selected?.novelty);
+        }
+        profileIds.forEach((id) => {
+          raw[id] += weights[id] || 0;
+          if (["flavour", "texture"].includes(question.id)) primary[id] += weights[id] || 0;
+        });
+      });
+
+      const ranked = [...profileIds].sort((a, b) => {
+        if (raw[b] !== raw[a]) return raw[b] - raw[a];
+        if (primary[b] !== primary[a]) return primary[b] - primary[a];
+        if (!noveltyChosen && a === "spc" && b !== "spc") return 1;
+        if (!noveltyChosen && b === "spc" && a !== "spc") return -1;
+        return quiz.fallbackOrder.indexOf(a) - quiz.fallbackOrder.indexOf(b);
+      });
+
+      const top = ranked[0];
+      const runnerUp = ranked[1];
+      const gap = raw[top] - raw[runnerUp];
+      const confidence = gap >= 4 ? "Strong fit" : gap >= 2 ? "Close call" : "Mixed profile";
+      return { top, runnerUp, raw, ranked, confidence, recommendations: recommendations(profileById[top], profileById[runnerUp]) };
+    }
+
+    function bucketFor(question, value) {
+      return question.buckets.find((bucket) => value >= bucket.min && value <= bucket.max);
+    }
+
+    function recommendations(profile, runnerUp) {
+      const seen = new Set();
+      const all = [];
+      add(profile);
+      if (all.length < 3) add(runnerUp);
+
+      function add(source) {
+        source.productRank.forEach((entry) => {
+          const product = productById[entry.productId];
+          if (!product || !product.available || seen.has(product.id)) return;
+          seen.add(product.id);
+          all.push({ ...entry, product });
+        });
+      }
+
+      return { main: all[0], secondary: all.slice(1, 3) };
     }
 
     function renderResult() {
-      const result = getResult();
-      const choices = [
-        ANSWER_LABELS.craving[state.answers.craving],
-        ANSWER_LABELS.texture[state.answers.texture],
-        ANSWER_LABELS.richness[Number(state.answers.richness) - 1]
-      ].filter(Boolean);
-      document.getElementById("resultImage").src = result.image;
-      document.getElementById("resultImage").alt = `${result.name} from KRackedbakes`;
-      document.getElementById("resultName").textContent = result.name;
-      document.getElementById("resultBlurb").textContent = result.blurb;
-      document.getElementById("resultReason").textContent = result.reason;
-      document.getElementById("resultSummary").textContent = `You chose: ${choices.join(" + ")}`;
-      document.getElementById("resultChoices").textContent = `So we matched you with ${result.name}.`;
-      document.getElementById("orderLink").href = result.url;
-      state.discountCode = getNextDiscountCode();
-      document.getElementById("discountCode").textContent = state.discountCode;
-      document.getElementById("resultTags").innerHTML = result.tags
-        .map((tag) => `<span class="tag">${tag}</span>`)
-        .join("");
-      resultWrap.classList.add("is-active");
-    }
+      show("result");
+      const { top, runnerUp, raw, ranked, confidence, recommendations } = state.result;
+      const profile = profileById[top];
+      const main = recommendations.main;
+      const secondaryIds = recommendations.secondary.map((item) => item.product.id);
 
-    function labelFor(value, kind) {
-      const labels = kind === "sweet"
-        ? ["Low-key", "Light", "Balanced", "Sweet", "Very sweet"]
-        : ["Airy", "Soft", "Medium", "Rich", "Very rich"];
-      return labels[Number(value) - 1];
-    }
+      track("quiz_completed", baseEvent({
+        top_profile_id: top,
+        runner_up_profile_id: runnerUp,
+        score_gap: raw[top] - raw[runnerUp],
+        confidence_label: confidence
+      }));
+      track("quiz_result_viewed", baseEvent({
+        top_profile_id: top,
+        main_product_id: main.product.id,
+        secondary_product_ids: secondaryIds.join(",")
+      }));
 
-    document.querySelectorAll(".choices").forEach((group) => {
-      group.addEventListener("click", (event) => {
-        const choice = event.target.closest(".choice");
-        if (!choice) return;
-        const name = group.dataset.name;
-        state.answers[name] = choice.dataset.value;
-        group.querySelectorAll(".choice").forEach((button) => {
-          button.classList.remove("is-selected");
-          button.setAttribute("aria-pressed", "false");
+      resultScreen.innerHTML = `
+        <p class="eyebrow">Your pastry profile</p>
+        <h2>${escapeHtml(profile.name)}</h2>
+        <p class="copy">${escapeHtml(profile.short)}</p>
+
+        <div class="result-hero">
+          <div class="product-image" style="background-image: url('${main.product.image}')"></div>
+          <article class="main-pick">
+            <p class="eyebrow">Your best KRacked match</p>
+            <h3>${escapeHtml(main.product.name)}</h3>
+            <p class="price">${escapeHtml(main.product.priceLabel)}${main.product.seasonal ? " · Limited-time" : ""}</p>
+            <p class="reason">${escapeHtml(main.why)}</p>
+            <a class="btn btn-primary" href="${main.product.linkUrl}" target="_blank" rel="noopener" data-product-id="${main.product.id}" data-product-name="${escapeHtml(main.product.name)}" data-slot="main">Order this bake</a>
+          </article>
+        </div>
+
+        <section class="secondary">
+          <p class="eyebrow">Also very you</p>
+          <div class="product-grid">
+            ${recommendations.secondary.map((item, index) => secondaryCard(item, index)).join("")}
+          </div>
+        </section>
+
+        <div class="actions">
+          <button class="btn" id="retakeButton" type="button">Retake profile</button>
+          <button class="btn btn-ghost" id="copyButton" type="button">Copy result</button>
+        </div>
+      `;
+
+      resultScreen.querySelectorAll("[data-product-id]").forEach((link, index) => {
+        link.addEventListener("click", () => {
+          track("select_item", baseEvent({
+            item_list_name: "quiz_results",
+            item_id: link.dataset.productId,
+            item_name: link.dataset.productName,
+            index,
+            profile_id: top,
+            slot: link.dataset.slot
+          }));
         });
-        choice.classList.add("is-selected");
-        choice.setAttribute("aria-pressed", "true");
-        updateNextButtons();
-        if (state.step < 2) {
-          window.setTimeout(() => {
-            setStep(state.step + 1);
-            updateNextButtons();
-          }, 170);
+      });
+
+      document.getElementById("retakeButton").addEventListener("click", () => {
+        state.step = 0;
+        state.answers = {};
+        state.result = null;
+        track("quiz_retake", baseEvent({ top_profile_id: top }));
+        renderQuestion();
+      });
+
+      document.getElementById("copyButton").addEventListener("click", async () => {
+        const text = `My KRacked pastry profile is ${profile.name}. Best match: ${main.product.name}.`;
+        try {
+          await navigator.clipboard.writeText(text);
+          document.getElementById("copyButton").textContent = "Copied";
+        } catch {
+          document.getElementById("copyButton").textContent = "Copy failed";
         }
       });
-    });
-
-    document.querySelectorAll(".next").forEach((button) => {
-      button.addEventListener("click", () => {
-        if (!currentStepValid()) return;
-        setStep(Math.min(state.step + 1, 3));
-        updateNextButtons();
-      });
-    });
-
-    document.querySelectorAll(".back").forEach((button) => {
-      button.addEventListener("click", () => {
-        setStep(Math.max(state.step - 1, 0));
-        updateNextButtons();
-      });
-    });
-
-    document.querySelector('input[name="sweetness"]').addEventListener("input", (event) => {
-      state.answers.sweetness = event.target.value;
-      document.getElementById("sweetLabel").textContent = labelFor(event.target.value, "sweet");
-    });
-
-    document.querySelector('input[name="richness"]').addEventListener("input", (event) => {
-      state.answers.richness = event.target.value;
-      document.getElementById("richLabel").textContent = labelFor(event.target.value, "rich");
-    });
-
-    async function copyText(value) {
-      if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(value);
-        return true;
-      }
-      const textArea = document.createElement("textarea");
-      textArea.value = value;
-      textArea.setAttribute("readonly", "");
-      textArea.style.position = "fixed";
-      textArea.style.opacity = "0";
-      document.body.appendChild(textArea);
-      textArea.select();
-      try {
-        return document.execCommand("copy");
-      } finally {
-        document.body.removeChild(textArea);
-      }
     }
 
-    document.getElementById("copyCode").addEventListener("click", async () => {
-      const button = document.getElementById("copyCode");
-      const original = button.textContent;
-      try {
-        const copied = await copyText(state.discountCode || document.getElementById("discountCode").textContent);
-        button.textContent = copied ? "Copied" : "Select code";
-      } catch (error) {
-        button.textContent = "Select code";
-      }
-      setTimeout(() => {
-        button.textContent = original;
-      }, 1200);
-    });
+    function secondaryCard(item, index) {
+      return `
+        <article class="mini-product">
+          <div class="mini-image" style="background-image: url('${item.product.image}')"></div>
+          <div>
+            <p class="eyebrow">Backup pick</p>
+            <h4>${escapeHtml(item.product.name)}</h4>
+            <p class="reason">${escapeHtml(item.why)}</p>
+            <a class="btn" href="${item.product.linkUrl}" target="_blank" rel="noopener" data-product-id="${item.product.id}" data-product-name="${escapeHtml(item.product.name)}" data-slot="secondary">View bake</a>
+          </div>
+        </article>
+      `;
+    }
 
-    document.getElementById("restart").addEventListener("click", () => {
-      document.querySelectorAll(".choice").forEach((button) => {
-        button.classList.remove("is-selected");
-        button.setAttribute("aria-pressed", "false");
-      });
-      state.discountCode = "";
-      state.answers = { sweetness: 3, richness: 3 };
-      document.querySelector('input[name="sweetness"]').value = 3;
-      document.querySelector('input[name="richness"]').value = 3;
-      document.getElementById("sweetLabel").textContent = "Balanced";
-      document.getElementById("richLabel").textContent = "Medium";
-      setStep(0);
-      updateNextButtons();
-    });
-
-    updateNextButtons();
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      }[char]));
+    }
   </script>
 </body>
 </html>
