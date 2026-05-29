@@ -38,34 +38,59 @@
     a { color: inherit; }
 
     .app {
-      width: min(1120px, calc(100% - 32px));
+      width: min(1180px, calc(100% - 32px));
       min-height: 100vh;
       margin: 0 auto;
-      padding: 28px 0;
+      padding: 28px 0 36px;
       display: grid;
       align-items: center;
     }
 
     .layout {
       display: grid;
-      grid-template-columns: minmax(260px, 0.78fr) minmax(360px, 1.22fr);
-      gap: clamp(22px, 5vw, 62px);
-      align-items: center;
+      grid-template-columns: 1fr;
+      justify-items: center;
+      gap: clamp(18px, 3vw, 30px);
+      width: 100%;
     }
 
     .brand {
-      max-width: 430px;
+      display: grid;
+      justify-items: center;
+      max-width: 900px;
+      text-align: center;
     }
 
     .brand-logo {
-      width: 72px;
-      height: 72px;
-      margin-bottom: 24px;
+      width: 118px;
+      height: 118px;
+      margin-bottom: 20px;
       border: 1px solid rgba(240,226,207,0.2);
       border-radius: 50%;
       background: #050403;
-      box-shadow: 0 16px 38px rgba(0,0,0,0.45);
+      box-shadow: 0 18px 48px rgba(0,0,0,0.52), 0 0 0 8px rgba(198,162,97,0.07);
       object-fit: cover;
+    }
+
+    .brand.is-compact {
+      grid-template-columns: auto 1fr;
+      justify-items: start;
+      align-items: center;
+      gap: 14px 18px;
+      width: min(980px, 100%);
+      text-align: left;
+    }
+
+    .brand.is-compact .brand-logo {
+      width: 76px;
+      height: 76px;
+      grid-row: span 2;
+      margin-bottom: 0;
+    }
+
+    .brand.is-compact .intro,
+    .brand.is-compact .meta {
+      display: none;
     }
 
     .eyebrow {
@@ -82,8 +107,8 @@
     h1 {
       margin-bottom: 16px;
       color: var(--cream);
-      font-size: clamp(42px, 8vw, 74px);
-      line-height: 0.94;
+      font-size: clamp(42px, 7vw, 72px);
+      line-height: 0.96;
       letter-spacing: 0;
     }
 
@@ -101,6 +126,7 @@
     }
 
     .quiz-shell {
+      width: min(980px, 100%);
       overflow: hidden;
       border: 1px solid var(--line);
       border-radius: 14px;
@@ -236,18 +262,32 @@
     }
 
     .choice {
-      min-height: 172px;
+      position: relative;
+      min-height: 132px;
       overflow: hidden;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding: 0;
+      padding: 22px;
       color: var(--ink);
       background:
+        radial-gradient(circle at 88% 14%, rgba(198,162,97,0.12), transparent 34%),
         linear-gradient(145deg, rgba(255,255,255,0.055), rgba(255,255,255,0.025));
       cursor: pointer;
       text-align: left;
       display: grid;
-      grid-template-rows: 86px 1fr;
+      align-content: space-between;
+      gap: 20px;
+    }
+
+    .choice::before {
+      position: absolute;
+      inset: 0;
+      content: "";
+      border-radius: inherit;
+      background: linear-gradient(90deg, rgba(228,199,127,0.28), transparent 34%);
+      opacity: 0;
+      transition: opacity 160ms ease;
+      pointer-events: none;
     }
 
     .choice:hover,
@@ -258,33 +298,15 @@
       box-shadow: inset 0 0 0 1px rgba(228,199,127,0.12), 0 16px 34px rgba(0,0,0,0.24);
     }
 
-    .choice-media {
-      position: relative;
-      min-height: 86px;
-      background: var(--choice-image) center / cover no-repeat;
-    }
-
-    .choice-media::after {
-      position: absolute;
-      inset: 0;
-      content: "";
-      background:
-        linear-gradient(180deg, rgba(0,0,0,0.04), rgba(0,0,0,0.58)),
-        radial-gradient(circle at 18% 12%, rgba(228,199,127,0.24), transparent 34%);
-    }
-
-    .choice-body {
-      display: grid;
-      align-content: space-between;
-      gap: 16px;
-      min-height: 86px;
-      padding: 15px 17px 17px;
+    .choice:hover::before,
+    .choice[aria-pressed="true"]::before {
+      opacity: 1;
     }
 
     .choice-title {
       display: block;
       color: var(--cream);
-      font-size: 20px;
+      font-size: clamp(23px, 3vw, 30px);
       font-weight: 900;
       line-height: 1.1;
     }
@@ -429,19 +451,14 @@
     @media (max-width: 860px) {
       body { background-attachment: scroll; }
       .app { align-items: start; padding: 18px 0; }
-      .layout { grid-template-columns: 1fr; gap: 18px; }
-      .brand { max-width: none; }
-      .brand-logo { width: 58px; height: 58px; margin-bottom: 16px; }
+      .brand { max-width: none; text-align: left; justify-items: start; }
+      .brand-logo { width: 82px; height: 82px; margin-bottom: 16px; }
+      .brand.is-compact { grid-template-columns: auto 1fr; }
+      .brand.is-compact .brand-logo { width: 58px; height: 58px; }
       .brand.is-compact h1 { font-size: 36px; }
       .screen { min-height: auto; }
       .choices { grid-template-columns: 1fr; }
-      .choice {
-        min-height: 118px;
-        grid-template-columns: 112px 1fr;
-        grid-template-rows: none;
-      }
-      .choice-media { min-height: 118px; }
-      .choice-body { min-height: 118px; }
+      .choice { min-height: 96px; padding: 18px; }
       .result-hero { grid-template-columns: 1fr; }
       .product-image { min-height: 280px; }
       .product-grid { grid-template-columns: 1fr; }
@@ -707,25 +724,6 @@
     const profileIds = quiz.profiles.map((profile) => profile.id);
     const productById = Object.fromEntries(quiz.products.map((product) => [product.id, product]));
     const profileById = Object.fromEntries(quiz.profiles.map((profile) => [profile.id, profile]));
-    const choiceVisuals = {
-      "flavour:dark": productById.hot_cocoa_cookies.image,
-      "flavour:coffee": productById.tiramisu_rolls.image,
-      "flavour:butter": productById.french_brioche_loaf.image,
-      "flavour:wild": productById.nutella_cookie_pie.image,
-      "texture:fudgy": productById.brookies.image,
-      "texture:creamy": productById.tiramisu_rolls.image,
-      "texture:bready": productById.french_brioche_loaf.image,
-      "texture:mixed": productById.brookies.image,
-      "vibe:late": productById.hot_cocoa_cookies.image,
-      "vibe:coffee": productById.tiramisu_rolls.image,
-      "vibe:morning": productById.french_brioche_loaf.image,
-      "vibe:sharing": productById.brookies.image,
-      "energy:usual": productById.french_brioche_loaf.image,
-      "energy:polished": productById.tiramisu_rolls.image,
-      "energy:indulgent": productById.brookies.image,
-      "energy:limited": productById.nutella_cookie_pie.image
-    };
-
     const brandPanel = document.getElementById("brandPanel");
     const startScreen = document.getElementById("startScreen");
     const quizScreen = document.getElementById("quizScreen");
@@ -787,20 +785,13 @@
       return `
         <div class="choices" role="group" aria-label="${escapeHtml(question.title)}">
           ${question.options.map((option) => `
-            <button class="choice" type="button" data-option="${option.id}" aria-pressed="${saved === option.id}" style="--choice-image: url('${escapeHtml(choiceImage(question, option))}')">
-              <span class="choice-media" aria-hidden="true"></span>
-              <span class="choice-body">
-                <span class="choice-title">${escapeHtml(option.title)}</span>
-                <span class="choice-tags">${escapeHtml(option.tags)}</span>
-              </span>
+            <button class="choice" type="button" data-option="${option.id}" aria-pressed="${saved === option.id}">
+              <span class="choice-title">${escapeHtml(option.title)}</span>
+              <span class="choice-tags">${escapeHtml(option.tags)}</span>
             </button>
           `).join("")}
         </div>
       `;
-    }
-
-    function choiceImage(question, option) {
-      return choiceVisuals[`${question.id}:${option.id}`] || productById.hot_cocoa_cookies.image;
     }
 
     function renderSlider(question) {
