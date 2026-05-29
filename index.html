@@ -231,23 +231,23 @@
     .choices {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
+      gap: 14px;
       margin-top: 24px;
     }
 
     .choice {
-      min-height: 112px;
+      min-height: 172px;
+      overflow: hidden;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding: 17px;
+      padding: 0;
       color: var(--ink);
       background:
         linear-gradient(145deg, rgba(255,255,255,0.055), rgba(255,255,255,0.025));
       cursor: pointer;
       text-align: left;
       display: grid;
-      align-content: space-between;
-      gap: 14px;
+      grid-template-rows: 86px 1fr;
     }
 
     .choice:hover,
@@ -258,10 +258,33 @@
       box-shadow: inset 0 0 0 1px rgba(228,199,127,0.12), 0 16px 34px rgba(0,0,0,0.24);
     }
 
+    .choice-media {
+      position: relative;
+      min-height: 86px;
+      background: var(--choice-image) center / cover no-repeat;
+    }
+
+    .choice-media::after {
+      position: absolute;
+      inset: 0;
+      content: "";
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.04), rgba(0,0,0,0.58)),
+        radial-gradient(circle at 18% 12%, rgba(228,199,127,0.24), transparent 34%);
+    }
+
+    .choice-body {
+      display: grid;
+      align-content: space-between;
+      gap: 16px;
+      min-height: 86px;
+      padding: 15px 17px 17px;
+    }
+
     .choice-title {
       display: block;
       color: var(--cream);
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 900;
       line-height: 1.1;
     }
@@ -412,7 +435,13 @@
       .brand.is-compact h1 { font-size: 36px; }
       .screen { min-height: auto; }
       .choices { grid-template-columns: 1fr; }
-      .choice { min-height: 84px; }
+      .choice {
+        min-height: 118px;
+        grid-template-columns: 112px 1fr;
+        grid-template-rows: none;
+      }
+      .choice-media { min-height: 118px; }
+      .choice-body { min-height: 118px; }
       .result-hero { grid-template-columns: 1fr; }
       .product-image { min-height: 280px; }
       .product-grid { grid-template-columns: 1fr; }
@@ -678,6 +707,24 @@
     const profileIds = quiz.profiles.map((profile) => profile.id);
     const productById = Object.fromEntries(quiz.products.map((product) => [product.id, product]));
     const profileById = Object.fromEntries(quiz.profiles.map((profile) => [profile.id, profile]));
+    const choiceVisuals = {
+      "flavour:dark": productById.hot_cocoa_cookies.image,
+      "flavour:coffee": productById.tiramisu_rolls.image,
+      "flavour:butter": productById.french_brioche_loaf.image,
+      "flavour:wild": productById.nutella_cookie_pie.image,
+      "texture:fudgy": productById.brookies.image,
+      "texture:creamy": productById.tiramisu_rolls.image,
+      "texture:bready": productById.french_brioche_loaf.image,
+      "texture:mixed": productById.brookies.image,
+      "vibe:late": productById.hot_cocoa_cookies.image,
+      "vibe:coffee": productById.tiramisu_rolls.image,
+      "vibe:morning": productById.french_brioche_loaf.image,
+      "vibe:sharing": productById.brookies.image,
+      "energy:usual": productById.french_brioche_loaf.image,
+      "energy:polished": productById.tiramisu_rolls.image,
+      "energy:indulgent": productById.brookies.image,
+      "energy:limited": productById.nutella_cookie_pie.image
+    };
 
     const brandPanel = document.getElementById("brandPanel");
     const startScreen = document.getElementById("startScreen");
@@ -740,13 +787,20 @@
       return `
         <div class="choices" role="group" aria-label="${escapeHtml(question.title)}">
           ${question.options.map((option) => `
-            <button class="choice" type="button" data-option="${option.id}" aria-pressed="${saved === option.id}">
-              <span class="choice-title">${escapeHtml(option.title)}</span>
-              <span class="choice-tags">${escapeHtml(option.tags)}</span>
+            <button class="choice" type="button" data-option="${option.id}" aria-pressed="${saved === option.id}" style="--choice-image: url('${escapeHtml(choiceImage(question, option))}')">
+              <span class="choice-media" aria-hidden="true"></span>
+              <span class="choice-body">
+                <span class="choice-title">${escapeHtml(option.title)}</span>
+                <span class="choice-tags">${escapeHtml(option.tags)}</span>
+              </span>
             </button>
           `).join("")}
         </div>
       `;
+    }
+
+    function choiceImage(question, option) {
+      return choiceVisuals[`${question.id}:${option.id}`] || productById.hot_cocoa_cookies.image;
     }
 
     function renderSlider(question) {
