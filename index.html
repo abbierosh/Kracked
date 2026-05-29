@@ -38,7 +38,7 @@
     a { color: inherit; }
 
     .app {
-      width: min(1040px, calc(100% - 32px));
+      width: min(980px, calc(100% - 32px));
       min-height: 100vh;
       margin: 0 auto;
       padding: 28px 0;
@@ -124,10 +124,15 @@
     }
 
     .screen {
-      min-height: min(650px, calc(100vh - 160px));
+      min-height: min(590px, calc(100vh - 160px));
       padding: clamp(24px, 5vw, 46px);
       display: grid;
       align-content: center;
+    }
+
+    .screen.intro-screen {
+      min-height: auto;
+      padding-block: clamp(34px, 7vw, 72px);
     }
 
     .screen.result-screen {
@@ -146,10 +151,10 @@
     h1, h2, h3, h4, p { margin-top: 0; }
 
     h1 {
-      max-width: 820px;
+      max-width: 720px;
       margin-bottom: 18px;
       color: var(--cream);
-      font-size: clamp(44px, 8vw, 88px);
+      font-size: clamp(44px, 7vw, 78px);
       line-height: 0.94;
       letter-spacing: 0;
     }
@@ -238,6 +243,12 @@
       margin-top: 24px;
     }
 
+    .choices--checklist {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 20px;
+    }
+
     .choice {
       position: relative;
       min-height: 132px;
@@ -254,6 +265,47 @@
       display: grid;
       align-content: space-between;
       gap: 16px;
+    }
+
+    .choice--compact {
+      min-height: 76px;
+      grid-template-columns: 34px minmax(0, 1fr);
+      align-items: center;
+      align-content: center;
+      gap: 12px;
+      padding: 14px;
+    }
+
+    .choice--compact .choice-icon {
+      width: 34px;
+      height: 34px;
+    }
+
+    .choice--compact .choice-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .choice--compact .choice-title {
+      font-size: 18px;
+    }
+
+    .choice--compact .choice-tags {
+      grid-column: 2;
+      margin-top: -6px;
+      font-size: 12px;
+    }
+
+    .choice--compact.is-selected::after {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      content: "Selected";
+      color: var(--gold-bright);
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0;
     }
 
     .choice::before {
@@ -346,7 +398,7 @@
 
     .tune-grid {
       display: grid;
-      gap: 18px;
+      gap: 12px;
       margin-top: 24px;
     }
 
@@ -362,11 +414,14 @@
 
     .tune-row {
       display: grid;
-      gap: 10px;
+      grid-template-columns: minmax(120px, 0.55fr) minmax(0, 1fr);
+      align-items: center;
+      gap: 14px;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding: 16px;
-      background: rgba(255,255,255,0.045);
+      padding: 12px;
+      background:
+        linear-gradient(145deg, rgba(198,162,97,0.1), rgba(255,255,255,0.035));
     }
 
     .tune-label {
@@ -377,15 +432,19 @@
     .segments {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+      gap: 6px;
+      padding: 4px;
+      border: 1px solid rgba(240,226,207,0.12);
+      border-radius: 10px;
+      background: rgba(0,0,0,0.22);
     }
 
     .seg {
-      min-height: 44px;
-      border: 1px solid rgba(240,226,207,0.18);
-      border-radius: var(--radius);
+      min-height: 40px;
+      border: 1px solid transparent;
+      border-radius: 7px;
       color: var(--muted);
-      background: rgba(255,255,255,0.04);
+      background: transparent;
       cursor: pointer;
       font-weight: 800;
     }
@@ -400,6 +459,12 @@
       display: grid;
       gap: 10px;
       margin-bottom: 18px;
+      padding: clamp(18px, 3vw, 28px);
+      border: 1px solid rgba(228,199,127,0.22);
+      border-radius: 14px;
+      background:
+        radial-gradient(circle at 90% 12%, rgba(228,199,127,0.14), transparent 30%),
+        rgba(255,255,255,0.04);
     }
 
     .tag-row {
@@ -428,6 +493,8 @@
 
     .idea-panel {
       margin: 20px 0 22px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.055), rgba(255,255,255,0.025));
     }
 
     .idea-list {
@@ -472,6 +539,7 @@
       border-radius: 12px;
       padding: clamp(20px, 4vw, 30px);
       background: var(--panel-strong);
+      box-shadow: inset 0 0 0 1px rgba(228,199,127,0.07);
     }
 
     .main-pick h3 {
@@ -599,6 +667,9 @@
       h2 { font-size: clamp(32px, 10vw, 48px); }
       .choices { grid-template-columns: 1fr; gap: 10px; }
       .choice { min-height: 104px; padding: 17px; }
+      .choice--compact { min-height: 72px; padding: 13px; }
+      .choice--compact .choice-tags { grid-column: 2; }
+      .tune-row { grid-template-columns: 1fr; }
       .segments { grid-template-columns: 1fr; }
       .result-hero { grid-template-columns: 1fr; }
       .product-image { min-height: 280px; }
@@ -693,7 +764,7 @@
       families: {
         dark: {
           id: "dark",
-          icon: "drop",
+          icon: "cocoa",
           title: "Dark & Deep",
           tags: "cocoa · chewy · rich",
           prompt: "What kind of chocolate mood?",
@@ -710,7 +781,7 @@
         },
         butter: {
           id: "butter",
-          icon: "arch",
+          icon: "bread",
           title: "Soft & Buttery",
           tags: "warm · bakery · comfort",
           prompt: "What kind of buttery thing?",
@@ -727,11 +798,11 @@
         },
         cream: {
           id: "cream",
-          icon: "swirl",
+          icon: "cup",
           title: "Creamy & Calm",
           tags: "coffee · custard · soft",
           prompt: "What kind of creamy mood?",
-          profile: "The Cafe Cloud Romantic",
+          profile: "The Café Cloud Romantic",
           description: "Smooth, soft, and a little grown-up.",
           ideas: ["tiramisu rolls", "custard buns", "cream-filled brioche", "cocoa cream cakes"],
           dims: { cream: 4, creamy: 3, soft: 1 },
@@ -744,7 +815,7 @@
         },
         bright: {
           id: "bright",
-          icon: "burst",
+          icon: "citrus",
           title: "Bright & Fresh",
           tags: "citrus · berry · sharp finish",
           prompt: "What kind of bright?",
@@ -761,7 +832,7 @@
         },
         local: {
           id: "local",
-          icon: "leaf",
+          icon: "pandan",
           title: "Local & Nostalgic",
           tags: "kaya · pandan · sesame",
           prompt: "Which flavour memory sounds right?",
@@ -778,11 +849,11 @@
         },
         novelty: {
           id: "novelty",
-          icon: "spark",
-          title: "Plot Twist",
-          tags: "layered · gooey · unexpected",
-          prompt: "What kind of curveball?",
-          profile: "The Plot-Twist Hunter",
+          icon: "wildcard",
+          title: "Wildcard Drop",
+          tags: "limited · layered · unexpected",
+          prompt: "What kind of wildcard?",
+          profile: "The Wildcard Drop Hunter",
           description: "You want the menu to do something interesting.",
           ideas: ["stuffed cookies", "gooey pies", "sweet-salty buns", "limited seasonal drops", "hybrid blondies"],
           dims: { novelty: 5, adventurous: 2, rich: 1 },
@@ -805,12 +876,12 @@
         { id: "salty", icon: "spark", title: "Salty Contrast", tags: "sharp · savoury · balance", dims: { salty: 2 } }
       ],
       moments: [
-        { id: "brunch", icon: "arch", title: "Breakfast / Brunch", tags: "morning · soft · easy", dims: { brunch: 3, butter: 1 } },
-        { id: "coffee", icon: "swirl", title: "Coffee Break", tags: "pause · cream · calm", dims: { cream: 2, soft: 1 } },
-        { id: "postDinner", icon: "circle", title: "Post-Dinner", tags: "dessert · finish · sweet", dims: { sweet: 2, rich: 1 } },
-        { id: "lateNight", icon: "moon", title: "Late-Night", tags: "reward · dark · quiet", dims: { lateNight: 3, dark: 1 } },
+        { id: "brunch", icon: "bread", title: "Morning Soft Launch", tags: "early · soft · easy", dims: { brunch: 3, butter: 1 } },
+        { id: "coffee", icon: "cup", title: "Midday Treat", tags: "pause · cream · calm", dims: { cream: 2, soft: 1 } },
+        { id: "postDinner", icon: "circle", title: "Post-Dinner Sweet", tags: "finish · rich · sweet", dims: { sweet: 2, rich: 1 } },
+        { id: "lateNight", icon: "moon", title: "Late-Night Fix", tags: "reward · dark · quiet", dims: { lateNight: 3, dark: 1 } },
         { id: "sharing", icon: "stack", title: "Sharing Box", tags: "variety · generous · group", dims: { sharing: 3, novelty: 1 } },
-        { id: "curious", icon: "spark", title: "Just Curious", tags: "new · open · browse", dims: { adventurous: 2, novelty: 1 } }
+        { id: "curious", icon: "spark", title: "Just Browsing", tags: "new · open · browse", dims: { adventurous: 2, novelty: 1 } }
       ],
       openness: [
         { id: "classic", icon: "circle", title: "Keep It Classic", tags: "safe · familiar · clean", dims: { familiarity: 3 } },
@@ -916,7 +987,7 @@
       progress.hidden = isIntro || isResult;
       progressFill.style.width = `${Math.max(0, Math.min(100, (state.step / 6) * 100))}%`;
       stepCopy.textContent = `${Math.min(state.step, 6)} of 6`;
-      screen.className = `screen${isResult ? " result-screen" : ""}`;
+      screen.className = `screen${isIntro ? " intro-screen" : ""}${isResult ? " result-screen" : ""}`;
 
       if (isIntro) renderIntro();
       else if (isResult) renderResult();
@@ -929,8 +1000,8 @@
     function renderIntro() {
       screen.innerHTML = `
         <p class="eyebrow">Dessert mood read</p>
-        <h1>Find out what you're craving.</h1>
-        <p class="copy">Sweet tooth changes by the day. Pick what sounds good right now and we'll read the pastry mood.</p>
+        <h1>Find out what you&rsquo;re craving.</h1>
+        <p class="copy">Sweet tooth changes by the day. Pick what sounds good right now and we&rsquo;ll read the pastry mood.</p>
         <p class="meta">6 quick reads · under 45 seconds</p>
         <div class="actions">
           <button class="btn btn-primary" id="startButton" type="button">Let's find out</button>
@@ -995,14 +1066,14 @@
 
     function renderMulti(question) {
       const selected = new Set(state.answers.textures || []);
-      return `<div class="choices" role="group" aria-label="${escapeHtml(question.prompt)}">
+      return `<div class="choices choices--checklist" role="group" aria-label="${escapeHtml(question.prompt)}">
         ${question.options.map((option) => choiceButton(option, selected.has(option.id), true)).join("")}
       </div>`;
     }
 
     function choiceButton(option, selected, checkbox = false) {
       return `
-        <button class="choice${selected ? " is-selected" : ""}" type="button" data-option="${option.id}" aria-pressed="${selected}" ${checkbox ? `aria-label="${escapeHtml(option.title)} ${selected ? "selected" : "not selected"}"` : ""}>
+        <button class="choice${checkbox ? " choice--compact" : ""}${selected ? " is-selected" : ""}" type="button" data-option="${option.id}" aria-pressed="${selected}" ${checkbox ? `aria-label="${escapeHtml(option.title)} ${selected ? "selected" : "not selected"}"` : ""}>
           <span class="choice-icon" aria-hidden="true">${iconSvg(option.icon)}</span>
           <span class="choice-title">${escapeHtml(option.title)}</span>
           <span class="choice-tags">${escapeHtml(option.tags)}</span>
@@ -1014,7 +1085,7 @@
       const controls = [
         ["sweetness", "Sweetness", [["gentle", "gentle"], ["balanced", "balanced"], ["full", "full-send"]]],
         ["richness", "Richness", [["light", "light"], ["medium", "medium"], ["dense", "dense"]]],
-        ["familiarity", "Familiarity", [["classic", "classic"], ["twist", "twist"], ["adventurous", "adventurous"]]]
+        ["familiarity", "Adventure", [["classic", "classic"], ["twist", "twist"], ["adventurous", "adventurous"]]]
       ];
       return `<div class="tune-grid">
         ${controls.map(([key, label, options]) => `
@@ -1029,7 +1100,12 @@
     }
 
     function labelForIntensity(key) {
-      return state.answers.intensity[key];
+      const labels = {
+        sweetness: { gentle: "gentle", balanced: "balanced", full: "full-send" },
+        richness: { light: "light", medium: "medium", dense: "dense" },
+        familiarity: { classic: "classic", twist: "twist", adventurous: "adventurous" }
+      };
+      return labels[key]?.[state.answers.intensity[key]] || state.answers.intensity[key];
     }
 
     function bindSingle(question) {
@@ -1218,7 +1294,7 @@
       const code = assignDiscountCode();
       screen.innerHTML = `
         <div class="result-head">
-          <p class="eyebrow">Your pastry mood today</p>
+          <p class="eyebrow">Your craving profile is...</p>
           <h2>${escapeHtml(result.profile.name)}</h2>
           <p class="copy">${escapeHtml(result.profile.description)}</p>
           <div class="tag-row">${result.profile.tags.map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}</div>
@@ -1331,6 +1407,12 @@
 
     function iconSvg(icon) {
       const icons = {
+        cocoa: '<svg viewBox="0 0 32 32"><path d="M15 4c-4 5-7 9-7 14a7 7 0 0 0 14 0c0-5-3-9-7-14Z"></path><rect x="18" y="18" width="7" height="7" rx="1.5"></rect></svg>',
+        bread: '<svg viewBox="0 0 32 32"><path d="M6 22v-4a10 10 0 0 1 20 0v4Z"></path><path d="M10 22v-5a6 6 0 0 1 12 0v5"></path><path d="M8 25h16"></path></svg>',
+        cup: '<svg viewBox="0 0 32 32"><path d="M9 17c0-4 3-7 7-7 3 0 6 2 6 5s-2.5 5-6 5h-5"></path><path d="M11 22h10"></path><path d="M23 14h2a3 3 0 0 1 0 6h-3"></path></svg>',
+        citrus: '<svg viewBox="0 0 32 32"><path d="M8 24A16 16 0 0 1 24 8v16Z"></path><path d="M13 22 24 11M16 24V13M21 24V10"></path><path d="M6 8l2 2M5 15h3M12 5v3"></path></svg>',
+        pandan: '<svg viewBox="0 0 32 32"><path d="M25 6C14 7 8 13 8 24c9 0 15-6 17-18Z"></path><path d="M8 24c4-6 8-10 15-13"></path><circle cx="22" cy="23" r="1.4"></circle><circle cx="18" cy="25" r="1.4"></circle></svg>',
+        wildcard: '<svg viewBox="0 0 32 32"><path d="M7 9h8l-3 6h7l-6 10"></path><path d="m22 7 1.2 3.1L26 11l-2.8 1-1.2 3-1.2-3-2.8-1 2.8-.9Z"></path></svg>',
         drop: '<svg viewBox="0 0 32 32"><path d="M16 4C12 9 9 13 9 18a7 7 0 0 0 14 0c0-5-3-9-7-14Z"></path><path d="M13 21c1.2 1.3 3.2 1.7 5 .6"></path></svg>',
         swirl: '<svg viewBox="0 0 32 32"><path d="M8 17c0-5 4-9 9-9 4 0 7 3 7 6 0 4-3 6-7 6h-5"></path><path d="M12 20c0 3 3 5 6 5 2.8 0 5-1.4 6-3.8"></path></svg>',
         arch: '<svg viewBox="0 0 32 32"><path d="M6 23V17a10 10 0 0 1 20 0v6Z"></path><path d="M10 23v-5a6 6 0 0 1 12 0v5"></path></svg>',
