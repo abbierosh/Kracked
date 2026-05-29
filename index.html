@@ -140,8 +140,13 @@
     }
 
     .screen {
-      min-height: 540px;
+      min-height: clamp(420px, 52vh, 500px);
       padding: clamp(22px, 4vw, 34px);
+    }
+
+    .screen:not(#resultScreen):not(.hidden) {
+      display: grid;
+      align-content: center;
     }
 
     .screen h2 {
@@ -338,14 +343,15 @@
     .product-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
+      gap: 14px;
       margin-top: 12px;
     }
 
     .mini-product {
       display: grid;
-      grid-template-columns: 94px 1fr;
-      gap: 12px;
+      grid-template-columns: 108px minmax(0, 1fr);
+      gap: 14px;
+      align-items: stretch;
       border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 12px;
@@ -353,15 +359,35 @@
     }
 
     .mini-image {
-      min-height: 94px;
+      min-height: 132px;
       border-radius: 6px;
       background: center / cover no-repeat;
+    }
+
+    .mini-product > div:last-child {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
     }
 
     .mini-product h4 {
       margin-bottom: 6px;
       color: var(--cream);
+      font-size: 19px;
       line-height: 1.12;
+    }
+
+    .mini-product .reason {
+      flex: 1;
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+
+    .mini-product .btn {
+      min-height: 42px;
+      padding: 10px 14px;
+      align-self: flex-start;
     }
 
     .hidden { display: none; }
@@ -378,6 +404,8 @@
       .result-hero { grid-template-columns: 1fr; }
       .product-image { min-height: 280px; }
       .product-grid { grid-template-columns: 1fr; }
+      .mini-product { grid-template-columns: 96px minmax(0, 1fr); }
+      .mini-image { min-height: 112px; }
       .actions .btn, .main-pick .btn { width: 100%; }
     }
 
