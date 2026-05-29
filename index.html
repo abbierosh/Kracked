@@ -139,6 +139,35 @@
       align-content: start;
     }
 
+    .question-stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 250px;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .read-panel {
+      position: sticky;
+      top: 24px;
+      border: 1px solid rgba(228,199,127,0.2);
+      border-radius: 12px;
+      padding: 16px;
+      background:
+        radial-gradient(circle at 85% 12%, rgba(228,199,127,0.13), transparent 32%),
+        rgba(255,255,255,0.04);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.025);
+    }
+
+    .read-panel p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .read-panel .tag-row {
+      margin-top: 12px;
+    }
+
     .eyebrow {
       margin: 0 0 12px;
       color: var(--gold-bright);
@@ -516,6 +545,19 @@
       font-weight: 750;
     }
 
+    .did-you-know,
+    .match-kicker {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .did-you-know strong,
+    .match-kicker strong {
+      color: var(--cream);
+    }
+
     .result-hero {
       display: grid;
       grid-template-columns: minmax(0, 0.92fr) minmax(260px, 1.08fr);
@@ -663,6 +705,12 @@
       .brand-name { font-size: 11px; }
       .progress-track { width: 58px; }
       .screen { min-height: auto; padding: 22px; }
+      .screen.intro-screen { padding-block: 30px; }
+      .question-stage { grid-template-columns: 1fr; gap: 14px; }
+      .read-panel { position: static; padding: 12px; }
+      .read-panel .eyebrow { margin-bottom: 6px; }
+      .read-panel p { margin-bottom: 0; }
+      .read-panel .tag-row { display: none; }
       h1 { font-size: clamp(42px, 14vw, 62px); }
       h2 { font-size: clamp(32px, 10vw, 48px); }
       .choices { grid-template-columns: 1fr; gap: 10px; }
@@ -754,11 +802,51 @@
         },
         {
           id: "streuseltalers",
-          name: "2 Streuseltalers",
+          name: "2 Streuseltalers / Lemon Blueberry Crumble",
           priceLabel: "$19.90",
           linkUrl: "https://take.app/krackedbakes/p/cmpi02d5j00000bji89ahs4wu",
           image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmpi029ie00000bkm4si24eqo.png",
           dims: { bright: 4, fruity: 4, crumbly: 3, novelty: 2, sweet: 1, brunch: 1 }
+        },
+        {
+          id: "triple_chocolate_cookies",
+          name: "Triple Chocolate Cookies",
+          priceLabel: "Menu price",
+          linkUrl: "https://take.app/krackedbakes",
+          image: "kracked-bg.png",
+          dims: { dark: 5, chew: 3, rich: 4, sweet: 2, lateNight: 2 }
+        },
+        {
+          id: "marble_praline_hazelnut_cookies",
+          name: "3 Marble Praline Hazelnut Cookies",
+          priceLabel: "$10.00",
+          linkUrl: "https://take.app/krackedbakes",
+          image: "kracked-bg.png",
+          dims: { dark: 3, nutty: 5, chew: 2, rich: 2, sweet: 1 }
+        },
+        {
+          id: "kannelbullar",
+          name: "Kannelbullar (Swedish Knot)",
+          priceLabel: "$4.00",
+          linkUrl: "https://take.app/krackedbakes",
+          image: "kracked-bg.png",
+          dims: { butter: 3, soft: 2, brunch: 3, familiarity: 2, sweet: 1 }
+        },
+        {
+          id: "brioches_pepites_chocolat",
+          name: "3 Brioches aux pépites de chocolat",
+          priceLabel: "$9.00",
+          linkUrl: "https://take.app/krackedbakes",
+          image: "kracked-bg.png",
+          dims: { butter: 3, soft: 4, brunch: 3, sweet: 2, dark: 1, familiarity: 1 }
+        },
+        {
+          id: "garlic_butter_shio_pan",
+          name: "Garlic Butter Cream Cheese Shio Pan",
+          priceLabel: "Menu price",
+          linkUrl: "https://take.app/krackedbakes",
+          image: "kracked-bg.png",
+          dims: { butter: 4, salty: 5, soft: 2, brunch: 2, rich: 2, familiarity: 1 }
         }
       ],
       families: {
@@ -770,7 +858,9 @@
           prompt: "What kind of chocolate mood?",
           profile: "The Dark Comfort Seeker",
           description: "Deep cocoa. Soft centre. No weak desserts today.",
-          ideas: ["fudgy brownies", "dark chocolate cookies", "hot-cocoa bakes", "brownie-cookie hybrids"],
+          ideas: ["brownie cookies", "ganache tarts", "chocolate babka", "cocoa hazelnut rolls", "molten-centre bakes"],
+          didYouKnow: "Bitterness and cocoa depth can make dessert feel rich without just tasting sugary.",
+          unmetTags: ["cocoa-depth", "molten-centre"],
           dims: { dark: 4, rich: 2, chew: 1 },
           followups: [
             { id: "brownie", icon: "square", title: "Fudgy Brownie", tags: "dense · dark · rich", dims: { dark: 2, rich: 3 } },
@@ -787,7 +877,9 @@
           prompt: "What kind of buttery thing?",
           profile: "The Butter-Led Loyalist",
           description: "Warm crumb, butter first, nothing too loud.",
-          ideas: ["pull-apart brioche", "salt-butter rolls", "milk bread", "buttery breakfast loaves"],
+          ideas: ["brioche", "croissants", "milk buns", "butter loaves", "shio pan"],
+          didYouKnow: "Enriched doughs like brioche feel softer and richer because of butter, eggs, or milk in the dough.",
+          unmetTags: ["savoury-buttery", "enriched-dough"],
           dims: { butter: 4, soft: 2, familiarity: 2 },
           followups: [
             { id: "brioche", icon: "arch", title: "Pull-Apart Brioche", tags: "soft · milky · warm", dims: { butter: 2, soft: 3, brunch: 1 } },
@@ -799,12 +891,14 @@
         cream: {
           id: "cream",
           icon: "cup",
-          title: "Creamy & Calm",
+          title: "Creamy & Café",
           tags: "coffee · custard · soft",
           prompt: "What kind of creamy mood?",
           profile: "The Café Cloud Romantic",
           description: "Smooth, soft, and a little grown-up.",
-          ideas: ["tiramisu rolls", "custard buns", "cream-filled brioche", "cocoa cream cakes"],
+          ideas: ["tiramisu", "custard rolls", "cream buns", "coffee cream slices", "cocoa-dusted sponge"],
+          didYouKnow: "Café-style desserts often balance sweetness with cream, coffee, and cocoa instead of just sugar.",
+          unmetTags: ["coffee-cream", "custard"],
           dims: { cream: 4, creamy: 3, soft: 1 },
           followups: [
             { id: "tiramisu", icon: "swirl", title: "Tiramisu Coffee", tags: "coffee · cocoa · cream", dims: { cream: 3, creamy: 2 } },
@@ -821,7 +915,9 @@
           prompt: "What kind of bright?",
           profile: "The Bright Crumble Type",
           description: "Fresh lift, fruit edge, and a clean finish.",
-          ideas: ["lemon streusel buns", "berry danishes", "yuzu cakes", "crumble bars", "fruit galettes"],
+          ideas: ["fruit crumble", "lemon blueberry bakes", "berry tarts", "citrus cream pastries", "yuzu-style desserts"],
+          didYouKnow: "Citrus or fruit acidity can make a dessert feel lighter even when it is still sweet.",
+          unmetTags: ["yuzu-citrus", "fruit-crumble"],
           dims: { bright: 4, fruity: 3, adventurous: 1 },
           followups: [
             { id: "lemon", icon: "burst", title: "Lemon", tags: "sharp · clean · bright", dims: { bright: 3, fruity: 1 } },
@@ -838,13 +934,15 @@
           prompt: "Which flavour memory sounds right?",
           profile: "The Nostalgic Twist Chaser",
           description: "Familiar flavours, soft comfort, a little memory lane.",
-          ideas: ["kaya buns", "pandan rolls", "black sesame cookies", "coconut buns", "peanut-sesame pastries"],
+          ideas: ["kaya buns", "pandan rolls", "black sesame cookies", "coconut brioche", "peanut-sesame bakes", "yuzu cream"],
+          didYouKnow: "Nostalgic flavours work because they feel familiar, then become exciting in a new pastry format.",
+          unmetTags: ["kaya-pandan", "black-sesame", "yuzu-citrus"],
           dims: { local: 5, nutty: 1, familiarity: 2 },
           followups: [
             { id: "kaya", icon: "stack", title: "Kaya Butter", tags: "toast · coconut · soft", dims: { local: 3, butter: 2, brunch: 1 } },
             { id: "pandan", icon: "leaf", title: "Pandan Coconut", tags: "green · fragrant · mellow", dims: { local: 3, soft: 1 } },
             { id: "sesame", icon: "circle", title: "Black Sesame", tags: "nutty · dark · roasty", dims: { local: 2, nutty: 3, dark: 1 } },
-            { id: "peanut", icon: "square", title: "Peanut-Toasty", tags: "roasted · familiar · bite", dims: { local: 2, nutty: 3, familiarity: 1 } }
+            { id: "yuzu", icon: "citrus", title: "Yuzu Cream", tags: "bright · creamy · twist", dims: { local: 1, bright: 2, cream: 2, adventurous: 1 } }
           ]
         },
         novelty: {
@@ -855,7 +953,9 @@
           prompt: "What kind of wildcard?",
           profile: "The Wildcard Drop Hunter",
           description: "You want the menu to do something interesting.",
-          ideas: ["stuffed cookies", "gooey pies", "sweet-salty buns", "limited seasonal drops", "hybrid blondies"],
+          ideas: ["stuffed cookies", "brookies", "hybrid desserts", "limited drops", "sweet-savoury bakes"],
+          didYouKnow: "Mash-up desserts work best when textures contrast, not when everything is just more.",
+          unmetTags: ["hybrid-stuffed", "limited-drop"],
           dims: { novelty: 5, adventurous: 2, rich: 1 },
           followups: [
             { id: "gooey", icon: "drop", title: "Gooey Centre", tags: "molten · soft · rich", dims: { novelty: 2, soft: 2, rich: 2 } },
@@ -1019,16 +1119,21 @@
       const question = getQuestion();
       const helper = question.helper ? `<p class="helper">${escapeHtml(question.helper)}</p>` : "";
       screen.innerHTML = `
-        <fieldset>
-          <legend>
-            <p class="eyebrow">${escapeHtml(question.eyebrow)}</p>
-            <h2>${escapeHtml(question.prompt)}</h2>
-          </legend>
-          ${helper}
-          ${question.type === "multi" ? renderMulti(question) : question.type === "intensity" ? renderIntensity() : renderSingle(question)}
-        </fieldset>
-        <p class="error" id="stepError" hidden></p>
-        ${question.needsContinue ? `<div class="actions"><button class="btn btn-primary" id="continueButton" type="button">${escapeHtml(question.continueLabel)}</button></div>` : ""}
+        <div class="question-stage">
+          <div>
+            <fieldset>
+              <legend>
+                <p class="eyebrow">${escapeHtml(question.eyebrow)}</p>
+                <h2>${escapeHtml(question.prompt)}</h2>
+              </legend>
+              ${helper}
+              ${question.type === "multi" ? renderMulti(question) : question.type === "intensity" ? renderIntensity() : renderSingle(question)}
+            </fieldset>
+            <p class="error" id="stepError" hidden></p>
+            ${question.needsContinue ? `<div class="actions"><button class="btn btn-primary" id="continueButton" type="button">${escapeHtml(question.continueLabel)}</button></div>` : ""}
+          </div>
+          ${renderReadPanel()}
+        </div>
       `;
 
       analyticsTrack("step_view", eventBase({ step: state.step, step_type: question.type }));
@@ -1040,7 +1145,7 @@
 
     function getQuestion() {
       if (state.step === 1) {
-        return { type: "single", eyebrow: "Craving read", prompt: "Where is the craving leaning?", options: Object.values(quiz.families), answerKey: "family" };
+        return { type: "single", eyebrow: "Craving read", prompt: "What sounds good today?", options: Object.values(quiz.families), answerKey: "family" };
       }
       if (state.step === 2) {
         const family = quiz.families[state.answers.family] || quiz.families.dark;
@@ -1069,6 +1174,36 @@
       return `<div class="choices choices--checklist" role="group" aria-label="${escapeHtml(question.prompt)}">
         ${question.options.map((option) => choiceButton(option, selected.has(option.id), true)).join("")}
       </div>`;
+    }
+
+    function renderReadPanel() {
+      const read = currentRead();
+      return `
+        <aside class="read-panel" aria-label="Current mood read">
+          <p class="eyebrow">Current read</p>
+          <p>${escapeHtml(read.copy)}</p>
+          <div class="tag-row">${read.tags.map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}</div>
+        </aside>
+      `;
+    }
+
+    function currentRead() {
+      if (!state.answers.family) {
+        return { copy: "Start broad. The next screen changes based on the lane you pick.", tags: ["fresh read", "today only"] };
+      }
+      const family = quiz.families[state.answers.family] || quiz.families.dark;
+      const followup = family.followups.find((option) => option.id === state.answers.followup);
+      const tags = [family.title, ...(state.answers.textures || []).slice(0, 2).map((id) => quiz.textureOptions.find((option) => option.id === id)?.title).filter(Boolean)].slice(0, 3);
+      const copyByFamily = {
+        dark: "You’re leaning rich and chocolate-led so far. Could still go cookie, brownie, or something darker.",
+        butter: "You’re leaning soft, buttery, and familiar. This might be brioche, milk bun, or salt-butter comfort.",
+        cream: "You’re leaning creamy and composed. Coffee, custard, and soft sponge are still in play.",
+        bright: "You’re leaning fruit-lifted and brighter. Crumble, citrus, or berry could be the lane.",
+        local: "You’re leaning nostalgic. Kaya, pandan, sesame, or a familiar-soft pastry signal is showing.",
+        novelty: "You’re leaning less predictable. Stuffed, layered, limited, or sweet-salty could win."
+      };
+      const followupCopy = followup ? ` The read is sharpening around ${followup.title.toLowerCase()}.` : "";
+      return { copy: `${copyByFamily[family.id]}${followupCopy}`, tags };
     }
 
     function choiceButton(option, selected, checkbox = false) {
@@ -1186,39 +1321,57 @@
       state.step = 7;
       writeJson(STORAGE.result, state.result);
       safeSet(STORAGE.code, state.discountCode);
-      analyticsTrack("quiz_complete", eventBase({ profile: state.result.profile.id, product: state.result.main.product.id, confidence: state.result.confidence }));
+      analyticsTrack("quiz_complete", eventBase({
+        first_craving_lane: state.answers.family,
+        branch_answer: state.answers.followup,
+        textures: (state.answers.textures || []).join(","),
+        sweetness: state.answers.intensity.sweetness,
+        richness: state.answers.intensity.richness,
+        adventure: state.answers.intensity.familiarity,
+        occasion: state.answers.moment,
+        final_profile: state.result.profile.id,
+        main_match: state.result.main.product.id,
+        unmet_craving_tags: state.result.unmetTags.join(","),
+        discount_code: state.discountCode,
+        confidence: state.result.confidence
+      }));
       setHash("result");
       render();
     }
 
     function computeResult() {
-      const dims = {};
-      addDims(dims, quiz.families[state.answers.family]?.dims);
-      const followup = quiz.families[state.answers.family]?.followups.find((option) => option.id === state.answers.followup);
-      addDims(dims, followup?.dims);
-      (state.answers.textures || []).forEach((id) => addDims(dims, quiz.textureOptions.find((option) => option.id === id)?.dims));
-      addIntensityDims(dims);
-      addDims(dims, quiz.moments.find((option) => option.id === state.answers.moment)?.dims);
-      addDims(dims, quiz.openness.find((option) => option.id === state.answers.openness)?.dims);
-
-      const family = quiz.families[state.answers.family] || quiz.families.dark;
+      const { dims, family, followup } = collectRead();
       const profile = {
         id: family.id,
         name: family.profile,
         description: family.description,
         ideas: family.ideas,
+        didYouKnow: family.didYouKnow,
         tags: resultTags(dims)
       };
 
       const rankedProducts = quiz.products
-        .map((product) => ({ product, score: scoreProduct(dims, product), reason: productReason(family.id, product.id) }))
+        .map((product) => ({ product, score: scoreProduct(dims, product), reason: productReason(family.id, product.id, dims) }))
         .sort((a, b) => b.score - a.score);
       const main = rankedProducts[0];
       const secondary = rankedProducts.slice(1, 3);
       const gap = main.score - rankedProducts[1].score;
-      const familyCovered = family.id !== "local" || main.product.id === "french_brioche_loaf";
+      const unmetTags = [...new Set([...(family.unmetTags || []), ...unmetTagsFromDims(dims)])];
       const confidence = family.id === "local" ? "weak" : gap >= 5 ? "strong" : gap >= 2 ? "medium" : "weak";
-      return { profile, dims, main, secondary, confidence, familyCovered };
+      return { profile, dims, main, secondary, confidence, unmetTags, branch: followup?.id || "" };
+    }
+
+    function collectRead() {
+      const dims = {};
+      const family = quiz.families[state.answers.family] || quiz.families.dark;
+      const followup = family.followups.find((option) => option.id === state.answers.followup);
+      addDims(dims, family.dims);
+      addDims(dims, followup?.dims);
+      (state.answers.textures || []).forEach((id) => addDims(dims, quiz.textureOptions.find((option) => option.id === id)?.dims));
+      addIntensityDims(dims);
+      addDims(dims, quiz.moments.find((option) => option.id === state.answers.moment)?.dims);
+      addDims(dims, quiz.openness.find((option) => option.id === state.answers.openness)?.dims);
+      return { dims, family, followup };
     }
 
     function addDims(target, dims = {}) {
@@ -1244,18 +1397,35 @@
       return Object.entries(product.dims).reduce((sum, [key, value]) => sum + (dims[key] || 0) * value, 0);
     }
 
-    function productReason(familyId, productId) {
+    function productReason(familyId, productId, dims = {}) {
       if (familyId === "local") {
-        return "KRacked does not currently have a kaya or pandan bake on the menu, but this is the closest live bridge for the craving you built.";
+        if (productId === "streuseltalers") return "KRacked does not have a kaya, pandan, or sesame bake right now, but this is the closest current match for a brighter, layered, less-basic pastry profile.";
+        if (productId === "garlic_butter_shio_pan") return "KRacked does not have a kaya or pandan bake right now, but this gives you the salt-butter comfort your answers kept pointing to.";
+        return "KRacked does not have a kaya, pandan, or sesame bake right now, but this is the closest live bridge for the soft, familiar craving you built.";
       }
       const reasons = {
         hot_cocoa_cookies: "Best fit for a cocoa-led craving with a soft comfort finish.",
         brookies: "Best when the craving leans dense, chewy, and hybrid.",
         tiramisu_rolls: "Best when the craving wants cream, coffee, and a softer landing.",
         french_brioche_loaf: "Best when the craving is buttery, soft, and low-drama.",
-        streuseltalers: "Best when the craving needs fruit lift and crumbly texture."
+        streuseltalers: "Best when the craving needs fruit lift and crumbly texture.",
+        triple_chocolate_cookies: "Best when the read wants deeper chocolate and higher richness.",
+        marble_praline_hazelnut_cookies: "Best when cocoa depth meets a roasty, nutty lane.",
+        kannelbullar: "Best when the craving is soft, buttery, and lightly spiced.",
+        brioches_pepites_chocolat: "Best when you want soft bread comfort with a little chocolate.",
+        garlic_butter_shio_pan: "Best when the craving turns salt-buttery instead of sweet."
       };
       return reasons[productId] || "Closest fit on the current menu.";
+    }
+
+    function unmetTagsFromDims(dims) {
+      const tags = [];
+      if ((dims.local || 0) >= 5) tags.push("kaya-pandan-black-sesame");
+      if ((dims.bright || 0) >= 5) tags.push("yuzu-citrus");
+      if ((dims.salty || 0) >= 3 && (dims.butter || 0) >= 3) tags.push("savoury-buttery");
+      if ((dims.crumbly || 0) >= 2 || (dims.fruity || 0) >= 4) tags.push("fruit-crumble");
+      if ((dims.novelty || 0) >= 5) tags.push("hybrid-stuffed");
+      return tags;
     }
 
     function resultTags(dims) {
@@ -1290,11 +1460,11 @@
         return;
       }
       state.result = result;
-      const label = result.confidence === "strong" ? "Your KRacked match" : result.confidence === "medium" ? "Closest KRacked match right now" : "Closest fit on the current menu";
+      const label = result.confidence === "weak" ? "Closest fit on the current menu" : "Closest KRacked match right now";
       const code = assignDiscountCode();
       screen.innerHTML = `
         <div class="result-head">
-          <p class="eyebrow">Your craving profile is...</p>
+          <p class="eyebrow">Your craving profile is&hellip;</p>
           <h2>${escapeHtml(result.profile.name)}</h2>
           <p class="copy">${escapeHtml(result.profile.description)}</p>
           <div class="tag-row">${result.profile.tags.map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}</div>
@@ -1303,12 +1473,14 @@
         <section class="idea-panel">
           <p class="eyebrow">You'd probably like...</p>
           <ul class="idea-list">${result.profile.ideas.map((idea) => `<li>${escapeHtml(idea)}</li>`).join("")}</ul>
+          <p class="did-you-know"><strong>Did you know:</strong> ${escapeHtml(result.profile.didYouKnow)}</p>
         </section>
 
         <div class="result-hero">
           <div class="product-image" style="background-image: url('${result.main.product.image}')"></div>
           <article class="main-pick">
             <p class="eyebrow">${escapeHtml(label)}</p>
+            <p class="match-kicker"><strong>Based on that, KRacked would point you here.</strong></p>
             <h3>${escapeHtml(result.main.product.name)}</h3>
             <p class="price">${escapeHtml(result.main.product.priceLabel)}</p>
             <p class="reason">${escapeHtml(result.main.reason)}</p>
