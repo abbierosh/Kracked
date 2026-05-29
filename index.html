@@ -303,7 +303,42 @@
       opacity: 1;
     }
 
+    .choice-icon {
+      position: relative;
+      z-index: 1;
+      display: inline-grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      margin-bottom: 4px;
+      border: 1px solid rgba(228,199,127,0.38);
+      border-radius: 50%;
+      color: var(--gold-bright);
+      background: rgba(198,162,97,0.08);
+      box-shadow: inset 0 0 18px rgba(198,162,97,0.08);
+    }
+
+    .choice-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .choice:hover .choice-icon,
+    .choice[aria-pressed="true"] .choice-icon {
+      color: #130f0a;
+      border-color: rgba(228,199,127,0.9);
+      background: var(--gold-bright);
+      box-shadow: 0 0 28px rgba(228,199,127,0.22);
+    }
+
     .choice-title {
+      position: relative;
+      z-index: 1;
       display: block;
       color: var(--cream);
       font-size: clamp(23px, 3vw, 30px);
@@ -312,10 +347,69 @@
     }
 
     .choice-tags {
+      position: relative;
+      z-index: 1;
       display: block;
       color: var(--muted);
       font-size: 13px;
       line-height: 1.35;
+    }
+
+    .craving-type,
+    .discount-box {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 18px;
+      background: rgba(255,255,255,0.045);
+    }
+
+    .craving-type {
+      margin: 20px 0 22px;
+    }
+
+    .craving-type h3,
+    .discount-box h3 {
+      margin-bottom: 8px;
+      color: var(--cream);
+      font-size: clamp(22px, 3vw, 30px);
+      line-height: 1.08;
+    }
+
+    .discount-box {
+      margin-top: 18px;
+      background:
+        radial-gradient(circle at 92% 10%, rgba(228,199,127,0.16), transparent 28%),
+        rgba(255,255,255,0.045);
+    }
+
+    .main-pick .discount-box h3 {
+      font-size: 18px;
+      line-height: 1.25;
+    }
+
+    .code-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 12px;
+    }
+
+    .discount-code {
+      border: 1px solid rgba(228,199,127,0.42);
+      border-radius: var(--radius);
+      padding: 10px 12px;
+      color: var(--gold-bright);
+      background: rgba(0,0,0,0.22);
+      font-weight: 900;
+      letter-spacing: 0.04em;
+    }
+
+    .note {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
     }
 
     .slider-box {
@@ -367,7 +461,8 @@
 
     .main-pick {
       display: grid;
-      align-content: center;
+      align-content: start;
+      gap: 10px;
       border: 1px solid var(--line);
       border-radius: 12px;
       padding: clamp(20px, 4vw, 30px);
@@ -481,10 +576,11 @@
     <div class="layout">
       <section class="brand" id="brandPanel">
         <img class="brand-logo" src="https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:256/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmmmfa3ml000004l42e17909a.png" alt="KRackedbakes logo">
-        <p class="eyebrow">KRacked dessert profile</p>
-        <h1>Find your pastry profile</h1>
+        <p class="eyebrow">Dessert mood read</p>
+        <h1>What are you craving right now?</h1>
         <p class="intro">
-          A quick read on the bakes you naturally reach for: flavour, texture, mood, and how intense dessert should feel.
+          Some days it's deep cocoa. Some days it's butter. Some days it's soft, some days it's chaos.
+          Pick what sounds like you today and we'll read the craving.
         </p>
         <p class="meta">6 quick picks · around 30-45 seconds</p>
       </section>
@@ -501,13 +597,13 @@
         </div>
 
         <section class="screen" id="startScreen">
-          <p class="eyebrow">KRacked match finder</p>
-          <h2>Dessert profile first. KRacked match second.</h2>
+          <p class="eyebrow">Dessert mood read</p>
+          <h2>What are you craving right now?</h2>
           <p class="copy">
-            Fast, visual, and product-led without feeling like a hard sell. Pick by instinct and get a KRacked match.
+            Pick what sounds like you today. We'll read the craving and show you what kind of bake fits.
           </p>
           <div class="actions">
-            <button class="btn btn-primary" id="startButton" type="button">Start the profile</button>
+            <button class="btn btn-primary" id="startButton" type="button">Read my craving</button>
           </div>
         </section>
 
@@ -520,6 +616,7 @@
   <script>
     const quiz = {
       meta: { quizId: "kracked-dessert-profile-v3-fast", quizVersion: "live", resultCardCount: 2 },
+      discountCodes: Array.from({ length: 50 }, (_, index) => `KRACK5-${String(index + 1).padStart(3, "0")}`),
       products: [
         {
           id: "tiramisu_rolls",
@@ -571,9 +668,10 @@
         {
           id: "dcs",
           name: "The Dark Comfort Seeker",
-          short: "Proper cocoa, soft centres, and reward-after-a-long-day energy.",
+          short: "Deep cocoa. Soft centre. No weak desserts today.",
+          craving: "Something rich, chewy, and properly chocolatey.",
           productRank: [
-            ["hot_cocoa_cookies", "Deep cocoa comfort without making you work for it."],
+            ["hot_cocoa_cookies", "Cocoa-heavy, soft-centred comfort for the craving you picked."],
             ["brookies", "Dense, chewy, and still very much in your lane."],
             ["nutella_cookie_pie", "The high-intensity version when you want extra."]
           ]
@@ -581,9 +679,10 @@
         {
           id: "ccr",
           name: "The Cafe Cloud Romantic",
-          short: "Coffee notes, cream, softness, and a cleaner finish.",
+          short: "Creamy, mellow, and a little grown-up.",
+          craving: "Something soft with coffee-cocoa energy.",
           productRank: [
-            ["tiramisu_rolls", "Creamy, soft, and the cleanest cafe-style fit."],
+            ["tiramisu_rolls", "Creamy, soft, and the cleanest fit for your cafe-mood craving."],
             ["french_brioche_loaf", "Buttery and restrained enough for your profile."],
             ["hot_cocoa_cookies", "A cocoa pivot when you want more depth."]
           ]
@@ -591,9 +690,10 @@
         {
           id: "bfl",
           name: "The Butter-First Loyalist",
-          short: "Butter, crumb, and comfort over flashy topping drama.",
+          short: "Soft, warm, and not trying too hard.",
+          craving: "Something buttery, low-drama, and easy to come back to.",
           productRank: [
-            ["french_brioche_loaf", "The clearest match for butter-led comfort."],
+            ["french_brioche_loaf", "The clearest match for a butter-led, soft-crumb craving."],
             ["tiramisu_rolls", "Soft and composed when you want dessert lighter."],
             ["brookies", "A richer detour without going full chaos."]
           ]
@@ -601,9 +701,10 @@
         {
           id: "hih",
           name: "The Hybrid Indulgence Hunter",
-          short: "Mash-ups, mixed textures, and dessert ideas colliding.",
+          short: "Layered, chewy, and allergic to boring.",
+          craving: "Something mixed-texture with dessert mash-up energy.",
           productRank: [
-            ["brookies", "The most direct expression of your hybrid-dessert answers."],
+            ["brookies", "The most direct match for your layered, hybrid craving."],
             ["hot_cocoa_cookies", "Chewy, rich, and still indulgent."],
             ["nutella_cookie_pie", "High-drama backup when you want something extra."]
           ]
@@ -611,9 +712,10 @@
         {
           id: "gst",
           name: "The Gentle Sweet Tooth",
-          short: "Sweet, soft, and balanced without tipping into overload.",
+          short: "Soft sweetness, clean finish, no sugar spiral.",
+          craving: "Something balanced, gentle, and easy to finish.",
           productRank: [
-            ["tiramisu_rolls", "Balanced sweetness and soft structure fit you best."],
+            ["tiramisu_rolls", "Balanced sweetness and soft structure fit the mood."],
             ["french_brioche_loaf", "Low-intensity, butter-led comfort."],
             ["hot_cocoa_cookies", "A richer swing when you still want comfort."]
           ]
@@ -621,9 +723,10 @@
         {
           id: "spc",
           name: "The Seasonal Plot-Twist Chaser",
-          short: "Limited runs, richer drops, and a little menu chaos.",
+          short: "Limited, layered, and a little chaotic.",
+          craving: "Something extra, limited-feeling, and richer than usual.",
           productRank: [
-            ["nutella_cookie_pie", "Your drop-chaser answers point straight at the limited item."],
+            ["nutella_cookie_pie", "Your drop-chaser answers point straight at the extra one."],
             ["brookies", "Still layered and expressive."],
             ["hot_cocoa_cookies", "A strong fallback for indulgence."]
           ]
@@ -632,29 +735,29 @@
       questions: [
         {
           id: "flavour",
-          title: "Pick your flavour mood.",
+          title: "Pick your current mood.",
           microcopy: "First instinct wins.",
           options: [
-            ["dark", "Dark Cocoa", "Rich · Fudgy · Deep", { dcs: 3, hih: 1, spc: 1 }],
-            ["coffee", "Coffee Cream", "Soft · Cocoa dust · Grown-up", { ccr: 3, gst: 1 }],
-            ["butter", "Butter Toast", "Milky · Toasty · Simple", { bfl: 3, gst: 1 }],
-            ["wild", "Something Extra", "Layered · New · Slightly chaotic", { hih: 2, spc: 3 }, true]
+            ["dark", "drop", "Dark Cocoa", "fudgy · deep · proper dessert", { dcs: 3, hih: 1, spc: 1 }],
+            ["coffee", "swirl", "Cream & Coffee", "smooth · mellow · cafe mood", { ccr: 3, gst: 1 }],
+            ["butter", "arch", "Butter First", "soft · warm · not too sweet", { bfl: 3, gst: 1 }],
+            ["wild", "spark", "Chaos Drop", "limited · layered · extra", { hih: 2, spc: 3 }, true]
           ]
         },
         {
           id: "texture",
-          title: "What texture wins?",
+          title: "Choose the texture.",
           microcopy: "This usually decides the bake.",
           options: [
-            ["fudgy", "Fudgy", "Dense · Soft centre", { dcs: 3, hih: 1 }],
-            ["creamy", "Cloudy", "Airy · Creamy · Soft", { ccr: 3, gst: 1 }],
-            ["bready", "Pull-Apart", "Buttery · Bread-y", { bfl: 3, gst: 1 }],
-            ["mixed", "Mixed Bite", "Chewy · Gooey · Layered", { hih: 3, spc: 2 }]
+            ["fudgy", "square", "Rich Fudge", "dense · soft centre · dark", { dcs: 3, hih: 1 }],
+            ["creamy", "cloud", "Cream Soft", "airy · smooth · gentle", { ccr: 3, gst: 1 }],
+            ["bready", "arch", "Pillowy", "soft · pull-apart · warm", { bfl: 3, gst: 1 }],
+            ["mixed", "crack", "Chewy Mix", "gooey · layered · bite", { hih: 3, spc: 2 }]
           ]
         },
         {
           id: "sweetness",
-          title: "How sweet?",
+          title: "How sweet are we going?",
           microcopy: "Choose the closest stop.",
           type: "slider",
           labels: { 0: "Barely", 25: "Mild", 50: "Balanced", 75: "Dessert", 100: "Full send" },
@@ -668,7 +771,7 @@
         },
         {
           id: "richness",
-          title: "How rich should it feel?",
+          title: "How rich is the craving?",
           microcopy: "Still approximate. No precision needed.",
           type: "slider",
           labels: { 0: "Airy", 25: "Light", 50: "Balanced", 75: "Rich", 100: "Dense" },
@@ -682,13 +785,13 @@
         },
         {
           id: "vibe",
-          title: "When are you eating it?",
+          title: "Pick the vibe.",
           microcopy: "Mood matters.",
           options: [
-            ["late", "Late Night", "Reward · Full attention", { dcs: 3, spc: 1 }],
-            ["coffee", "Coffee Break", "Creamy · Calm", { ccr: 3, gst: 1 }],
-            ["morning", "Morning Bite", "Buttery · Easy", { bfl: 3, gst: 1 }],
-            ["sharing", "Sharing Box", "Variety · Group order", { hih: 2, spc: 1, bfl: 1 }]
+            ["late", "moon", "Late Night", "reward · warm · focused", { dcs: 3, spc: 1 }],
+            ["coffee", "swirl", "Slow Break", "cream · calm · cafe", { ccr: 3, gst: 1 }],
+            ["morning", "arch", "Morning Bite", "buttery · easy · soft", { bfl: 3, gst: 1 }],
+            ["sharing", "spark", "Share Box", "variety · generous · fun", { hih: 2, spc: 1, bfl: 1 }]
           ]
         },
         {
@@ -696,10 +799,10 @@
           title: "Classic or drop energy?",
           microcopy: "Final tie-breaker.",
           options: [
-            ["usual", "My Usual", "Reliable · No surprises", { bfl: 2, dcs: 1, gst: 1 }],
-            ["polished", "Polished", "Balanced · Not too loud", { ccr: 2, gst: 2 }],
-            ["indulgent", "Indulgent", "Rich · Worth it", { dcs: 2, hih: 2 }],
-            ["limited", "Limited Drop", "New · Viral · Now", { spc: 3, hih: 1 }, true]
+            ["usual", "circle", "Classic", "reliable · familiar · clean", { bfl: 2, dcs: 1, gst: 1 }],
+            ["polished", "swirl", "Polished", "balanced · smooth · quiet", { ccr: 2, gst: 2 }],
+            ["indulgent", "flame", "Full Send", "rich · sweet · worth it", { dcs: 2, hih: 2 }],
+            ["limited", "spark", "Limited Drop", "new · bold · now", { spc: 3, hih: 1 }, true]
           ]
         }
       ],
@@ -708,8 +811,8 @@
 
     quiz.questions.forEach((question) => {
       if (question.options) {
-        question.options = question.options.map(([id, title, tags, weights, novelty]) => ({
-          id, title, tags, weights, novelty: Boolean(novelty)
+        question.options = question.options.map(([id, icon, title, tags, weights, novelty]) => ({
+          id, icon, title, tags, weights, novelty: Boolean(novelty)
         }));
       }
       if (question.buckets) {
@@ -720,7 +823,7 @@
       profile.productRank = profile.productRank.map(([productId, why]) => ({ productId, why }));
     });
 
-    const state = { step: 0, answers: {}, result: null };
+    const state = { step: 0, answers: {}, result: null, discountCode: "" };
     const profileIds = quiz.profiles.map((profile) => profile.id);
     const productById = Object.fromEntries(quiz.products.map((product) => [product.id, product]));
     const profileById = Object.fromEntries(quiz.profiles.map((profile) => [profile.id, profile]));
@@ -770,7 +873,7 @@
       backButton.disabled = state.step === 0;
 
       quizScreen.innerHTML = `
-        <p class="eyebrow">Quick pick</p>
+        <p class="eyebrow">Craving read</p>
         <h2>${escapeHtml(question.title)}</h2>
         <p class="copy">${escapeHtml(question.microcopy)}</p>
         ${question.type === "slider" ? renderSlider(question) : renderChoices(question)}
@@ -786,12 +889,29 @@
         <div class="choices" role="group" aria-label="${escapeHtml(question.title)}">
           ${question.options.map((option) => `
             <button class="choice" type="button" data-option="${option.id}" aria-pressed="${saved === option.id}">
+              <span class="choice-icon" aria-hidden="true">${iconSvg(option.icon)}</span>
               <span class="choice-title">${escapeHtml(option.title)}</span>
               <span class="choice-tags">${escapeHtml(option.tags)}</span>
             </button>
           `).join("")}
         </div>
       `;
+    }
+
+    function iconSvg(icon) {
+      const icons = {
+        drop: '<svg viewBox="0 0 32 32"><path d="M16 4C12 9 9 13 9 18a7 7 0 0 0 14 0c0-5-3-9-7-14Z"></path><path d="M13 21c1.2 1.3 3.2 1.7 5 .6"></path></svg>',
+        swirl: '<svg viewBox="0 0 32 32"><path d="M8 17c0-5 4-9 9-9 4 0 7 3 7 6 0 4-3 6-7 6h-5"></path><path d="M12 20c0 3 3 5 6 5 2.8 0 5-1.4 6-3.8"></path></svg>',
+        arch: '<svg viewBox="0 0 32 32"><path d="M6 23V17a10 10 0 0 1 20 0v6Z"></path><path d="M10 23v-5a6 6 0 0 1 12 0v5"></path></svg>',
+        spark: '<svg viewBox="0 0 32 32"><path d="m18 3-9 14h8l-3 12 10-16h-8Z"></path></svg>',
+        square: '<svg viewBox="0 0 32 32"><rect x="8" y="8" width="16" height="16" rx="3"></rect><path d="M12 13h8M12 18h6"></path></svg>',
+        cloud: '<svg viewBox="0 0 32 32"><path d="M10 23h13a5 5 0 0 0 .7-10A8 8 0 0 0 8.4 15 4.5 4.5 0 0 0 10 23Z"></path></svg>',
+        crack: '<svg viewBox="0 0 32 32"><path d="M7 9h18L15 20h10L9 27l6-12H8Z"></path></svg>',
+        moon: '<svg viewBox="0 0 32 32"><path d="M22 24A10 10 0 0 1 16 6a9 9 0 1 0 6 18Z"></path></svg>',
+        circle: '<svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="10"></circle><circle cx="16" cy="16" r="4"></circle></svg>',
+        flame: '<svg viewBox="0 0 32 32"><path d="M16 28c5 0 8-3.4 8-8 0-4-2.4-7.2-6-10 .2 3-1 5-3.3 6.5C14 13.8 12.8 11.5 11 9c-.5 4-3 6.7-3 11 0 4.6 3 8 8 8Z"></path></svg>'
+      };
+      return icons[icon] || icons.circle;
     }
 
     function renderSlider(question) {
@@ -857,7 +977,37 @@
         renderQuestion();
       } else {
         state.result = computeResult();
+        state.discountCode = assignDiscountCode();
         renderResult();
+      }
+    }
+
+    function assignDiscountCode() {
+      if (state.discountCode) return state.discountCode;
+      const stored = getStoredDiscountCode();
+      if (stored && quiz.discountCodes.includes(stored)) {
+        state.discountCode = stored;
+        return stored;
+      }
+      const code = quiz.discountCodes[Math.floor(Math.random() * quiz.discountCodes.length)];
+      state.discountCode = code;
+      setStoredDiscountCode(code);
+      return code;
+    }
+
+    function getStoredDiscountCode() {
+      try {
+        return sessionStorage.getItem("krackedDiscountCode");
+      } catch {
+        return "";
+      }
+    }
+
+    function setStoredDiscountCode(code) {
+      try {
+        sessionStorage.setItem("krackedDiscountCode", code);
+      } catch {
+        // Session storage can be unavailable in some privacy modes; keeping state is enough for the current result.
       }
     }
 
@@ -924,6 +1074,7 @@
       const profile = profileById[top];
       const main = recommendations.main;
       const secondaryIds = recommendations.secondary.map((item) => item.product.id);
+      const discountCode = assignDiscountCode();
 
       track("quiz_completed", baseEvent({
         top_profile_id: top,
@@ -938,18 +1089,32 @@
       }));
 
       resultScreen.innerHTML = `
-        <p class="eyebrow">Your pastry profile</p>
+        <p class="eyebrow">Your craving profile is...</p>
         <h2>${escapeHtml(profile.name)}</h2>
         <p class="copy">${escapeHtml(profile.short)}</p>
+
+        <section class="craving-type">
+          <p class="eyebrow">You're probably craving</p>
+          <h3>${escapeHtml(profile.craving)}</h3>
+        </section>
 
         <div class="result-hero">
           <div class="product-image" style="background-image: url('${main.product.image}')"></div>
           <article class="main-pick">
-            <p class="eyebrow">Your best KRacked match</p>
+            <p class="eyebrow">Your KRacked match</p>
             <h3>${escapeHtml(main.product.name)}</h3>
             <p class="price">${escapeHtml(main.product.priceLabel)}${main.product.seasonal ? " · Limited-time" : ""}</p>
             <p class="reason">${escapeHtml(main.why)}</p>
             <a class="btn btn-primary" href="${main.product.linkUrl}" target="_blank" rel="noopener" data-product-id="${main.product.id}" data-product-name="${escapeHtml(main.product.name)}" data-slot="main">Order this bake</a>
+            <div class="discount-box">
+              <p class="eyebrow">5% test code</p>
+              <h3>Use code ${escapeHtml(discountCode)} for 5% off your order.</h3>
+              <div class="code-row">
+                <span class="discount-code">${escapeHtml(discountCode)}</span>
+                <button class="btn" id="copyCodeButton" type="button">Copy code</button>
+              </div>
+              <p class="note">Test code for now — we'll confirm validity before launch.</p>
+            </div>
           </article>
         </div>
 
@@ -961,8 +1126,8 @@
         </section>
 
         <div class="actions">
-          <button class="btn" id="retakeButton" type="button">Retake profile</button>
-          <button class="btn btn-ghost" id="copyButton" type="button">Copy result</button>
+          <button class="btn" id="retakeButton" type="button">Retake</button>
+          <button class="btn btn-ghost" id="copyButton" type="button">Copy my result</button>
         </div>
       `;
 
@@ -988,12 +1153,22 @@
       });
 
       document.getElementById("copyButton").addEventListener("click", async () => {
-        const text = `My KRacked pastry profile is ${profile.name}. Best match: ${main.product.name}.`;
+        const text = `My craving profile is ${profile.name}. I'm probably craving ${profile.craving} KRacked match: ${main.product.name}.`;
         try {
           await navigator.clipboard.writeText(text);
           document.getElementById("copyButton").textContent = "Copied";
         } catch {
           document.getElementById("copyButton").textContent = "Copy failed";
+        }
+      });
+
+      document.getElementById("copyCodeButton").addEventListener("click", async () => {
+        const codeText = `Use code ${discountCode} for 5% off your order.`;
+        try {
+          await navigator.clipboard.writeText(codeText);
+          document.getElementById("copyCodeButton").textContent = "Copied";
+        } catch {
+          document.getElementById("copyCodeButton").textContent = `Code: ${discountCode}`;
         }
       });
     }
