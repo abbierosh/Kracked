@@ -322,9 +322,9 @@
     }
 
     .choices--checklist {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 9px;
+      margin-top: 18px;
     }
 
     .choice {
@@ -346,44 +346,43 @@
     }
 
     .choice--compact {
-      min-height: 76px;
-      grid-template-columns: 34px minmax(0, 1fr);
+      min-height: 62px;
+      grid-template-columns: 30px minmax(0, 1fr);
       align-items: center;
       align-content: center;
-      gap: 12px;
-      padding: 14px;
+      gap: 10px;
+      padding: 12px;
     }
 
     .choice--compact .choice-icon {
-      width: 34px;
-      height: 34px;
+      width: 30px;
+      height: 30px;
     }
 
     .choice--compact .choice-icon svg {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
     }
 
     .choice--compact .choice-title {
-      font-size: 18px;
+      font-size: 16px;
     }
 
     .choice--compact .choice-tags {
       grid-column: 2;
       margin-top: -6px;
-      font-size: 12px;
+      font-size: 11px;
     }
 
     .choice--compact.is-selected::after {
       position: absolute;
       top: 12px;
       right: 12px;
-      content: "Selected";
-      color: var(--gold-bright);
-      font-size: 10px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0;
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--gold-bright);
     }
 
     .choice::before {
@@ -608,13 +607,15 @@
 
     .result-hero {
       display: grid;
-      grid-template-columns: minmax(0, 0.92fr) minmax(260px, 1.08fr);
+      grid-template-columns: minmax(260px, 0.9fr) minmax(0, 1.1fr);
       gap: 22px;
       align-items: stretch;
     }
 
     .product-image {
       position: relative;
+      width: 100%;
+      max-width: 100%;
       min-height: 340px;
       aspect-ratio: 4 / 5;
       overflow: hidden;
@@ -640,6 +641,7 @@
     }
 
     .main-pick {
+      min-width: 0;
       display: grid;
       align-content: start;
       gap: 10px;
@@ -651,6 +653,7 @@
     }
 
     .main-pick h3 {
+      overflow-wrap: anywhere;
       margin-bottom: 0;
       color: var(--cream);
       font-size: clamp(30px, 5vw, 48px);
@@ -721,6 +724,7 @@
     }
 
     .mini-product {
+      min-width: 0;
       display: grid;
       grid-template-columns: 108px minmax(0, 1fr);
       gap: 14px;
@@ -752,6 +756,7 @@
     }
 
     .mini-product h4 {
+      overflow-wrap: anywhere;
       margin-bottom: 6px;
       color: var(--cream);
       font-size: 19px;
@@ -782,7 +787,7 @@
       .screen { min-height: auto; padding: 22px; }
       .screen.intro-screen { padding-block: 30px; }
       .question-stage { grid-template-columns: 1fr; gap: 14px; }
-      .read-panel { position: static; padding: 12px; }
+      .read-panel { display: none; }
       .read-panel .eyebrow { margin-bottom: 6px; }
       .read-panel p { margin-bottom: 0; }
       .read-panel .tag-row { margin-top: 8px; }
@@ -795,7 +800,7 @@
       h2 { font-size: clamp(32px, 10vw, 48px); }
       .choices { grid-template-columns: 1fr; gap: 10px; }
       .choice { min-height: 104px; padding: 17px; }
-      .choice--compact { min-height: 72px; padding: 13px; }
+      .choice--compact { min-height: 58px; padding: 12px; }
       .choice--compact .choice-tags { grid-column: 2; }
       .tune-row { grid-template-columns: 1fr; }
       .segments { grid-template-columns: 1fr; }
@@ -829,7 +834,7 @@
           <div class="progress-track" aria-hidden="true">
             <div class="progress-fill" id="progressFill"></div>
           </div>
-          <p class="step-count" id="stepCopy">1 of 6</p>
+          <p class="step-count" id="stepCopy">1 of 5</p>
         </div>
       </div>
       <div class="screen" id="screen" tabindex="-1"></div>
@@ -845,7 +850,7 @@
     };
 
     const quiz = {
-      meta: { quizId: "kracked-craving-read-v1", quizVersion: "live", questionCount: 6 },
+      meta: { quizId: "kracked-craving-read-v1", quizVersion: "live", questionCount: 5 },
       discountCodes: Array.from({ length: 50 }, (_, index) => `KRACK5-${String(index + 1).padStart(3, "0")}`),
       products: [
         {
@@ -892,6 +897,7 @@
           id: "triple_chocolate_cookies",
           name: "Triple Chocolate Cookies",
           priceLabel: "Menu price",
+          // TODO: Replace catalogue fallback with direct Take.app product URL when available.
           linkUrl: "https://take.app/krackedbakes",
           image: "kracked-bg.png",
           dims: { dark: 5, chew: 3, rich: 4, sweet: 2, lateNight: 2 }
@@ -900,6 +906,7 @@
           id: "marble_praline_hazelnut_cookies",
           name: "3 Marble Praline Hazelnut Cookies",
           priceLabel: "$10.00",
+          // TODO: Replace catalogue fallback with direct Take.app product URL when available.
           linkUrl: "https://take.app/krackedbakes",
           image: "kracked-bg.png",
           dims: { dark: 3, nutty: 5, chew: 2, rich: 2, sweet: 1 }
@@ -908,6 +915,7 @@
           id: "kannelbullar",
           name: "Kannelbullar (Swedish Knot)",
           priceLabel: "$4.00",
+          // TODO: Replace catalogue fallback with direct Take.app product URL when available.
           linkUrl: "https://take.app/krackedbakes",
           image: "kracked-bg.png",
           dims: { butter: 3, soft: 2, brunch: 3, familiarity: 2, sweet: 1 }
@@ -916,6 +924,7 @@
           id: "brioches_pepites_chocolat",
           name: "3 Brioches aux pépites de chocolat",
           priceLabel: "$9.00",
+          // TODO: Replace catalogue fallback with direct Take.app product URL when available.
           linkUrl: "https://take.app/krackedbakes",
           image: "kracked-bg.png",
           dims: { butter: 3, soft: 4, brunch: 3, sweet: 2, dark: 1, familiarity: 1 }
@@ -924,6 +933,7 @@
           id: "garlic_butter_shio_pan",
           name: "Garlic Butter Cream Cheese Shio Pan",
           priceLabel: "Menu price",
+          // TODO: Replace catalogue fallback with direct Take.app product URL when available.
           linkUrl: "https://take.app/krackedbakes",
           image: "kracked-bg.png",
           dims: { butter: 4, salty: 5, soft: 2, brunch: 2, rich: 2, familiarity: 1 }
@@ -1006,6 +1016,25 @@
             { id: "tea", icon: "cloud", title: "Light Tea-Time", tags: "easy · soft · not heavy", dims: { bright: 1, soft: 2, familiarity: 1 } }
           ]
         },
+        discovery: {
+          id: "discovery",
+          icon: "wildcard",
+          title: "Wildcard / Nostalgic",
+          tags: "local · layered · unexpected",
+          prompt: "What kind of different are we doing?",
+          profile: "The Wildcard Drop Hunter",
+          description: "You don’t really play it safe with dessert. You like bakes that feel layered, a bit extra, and not too predictable — something that makes you go, ‘wait, that actually works.’",
+          ideas: ["stuffed cookies", "brookies", "hybrid desserts", "kaya buns", "pandan rolls"],
+          didYouKnow: "The best unusual bakes still need balance: something familiar, something textured, and one clear reason to come back for another bite.",
+          unmetTags: ["hybrid-stuffed", "kaya-pandan", "limited-drop"],
+          dims: { novelty: 3, local: 2, adventurous: 2 },
+          followups: [
+            { id: "nostalgia", icon: "pandan", title: "Kaya / Pandan Nostalgia", tags: "familiar · fragrant · soft", dims: { local: 4, soft: 2, butter: 1 } },
+            { id: "stuffed", icon: "crack", title: "Stuffed + Layered", tags: "filled · extra · bite", dims: { novelty: 3, chew: 2 } },
+            { id: "salty", icon: "spark", title: "Sweet-Salty Twist", tags: "contrast · rich · sharp", dims: { novelty: 2, salty: 3 } },
+            { id: "limited", icon: "burst", title: "Limited Seasonal", tags: "new · bold · now", dims: { novelty: 3, adventurous: 2 } }
+          ]
+        },
         local: {
           id: "local",
           icon: "pandan",
@@ -1046,14 +1075,22 @@
         }
       },
       textureOptions: [
-        { id: "soft", icon: "cloud", title: "Soft Centre", tags: "gentle · warm · plush", dims: { soft: 2 } },
-        { id: "chew", icon: "circle", title: "Chewy Pull", tags: "bite · stretch · cookie", dims: { chew: 2 } },
-        { id: "flaky", icon: "crescent", title: "Flaky Shards", tags: "crisp · layered · butter", dims: { flaky: 2, butter: 1 } },
-        { id: "creamy", icon: "swirl", title: "Creamy Middle", tags: "smooth · cool · soft", dims: { creamy: 2, cream: 1 } },
-        { id: "crumbly", icon: "crack", title: "Crumbly Top", tags: "streusel · bite · edge", dims: { crumbly: 2 } },
-        { id: "fruity", icon: "burst", title: "Fruity Lift", tags: "bright · tart · fresh", dims: { fruity: 2, bright: 1 } },
-        { id: "nutty", icon: "leaf", title: "Nutty Toast", tags: "roasty · warm · deep", dims: { nutty: 2 } },
-        { id: "salty", icon: "spark", title: "Salty Contrast", tags: "sharp · savoury · balance", dims: { salty: 2 } }
+        { id: "soft", icon: "cloud", title: "Soft centre", tags: "gentle · warm · plush", dims: { soft: 2 } },
+        { id: "chew", icon: "circle", title: "Chewy pull", tags: "bite · stretch · cookie", dims: { chew: 2 } },
+        { id: "flaky", icon: "crescent", title: "Flaky layers", tags: "crisp · layered · butter", dims: { flaky: 2, butter: 1 } },
+        { id: "creamy", icon: "swirl", title: "Creamy middle", tags: "smooth · cool · soft", dims: { creamy: 2, cream: 1 } },
+        { id: "crumbly", icon: "crack", title: "Crumbly top", tags: "streusel · bite · edge", dims: { crumbly: 2 } },
+        { id: "fruity", icon: "burst", title: "Fruit lift", tags: "bright · tart · fresh", dims: { fruity: 2, bright: 1 } },
+        { id: "nutty", icon: "leaf", title: "Nutty toast", tags: "roasty · warm · deep", dims: { nutty: 2 } },
+        { id: "salty", icon: "spark", title: "Salty hit", tags: "sharp · savoury · balance", dims: { salty: 2 } }
+      ],
+      avoidanceOptions: [
+        { id: "tooSweet", icon: "citrus", title: "Too sweet", tags: "balance · clean · not syrupy", dims: { sweet: -3, bright: 1, butter: 1, cream: 1 } },
+        { id: "tooHeavy", icon: "cloud", title: "Too heavy", tags: "lighter · lifted · easy", dims: { rich: -3, bright: 2, fruity: 1, soft: 1 } },
+        { id: "tooPlain", icon: "spark", title: "Too plain", tags: "more going on", dims: { novelty: 3, adventurous: 2 } },
+        { id: "tooDry", icon: "swirl", title: "Too dry", tags: "soft · moist · filled", dims: { soft: 2, creamy: 2, cream: 1, dark: 1 } },
+        { id: "tooSafe", icon: "wildcard", title: "Too safe", tags: "surprise · twist · different", dims: { novelty: 3, local: 1, adventurous: 2 } },
+        { id: "tooCreamy", icon: "square", title: "Too creamy", tags: "less cream · more bite", dims: { cream: -4, creamy: -3, chew: 2, crumbly: 1, bright: 1 } }
       ],
       moments: [
         { id: "brunch", icon: "bread", title: "Morning Soft Launch", tags: "brunch · coffee · easy", dims: { brunch: 3, butter: 1 } },
@@ -1068,6 +1105,7 @@
         { id: "halfway", icon: "swirl", title: "Meet Me Halfway", tags: "balanced · small twist", dims: { familiarity: 1, adventurous: 1 } },
         { id: "surprise", icon: "spark", title: "Surprise Me", tags: "bold · strange · new", dims: { adventurous: 3, novelty: 1 } }
       ],
+      topFamilyIds: ["dark", "butter", "cream", "bright", "discovery"],
       profileOrder: ["dark", "butter", "cream", "bright", "local", "novelty"]
     };
 
@@ -1086,7 +1124,7 @@
       return {
         sessionId: getOrCreateSession(),
         step: 0,
-        answers: { textures: [], intensity: { sweetness: "balanced", richness: "medium", familiarity: "twist" } },
+        answers: { textures: [], avoid: "", intensity: { sweetness: "balanced", richness: "medium", familiarity: "twist" } },
         result: null,
         discountCode: ""
       };
@@ -1130,7 +1168,7 @@
       }
       if (target.startsWith("q")) {
         const step = Number(target.slice(1));
-        if (Number.isInteger(step) && step >= 1 && step <= 6) state.step = Math.min(step, maxReachableStep());
+        if (Number.isInteger(step) && step >= 1 && step <= quiz.meta.questionCount) state.step = Math.min(step, maxReachableStep());
       } else {
         state.step = 0;
       }
@@ -1145,9 +1183,8 @@
       if (!state.answers.family) return 1;
       if (!state.answers.followup) return 2;
       if (!state.answers.textures?.length) return 3;
-      if (!state.answers.moment) return 5;
-      if (!state.answers.openness) return 6;
-      return 6;
+      if (!state.answers.avoid) return 4;
+      return quiz.meta.questionCount;
     }
 
     function setHash(value) {
@@ -1165,8 +1202,8 @@
       const isResult = state.step === 7;
       backButton.hidden = state.step <= 1 || isIntro || isResult;
       progress.hidden = isIntro || isResult;
-      progressFill.style.width = isIntro ? "0%" : `${Math.max(0, Math.min(100, (state.step / 6) * 100))}%`;
-      stepCopy.textContent = isIntro ? "" : `${Math.min(state.step, 6)} of 6`;
+      progressFill.style.width = isIntro ? "0%" : `${Math.max(0, Math.min(100, (state.step / quiz.meta.questionCount) * 100))}%`;
+      stepCopy.textContent = isIntro ? "" : `${Math.min(state.step, quiz.meta.questionCount)} of ${quiz.meta.questionCount}`;
       screen.className = `screen${isIntro ? " intro-screen" : ""}${isResult ? " result-screen" : ""}`;
 
       if (isIntro) renderIntro();
@@ -1233,22 +1270,22 @@
 
     function getQuestion() {
       if (state.step === 1) {
-        return { type: "single", eyebrow: "Craving read", prompt: "What sounds good today?", options: Object.values(quiz.families), answerKey: "family" };
+        return { type: "single", eyebrow: "Craving read", prompt: "What sounds good today?", options: quiz.topFamilyIds.map((id) => quiz.families[id]), answerKey: "family" };
       }
       if (state.step === 2) {
         const family = quiz.families[state.answers.family] || quiz.families.dark;
         return { type: "single", eyebrow: "Craving read", prompt: family.prompt, options: family.followups, answerKey: "followup" };
       }
       if (state.step === 3) {
-        return { type: "multi", eyebrow: "Texture read", prompt: "What needs to happen in the bite?", helper: "Pick up to 2.", options: quiz.textureOptions, needsContinue: true, continueLabel: "Continue" };
+        return { type: "multi", eyebrow: "Build the bite", prompt: "Build the bite.", helper: "Pick up to 2 things you need in the first bite.", options: quiz.textureOptions, needsContinue: true, continueLabel: "Continue" };
       }
       if (state.step === 4) {
-        return { type: "intensity", eyebrow: "Tuning", prompt: "Set the intensity.", needsContinue: true, continueLabel: "Continue" };
+        return { type: "single", eyebrow: "Avoidance read", prompt: "What are we avoiding today?", options: quiz.avoidanceOptions, answerKey: "avoid" };
       }
       if (state.step === 5) {
-        return { type: "single", eyebrow: "Eating moment", prompt: "What kind of moment is this?", options: quiz.moments, answerKey: "moment" };
+        return { type: "intensity", eyebrow: "Tuning", prompt: "Dial the craving.", needsContinue: true, continueLabel: "Reveal my read" };
       }
-      return { type: "single", eyebrow: "Final read", prompt: "How adventurous should we go?", options: quiz.openness, answerKey: "openness" };
+      return { type: "intensity", eyebrow: "Tuning", prompt: "Dial the craving.", needsContinue: true, continueLabel: "Reveal my read" };
     }
 
     function renderSingle(question) {
@@ -1280,13 +1317,15 @@
       if (!state.answers.family) return tags;
       const family = quiz.families[state.answers.family] || quiz.families.dark;
       const followup = family.followups.find((option) => option.id === state.answers.followup);
+      const avoid = quiz.avoidanceOptions.find((option) => option.id === state.answers.avoid);
       tags.push(family.title);
       if (followup) tags.push(followup.title);
       (state.answers.textures || []).slice(0, 2).forEach((id) => {
         const texture = quiz.textureOptions.find((option) => option.id === id);
         if (texture) tags.push(texture.title);
       });
-      if (state.answers.intensity?.richness) tags.push(labelForIntensity("richness"));
+      if (avoid) tags.push(`Avoiding ${avoid.title.toLowerCase()}`);
+      if (state.step >= 5 && state.answers.intensity?.richness) tags.push(labelForIntensity("richness"));
       return tags.slice(0, 4);
     }
 
@@ -1334,7 +1373,7 @@
           if (question.answerKey === "family") {
             state.answers.followup = "";
           }
-          const eventName = question.answerKey === "family" ? "craving_lane_selected" : question.answerKey === "moment" ? "moment_selected" : question.answerKey === "openness" ? "openness_selected" : "branch_answer_selected";
+          const eventName = question.answerKey === "family" ? "craving_lane_selected" : question.answerKey === "avoid" ? "avoidance_selected" : "branch_answer_selected";
           trackEvent(eventName, eventBase({ step: state.step, answer_id: button.dataset.option }));
           setTimeout(() => advance(), 150);
         });
@@ -1384,7 +1423,7 @@
     }
 
     function advance() {
-      if (state.step < 6) {
+      if (state.step < quiz.meta.questionCount) {
         state.step += 1;
         setHash(`q${state.step}`);
         render();
@@ -1413,7 +1452,7 @@
         sweetness: state.answers.intensity.sweetness,
         richness: state.answers.intensity.richness,
         adventure: state.answers.intensity.familiarity,
-        occasion: state.answers.moment,
+        avoiding: state.answers.avoid,
         final_profile: state.result.profile.id,
         main_match: state.result.main.product.id,
         unmet_craving_tags: state.result.unmetTags.join(","),
@@ -1426,23 +1465,24 @@
 
     function computeResult() {
       const { dims, family, followup } = collectRead();
+      const profileFamily = resolveProfileFamily(family, followup);
       const profile = {
-        id: family.id,
-        name: family.profile,
-        description: family.description,
-        ideas: family.ideas,
-        didYouKnow: family.didYouKnow,
+        id: profileFamily.id,
+        name: profileFamily.profile,
+        description: profileDescription(profileFamily),
+        ideas: profileFamily.ideas,
+        didYouKnow: profileFamily.didYouKnow,
         tags: resultTags(dims)
       };
 
       const rankedProducts = quiz.products
-        .map((product) => ({ product, score: scoreProduct(dims, product), reason: productReason(family.id, product.id, dims) }))
+        .map((product) => ({ product, score: scoreProduct(dims, product), reason: productReason(profileFamily.id, product.id, dims) }))
         .sort((a, b) => b.score - a.score);
       const main = rankedProducts[0];
       const secondary = rankedProducts.slice(1, 3);
       const gap = main.score - rankedProducts[1].score;
-      const unmetTags = [...new Set([...(family.unmetTags || []), ...unmetTagsFromDims(dims)])];
-      const confidence = family.id === "local" ? "weak" : gap >= 5 ? "strong" : gap >= 2 ? "medium" : "weak";
+      const unmetTags = [...new Set([...(profileFamily.unmetTags || []), ...unmetTagsFromDims(dims)])];
+      const confidence = profileFamily.id === "local" ? "weak" : gap >= 5 ? "strong" : gap >= 2 ? "medium" : "weak";
       return { profile, dims, main, secondary, confidence, unmetTags, branch: followup?.id || "" };
     }
 
@@ -1453,10 +1493,23 @@
       addDims(dims, family.dims);
       addDims(dims, followup?.dims);
       (state.answers.textures || []).forEach((id) => addDims(dims, quiz.textureOptions.find((option) => option.id === id)?.dims));
+      addDims(dims, quiz.avoidanceOptions.find((option) => option.id === state.answers.avoid)?.dims);
       addIntensityDims(dims);
-      addDims(dims, quiz.moments.find((option) => option.id === state.answers.moment)?.dims);
-      addDims(dims, quiz.openness.find((option) => option.id === state.answers.openness)?.dims);
       return { dims, family, followup };
+    }
+
+    function resolveProfileFamily(family, followup) {
+      if (family.id !== "discovery") return family;
+      if (followup?.id === "nostalgia") return quiz.families.local;
+      return quiz.families.novelty;
+    }
+
+    function profileDescription(profileFamily) {
+      const avoid = state.answers.avoid;
+      if (avoid === "tooSweet") return "You’re not looking for something sugar-heavy today. You want balance, texture, and a cleaner finish.";
+      if (avoid === "tooSafe") return "You don’t really play it safe with dessert. You want something layered, a bit extra, and not too predictable.";
+      if (avoid === "tooDry") return "You’re clearly after softness and moisture — soft centres, cream, or anything that does not eat like a dry biscuit.";
+      return profileFamily.description;
     }
 
     function addDims(target, dims = {}) {
@@ -1486,6 +1539,8 @@
       if (familyId === "local") {
         if (productId === "streuseltalers") return "KRacked does not have a kaya, pandan, or sesame bake right now, but this is the closest current match for a brighter, layered pastry profile with fruit and crumble.";
         if (productId === "garlic_butter_shio_pan") return "KRacked does not have a kaya or pandan bake right now, but this gives you the salt-butter comfort your answers kept pointing to.";
+        if (productId === "brookies") return "KRacked does not have a kaya, pandan, or sesame bake right now, but this is the closest current bridge if you wanted familiar flavours with less-safe, layered energy.";
+        if (productId === "triple_chocolate_cookies") return "KRacked does not have a kaya, pandan, or sesame bake right now, but this is the closest current bridge if your familiar-lane answer also leaned dark and chewy.";
         return "KRacked does not have a kaya, pandan, or sesame bake right now, but this is the closest live bridge for the soft, familiar side of your result.";
       }
       const reasons = {
