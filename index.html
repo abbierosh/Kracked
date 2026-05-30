@@ -139,6 +139,36 @@
       align-content: start;
     }
 
+    .screen.reveal-screen {
+      min-height: 420px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+    }
+
+    .reading-card {
+      display: grid;
+      gap: 12px;
+      justify-items: center;
+    }
+
+    .reading-mark {
+      width: 54px;
+      height: 54px;
+      border: 1px solid rgba(228,199,127,0.38);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(228,199,127,0.32), transparent 34%),
+        rgba(255,255,255,0.035);
+      box-shadow: 0 0 34px rgba(198,162,97,0.18);
+      animation: pulseRead 1s ease-in-out infinite;
+    }
+
+    @keyframes pulseRead {
+      0%, 100% { transform: scale(0.96); opacity: 0.72; }
+      50% { transform: scale(1.04); opacity: 1; }
+    }
+
     .question-stage {
       display: grid;
       grid-template-columns: minmax(0, 1fr) 220px;
@@ -592,8 +622,16 @@
       font-weight: 750;
     }
 
+    .idea-summary {
+      margin: 12px 0 0;
+      color: var(--cream);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
     .did-you-know,
-    .match-kicker {
+    .match-kicker,
+    .why-match {
       margin: 14px 0 0;
       color: var(--muted);
       font-size: 14px;
@@ -601,8 +639,31 @@
     }
 
     .did-you-know strong,
-    .match-kicker strong {
+    .match-kicker strong,
+    .why-match strong {
       color: var(--cream);
+    }
+
+    .why-match {
+      border-top: 1px solid rgba(240,226,207,0.1);
+      padding-top: 14px;
+    }
+
+    .signal-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 9px;
+    }
+
+    .signal {
+      border: 1px solid rgba(228,199,127,0.26);
+      border-radius: 999px;
+      padding: 6px 9px;
+      color: var(--gold-bright);
+      background: rgba(198,162,97,0.08);
+      font-size: 11px;
+      font-weight: 850;
     }
 
     .result-hero {
@@ -858,7 +919,8 @@
       products: [
         {
           id: "hot_cocoa_cookies",
-          name: "6 Hot Cocoa Cookies",
+          name: "Hot Cocoa Cookies",
+          quantityLabel: "Box of 6",
           priceLabel: "$13.90",
           linkUrl: "https://take.app/krackedbakes/p/cmmmexc6h000104juop7cfe8i",
           image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmmonmbi0000104kz7p8477pj.jpeg",
@@ -866,7 +928,8 @@
         },
         {
           id: "brookies",
-          name: "8 Brookies",
+          name: "Brookies",
+          quantityLabel: "Box of 8",
           priceLabel: "$18.90",
           linkUrl: "https://take.app/krackedbakes/p/cmmmeuznz001104lbet8awdc9",
           image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmmonns8c000104js0hgf8so5.jpeg",
@@ -874,7 +937,8 @@
         },
         {
           id: "tiramisu_rolls",
-          name: "3 Tiramisu Rolls",
+          name: "Tiramisu Rolls",
+          quantityLabel: "Set of 3",
           priceLabel: "$12.90",
           linkUrl: "https://take.app/krackedbakes/p/cmmmesaaz000i04l14yc3kebn",
           image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmmono9vx000104l45e194ert.jpeg",
@@ -890,7 +954,8 @@
         },
         {
           id: "streuseltalers",
-          name: "2 Streuseltalers / Lemon Blueberry Crumble",
+          name: "Streuseltalers",
+          quantityLabel: "Lemon Blueberry Crumble",
           priceLabel: "$19.90",
           linkUrl: "https://take.app/krackedbakes/p/cmpi02d5j00000bji89ahs4wu",
           image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmpi029ie00000bkm4si24eqo.png",
@@ -907,7 +972,8 @@
         },
         {
           id: "marble_praline_hazelnut_cookies",
-          name: "3 Marble Praline Hazelnut Cookies",
+          name: "Marble Praline Hazelnut Cookies",
+          quantityLabel: "Set of 3",
           priceLabel: "$10.00",
           // TODO: Replace catalogue fallback with direct Take.app product URL when available.
           linkUrl: "https://take.app/krackedbakes",
@@ -925,7 +991,8 @@
         },
         {
           id: "brioches_pepites_chocolat",
-          name: "3 Brioches aux pépites de chocolat",
+          name: "Brioches aux pépites de chocolat",
+          quantityLabel: "Set of 3",
           priceLabel: "$9.00",
           // TODO: Replace catalogue fallback with direct Take.app product URL when available.
           linkUrl: "https://take.app/krackedbakes",
@@ -950,9 +1017,10 @@
           tags: "cocoa · chewy · rich",
           prompt: "What kind of chocolate mood?",
           profile: "The Dark Comfort Seeker",
-          description: "You’re not just looking for sweet. You want depth, cocoa, chew, and something that feels like a proper reward. This is the kind of craving that wants dessert to have weight.",
+          description: "You’re not just looking for something sweet. You want depth, cocoa, chew, and a bake that feels like a proper reward. This is the kind of mood that wants dessert to have weight — not just sugar, but richness, softness, and a bit of drama. You’d probably enjoy dark chocolate, brownie centres, ganache, cocoa dust, or anything that feels dense in the best way.",
           ideas: ["brownie cookies", "ganache tarts", "chocolate babka", "cocoa hazelnut rolls", "molten-centre bakes"],
-          didYouKnow: "Cocoa bitterness can make a bake feel richer without making it taste simply sweeter. That’s why brownie-style cookies, ganache, and dark chocolate bakes feel more satisfying.",
+          ideaSummary: "Basically, you’re after bakes with cocoa depth, soft centres, and a proper dessert finish.",
+          didYouKnow: "Brownie-style bakes feel richer because the texture holds moisture and cocoa intensity longer than a crisp cookie.",
           unmetTags: ["cocoa-depth", "molten-centre"],
           dims: { dark: 4, rich: 2, chew: 1 },
           followups: [
@@ -969,9 +1037,10 @@
           tags: "warm · bakery · comfort",
           prompt: "What kind of buttery mood?",
           profile: "The Butter-Led Loyalist",
-          description: "You’re craving comfort more than drama. Soft crumb, butter, warmth, and a bake that feels easy to finish without being too much.",
+          description: "You’re craving comfort more than drama. You want butter, warmth, soft crumb, and something that feels easy to keep going back to. This pastry mood does not need to shout — it just needs to be soft, golden, and properly satisfying. You’d probably enjoy brioche, milk buns, croissants, shio pan, butter loaves, or anything that smells like a bakery in the morning.",
           ideas: ["brioche", "croissants", "milk buns", "butter loaves", "shio pan"],
-          didYouKnow: "Enriched doughs like brioche feel softer and richer because of butter, eggs, or milk in the dough.",
+          ideaSummary: "Basically, you’re after softness, warmth, and bakes that feel comforting without doing too much.",
+          didYouKnow: "Brioche feels soft and full because it is an enriched dough, usually made with butter, eggs, or milk.",
           unmetTags: ["savoury-buttery", "enriched-dough"],
           dims: { butter: 4, soft: 2, familiarity: 2 },
           followups: [
@@ -988,9 +1057,10 @@
           tags: "coffee · custard · soft",
           prompt: "What kind of creamy mood?",
           profile: "The Café Cloud Romantic",
-          description: "You’re not chasing pure sugar today. You want something softer — cream, coffee, cocoa dust, and a mellow finish that feels like a slow café moment.",
+          description: "You’re not chasing pure sugar today. You want something softer — cream, coffee, cocoa dust, and a mellow finish that feels like a slow café moment. This is the kind of mood that leans smooth instead of loud. You’d probably enjoy tiramisu, custard rolls, cream buns, coffee cream, soft sponge, or anything that feels rich without being too heavy.",
           ideas: ["tiramisu", "custard rolls", "cream buns", "coffee cream slices", "cocoa-dusted sponge"],
-          didYouKnow: "Café-style desserts often balance sweetness with cream, coffee, and cocoa instead of just sugar.",
+          ideaSummary: "Basically, you’re after soft layers, mellow sweetness, and café-style richness.",
+          didYouKnow: "Creamy café desserts work because coffee and cocoa add bitterness, which stops cream from feeling flat.",
           unmetTags: ["coffee-cream", "custard"],
           dims: { cream: 4, creamy: 3, soft: 1 },
           followups: [
@@ -1007,9 +1077,10 @@
           tags: "citrus · berry · sharp finish",
           prompt: "What kind of bright?",
           profile: "The Bright Crumble Type",
-          description: "You want something that lifts instead of sits heavy. Fruit, citrus, crumble, and a cleaner finish are probably what your sweet tooth is asking for.",
+          description: "You want something that lifts instead of sits heavy. Fruit, citrus, crumble, and a cleaner finish are probably what your sweet tooth is asking for today. This is not a too-much-chocolate kind of mood — it is more about brightness, texture, and a little sharpness to balance the sweet. You’d probably enjoy berry tarts, lemon blueberry bakes, fruit crumble, yuzu cream, or citrusy pastry.",
           ideas: ["fruit crumble", "lemon blueberry bakes", "berry tarts", "citrus cream pastries", "yuzu-style desserts"],
-          didYouKnow: "Citrus or fruit acidity can make a dessert feel lighter even when it is still sweet.",
+          ideaSummary: "Basically, you’re after fruit, crumble, and a finish that feels lifted rather than heavy.",
+          didYouKnow: "Fruit-led pastries feel lighter because acidity cuts through butter and sugar.",
           unmetTags: ["yuzu-citrus", "fruit-crumble"],
           dims: { bright: 4, fruity: 3, adventurous: 1 },
           followups: [
@@ -1026,9 +1097,10 @@
           tags: "local · layered · unexpected",
           prompt: "What kind of different are we doing?",
           profile: "The Wildcard Drop Hunter",
-          description: "You don’t really play it safe with dessert. You like bakes that feel layered, a bit extra, and not too predictable — something that makes you go, ‘wait, that actually works.’",
+          description: "You don’t really play it safe with dessert. You like bakes that feel layered, a bit extra, and not too predictable — something that gives you a reason to go, “wait, that actually works.” This is the mood for contrast: gooey with crisp, sweet with salty, familiar with weird, or classic with a twist. You’d probably enjoy stuffed cookies, brookies, hybrid desserts, limited drops, sweet-savoury bakes, or anything with a little chaos but still balanced.",
           ideas: ["stuffed cookies", "brookies", "hybrid desserts", "kaya buns", "pandan rolls"],
-          didYouKnow: "The best unusual bakes still need balance: something familiar, something textured, and one clear reason to come back for another bite.",
+          ideaSummary: "Basically, you like desserts with texture, contrast, and a little “wait, that works?” moment.",
+          didYouKnow: "Mash-up desserts work best when textures contrast, not when everything is just more.",
           unmetTags: ["hybrid-stuffed", "kaya-pandan", "limited-drop"],
           dims: { novelty: 3, local: 2, adventurous: 2 },
           followups: [
@@ -1045,9 +1117,10 @@
           tags: "kaya · pandan · sesame",
           prompt: "What kind of familiar?",
           profile: "The Nostalgic Twist Chaser",
-          description: "You’re leaning toward flavours that feel familiar but still exciting. Kaya, pandan, sesame, coconut, or yuzu-style notes would probably hit because they carry memory and curiosity at the same time.",
+          description: "You’re leaning toward flavours that feel familiar, but you still want them to do something interesting. Kaya, pandan, sesame, coconut, peanut, or yuzu-style notes would probably hit because they carry memory and curiosity at the same time. This is the kind of mood that wants comfort, but not something boring. You’d probably enjoy local-inspired buns, pandan rolls, black sesame cookies, coconut brioche, or peanut-sesame bakes.",
           ideas: ["kaya buns", "pandan rolls", "black sesame cookies", "coconut brioche", "peanut-sesame bakes", "yuzu cream"],
-          didYouKnow: "Nostalgic flavours work because they feel familiar, then become exciting in a new pastry format.",
+          ideaSummary: "Basically, you’re after familiar flavours translated into a pastry format with a small twist.",
+          didYouKnow: "Flavours like kaya, pandan, sesame, and coconut work well in pastry because they feel familiar, but can still feel new in a different bake format.",
           unmetTags: ["kaya-pandan", "black-sesame", "yuzu-citrus"],
           dims: { local: 5, nutty: 1, familiarity: 2 },
           followups: [
@@ -1064,8 +1137,9 @@
           tags: "limited · layered · unexpected",
           prompt: "What kind of wildcard?",
           profile: "The Wildcard Drop Hunter",
-          description: "You don’t really play it safe with dessert. You like bakes that feel layered, a bit extra, and not too predictable — something that makes you go, ‘wait, that actually works.’",
+          description: "You don’t really play it safe with dessert. You like bakes that feel layered, a bit extra, and not too predictable — something that gives you a reason to go, “wait, that actually works.” This is the mood for contrast: gooey with crisp, sweet with salty, familiar with weird, or classic with a twist. You’d probably enjoy stuffed cookies, brookies, hybrid desserts, limited drops, sweet-savoury bakes, or anything with a little chaos but still balanced.",
           ideas: ["stuffed cookies", "brookies", "hybrid desserts", "limited drops", "sweet-savoury bakes"],
+          ideaSummary: "Basically, you like desserts with texture, contrast, and a little “wait, that works?” moment.",
           didYouKnow: "Mash-up desserts work best when textures contrast, not when everything is just more.",
           unmetTags: ["hybrid-stuffed", "limited-drop"],
           dims: { novelty: 5, adventurous: 2, rich: 1 },
@@ -1075,6 +1149,21 @@
             { id: "salty", icon: "spark", title: "Sweet-Salty", tags: "contrast · rich · sharp", dims: { novelty: 2, salty: 3 } },
             { id: "limited", icon: "burst", title: "Limited Seasonal", tags: "new · bold · now", dims: { novelty: 3, adventurous: 2 } }
           ]
+        },
+        gentle: {
+          id: "gentle",
+          icon: "cloud",
+          title: "Gentle Sweet Tooth",
+          tags: "balanced · soft · easy",
+          prompt: "What kind of gentle?",
+          profile: "The Gentle Sweet Tooth",
+          description: "You like dessert, but you do not want it to knock you out. You’re probably looking for something soft, balanced, and easy to finish without feeling like it is too much. This points to mellow sweetness, gentle textures, and bakes that feel comforting rather than intense. You’d probably enjoy brioche, tiramisu rolls, milk buns, soft cookies, cream buns, or light cocoa bakes.",
+          ideas: ["brioche", "tiramisu rolls", "milk buns", "soft cookies", "cream buns", "light cocoa bakes"],
+          ideaSummary: "Basically, you’re after a softer dessert lane: enough sweetness to feel like a treat, not enough to flatten you.",
+          didYouKnow: "Gentler desserts often feel more satisfying when they lean on texture, cream, butter, or cocoa bitterness instead of just sugar.",
+          unmetTags: ["balanced-sweetness", "light-cocoa"],
+          dims: { soft: 2, cream: 1, butter: 1, sweet: -1 },
+          followups: []
         }
       },
       textureOptions: [
@@ -1109,7 +1198,16 @@
         { id: "surprise", icon: "spark", title: "Surprise Me", tags: "bold · strange · new", dims: { adventurous: 3, novelty: 1 } }
       ],
       topFamilyIds: ["dark", "butter", "cream", "bright", "discovery"],
-      profileOrder: ["dark", "butter", "cream", "bright", "local", "novelty"]
+      profileOrder: ["dark", "butter", "cream", "bright", "local", "novelty", "gentle"],
+      museSignals: {
+        local: ["kaya", "pandan", "black sesame", "yuzu", "coconut"],
+        bright: ["lemon", "berry", "yuzu", "fruit crumble"],
+        novelty: ["stuffed", "limited", "sweet-savoury", "hybrid"],
+        butter: ["shio pan", "brioche", "savoury butter"],
+        dark: ["ganache", "brownie centre", "cocoa depth"],
+        cream: ["tiramisu", "custard", "coffee cream"],
+        gentle: ["balanced sweetness", "soft cookies", "milk buns"]
+      }
     };
 
     const productById = Object.fromEntries(quiz.products.map((product) => [product.id, product]));
@@ -1202,19 +1300,37 @@
 
     function render() {
       const isIntro = state.step === 0;
+      const isReveal = state.step === 6;
       const isResult = state.step === 7;
-      backButton.hidden = state.step <= 1 || isIntro || isResult;
-      progress.hidden = isIntro || isResult;
+      backButton.hidden = state.step <= 1 || isIntro || isReveal || isResult;
+      progress.hidden = isIntro || isReveal || isResult;
       progressFill.style.width = isIntro ? "0%" : `${Math.max(0, Math.min(100, (state.step / quiz.meta.questionCount) * 100))}%`;
-      stepCopy.textContent = isIntro ? "" : `${Math.min(state.step, quiz.meta.questionCount)} of ${quiz.meta.questionCount}`;
-      screen.className = `screen${isIntro ? " intro-screen" : ""}${isResult ? " result-screen" : ""}`;
+      stepCopy.textContent = isIntro || isReveal ? "" : `${Math.min(state.step, quiz.meta.questionCount)} of ${quiz.meta.questionCount}`;
+      screen.className = `screen${isIntro ? " intro-screen" : ""}${isReveal ? " reveal-screen" : ""}${isResult ? " result-screen" : ""}`;
 
       if (isIntro) renderIntro();
+      else if (isReveal) renderReveal();
       else if (isResult) renderResult();
       else renderQuestion();
 
       requestAnimationFrame(() => screen.focus({ preventScroll: true }));
       persist();
+    }
+
+    function renderReveal() {
+      screen.innerHTML = `
+        <div class="reading-card" role="status" aria-live="polite">
+          <span class="reading-mark" aria-hidden="true"></span>
+          <p class="eyebrow">Reading your craving...</p>
+          <p class="copy">Checking the texture, mood, and finish.</p>
+        </div>
+      `;
+      window.clearTimeout(renderReveal.timer);
+      renderReveal.timer = window.setTimeout(() => {
+        state.step = 7;
+        setHash("result");
+        render();
+      }, 950);
     }
 
     function renderIntro() {
@@ -1224,7 +1340,7 @@
             <p class="eyebrow">Dessert mood read</p>
             <h1>Find out what you&rsquo;re craving.</h1>
             <p class="copy">Cravings change by the day. Pick by instinct and we&rsquo;ll work out the kind of pastry mood you&rsquo;re in.</p>
-            <p class="meta">6 quick reads · under 45 seconds</p>
+            <p class="meta">5 quick reads · under 45 seconds</p>
             <div class="actions">
               <button class="btn btn-primary" id="startButton" type="button">Let&rsquo;s find out</button>
             </div>
@@ -1445,7 +1561,7 @@
     function completeQuiz() {
       state.result = computeResult();
       state.discountCode = assignDiscountCode();
-      state.step = 7;
+      state.step = 6;
       writeJson(STORAGE.result, state.result);
       safeSet(STORAGE.code, state.discountCode);
       trackEvent("result_generated", eventBase({
@@ -1458,11 +1574,12 @@
         avoiding: state.answers.avoid,
         final_profile: state.result.profile.id,
         main_match: state.result.main.product.id,
+        main_match_name: productDisplayName(state.result.main.product),
         unmet_craving_tags: state.result.unmetTags.join(","),
+        muse_signals: state.result.museSignals.join(","),
         discount_code: state.discountCode,
         confidence: state.result.confidence
       }));
-      setHash("result");
       render();
     }
 
@@ -1472,8 +1589,9 @@
       const profile = {
         id: profileFamily.id,
         name: profileFamily.profile,
-        description: profileDescription(profileFamily),
+        description: profileDescription(profileFamily, dims),
         ideas: profileFamily.ideas,
+        ideaSummary: profileFamily.ideaSummary,
         didYouKnow: profileFamily.didYouKnow,
         tags: resultTags(dims)
       };
@@ -1485,8 +1603,9 @@
       const secondary = rankedProducts.slice(1, 3);
       const gap = main.score - rankedProducts[1].score;
       const unmetTags = [...new Set([...(profileFamily.unmetTags || []), ...unmetTagsFromDims(dims)])];
+      const museSignals = [...new Set([...(quiz.museSignals[profileFamily.id] || []), ...museSignalsFromDims(dims)])];
       const confidence = profileFamily.id === "local" ? "weak" : gap >= 5 ? "strong" : gap >= 2 ? "medium" : "weak";
-      return { profile, dims, main, secondary, confidence, unmetTags, branch: followup?.id || "" };
+      return { profile, dims, main, secondary, confidence, unmetTags, museSignals, matchSignals: matchSignals(dims), branch: followup?.id || "" };
     }
 
     function collectRead() {
@@ -1502,17 +1621,29 @@
     }
 
     function resolveProfileFamily(family, followup) {
+      if (state.answers.avoid === "tooSweet" && state.answers.intensity?.sweetness !== "full") return quiz.families.gentle;
       if (family.id !== "discovery") return family;
       if (followup?.id === "nostalgia") return quiz.families.local;
       return quiz.families.novelty;
     }
 
-    function profileDescription(profileFamily) {
+    function profileDescription(profileFamily, dims = {}) {
       const avoid = state.answers.avoid;
-      if (avoid === "tooSweet") return "You’re not looking for something sugar-heavy today. You want balance, texture, and a cleaner finish.";
-      if (avoid === "tooSafe") return "You don’t really play it safe with dessert. You want something layered, a bit extra, and not too predictable.";
-      if (avoid === "tooDry") return "You’re clearly after softness and moisture — soft centres, cream, or anything that does not eat like a dry biscuit.";
-      return profileFamily.description;
+      const notes = {
+        tooSweet: "You’re not looking for something sugar-heavy today, so balance and a cleaner finish matter more than just maximum sweetness.",
+        tooHeavy: "You want dessert to lift, not sit heavy, which is why fruit, cream-light texture, or crumble energy makes more sense than full dense chocolate.",
+        tooPlain: "You want the bake to do something. A simple pastry is fine, but today it needs texture, contrast, or at least a small twist.",
+        tooDry: "You’re clearly after softness and moisture — soft centres, cream, or anything that does not eat like a dry biscuit.",
+        tooSafe: "You do not really want the safest thing on the counter. Something layered, odd, or a little extra is doing more for you today.",
+        tooCreamy: "You’re not in the mood for anything too soft or cream-heavy, so bite, crumb, chew, or a cleaner finish starts to matter."
+      };
+      const intensity = [];
+      if ((dims.rich || 0) >= 5) intensity.push("rich");
+      if ((dims.soft || 0) >= 4) intensity.push("soft");
+      if ((dims.chew || 0) >= 4) intensity.push("chewy");
+      if ((dims.adventurous || 0) >= 3 || (dims.novelty || 0) >= 4) intensity.push("a bit bold");
+      const tail = notes[avoid] || (intensity.length ? `Your answers also lean ${intensity.slice(0, 2).join(" and ")}, so the match needs to feel specific rather than random.` : "");
+      return [profileFamily.description, tail].filter(Boolean).join(" ");
     }
 
     function addDims(target, dims = {}) {
@@ -1571,6 +1702,43 @@
       return tags;
     }
 
+    function museSignalsFromDims(dims) {
+      const signals = [];
+      if ((dims.local || 0) >= 4) signals.push("kaya", "pandan", "black sesame", "coconut");
+      if ((dims.bright || 0) >= 4 || (dims.fruity || 0) >= 3) signals.push("lemon", "berry", "yuzu", "fruit crumble");
+      if ((dims.novelty || 0) >= 4) signals.push("stuffed", "limited", "hybrid");
+      if ((dims.salty || 0) >= 3) signals.push("sweet-savoury", "shio pan");
+      if ((dims.nutty || 0) >= 3) signals.push("hazelnut", "black sesame", "peanut");
+      return signals;
+    }
+
+    function matchSignals(dims) {
+      return Object.entries(dims)
+        .filter(([, value]) => value > 0)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 4)
+        .map(([key]) => ({
+          dark: "cocoa",
+          butter: "buttery",
+          cream: "creamy",
+          bright: "bright",
+          local: "nostalgic",
+          novelty: "layered",
+          chew: "chewy",
+          soft: "soft",
+          flaky: "flaky",
+          creamy: "smooth",
+          crumbly: "crumbly",
+          fruity: "fruit-led",
+          nutty: "nutty",
+          salty: "salty",
+          sweet: "sweet",
+          rich: "rich",
+          adventurous: "adventurous",
+          familiarity: "familiar"
+        }[key] || key));
+    }
+
     function resultTags(dims) {
       return Object.entries(dims)
         .sort((a, b) => b[1] - a[1])
@@ -1594,6 +1762,26 @@
         }[key] || key));
     }
 
+    function productDisplayName(product = {}) {
+      return (product.name || "")
+        .replace(/^2\s+Streuseltalers \/ Lemon Blueberry Crumble$/, "Streuseltalers")
+        .replace(/^8\s+Brookies$/, "Brookies")
+        .replace(/^6\s+Hot Cocoa Cookies$/, "Hot Cocoa Cookies")
+        .replace(/^3\s+Tiramisu Rolls$/, "Tiramisu Rolls")
+        .replace(/^3\s+Marble Praline Hazelnut Cookies$/, "Marble Praline Hazelnut Cookies")
+        .replace(/^3\s+Brioches aux pépites de chocolat$/, "Brioches aux pépites de chocolat")
+        .replace(/^\d+\s+/, "");
+    }
+
+    function productQuantityLabel(product = {}) {
+      if (product.quantityLabel) return product.quantityLabel;
+      const match = product.name?.match(/^(\d+)\s+/);
+      if (!match) return "";
+      const quantity = match[1];
+      if (product.id === "brookies" || product.id === "hot_cocoa_cookies") return `Box of ${quantity}`;
+      return `Set of ${quantity}`;
+    }
+
     function renderResult() {
       const result = state.result || readJson(STORAGE.result);
       if (!result) {
@@ -1605,6 +1793,12 @@
       state.result = result;
       const label = result.confidence === "weak" ? "Closest KRacked pick" : "KRacked would point you here";
       const code = assignDiscountCode();
+      const mainName = productDisplayName(result.main.product);
+      const mainQuantity = productQuantityLabel(result.main.product);
+      const matchSignalsHtml = (result.matchSignals || matchSignals(result.dims || {}))
+        .slice(0, 4)
+        .map((signal) => `<span class="signal">${escapeHtml(signal)}</span>`)
+        .join("");
       screen.innerHTML = `
         <div class="result-head">
           <p class="eyebrow">Your craving profile is&hellip;</p>
@@ -1616,6 +1810,7 @@
         <section class="idea-panel">
           <p class="eyebrow">You'd probably like...</p>
           <ul class="idea-list">${result.profile.ideas.map((idea) => `<li>${escapeHtml(idea)}</li>`).join("")}</ul>
+          <p class="idea-summary">${escapeHtml(result.profile.ideaSummary || "Basically, you’re after bakes that match the texture, mood, and finish you picked.")}</p>
           <p class="did-you-know"><strong>Did you know:</strong> ${escapeHtml(result.profile.didYouKnow)}</p>
         </section>
 
@@ -1624,10 +1819,15 @@
           <article class="main-pick">
             <p class="eyebrow">${escapeHtml(label)}</p>
             <p class="match-kicker"><strong>If we had to point you to one KRacked pick right now, it’d be this.</strong></p>
-            <h3>${escapeHtml(result.main.product.name)}</h3>
+            <h3>${escapeHtml(mainName)}</h3>
+            ${mainQuantity ? `<p class="meta">${escapeHtml(mainQuantity)}</p>` : ""}
             <p class="price">${escapeHtml(result.main.product.priceLabel)}</p>
-            <p class="reason">${escapeHtml(result.main.reason)}</p>
             <a class="btn btn-primary" href="${result.main.product.linkUrl}" target="_blank" rel="noopener" data-product-id="${result.main.product.id}" data-slot="main">Order this bake</a>
+            <div class="why-match">
+              <strong>Why this match?</strong>
+              <div class="signal-row">${matchSignalsHtml}</div>
+              <p>${escapeHtml(result.main.reason)}</p>
+            </div>
             <div class="discount-box">
               <p class="eyebrow">5% off your first match</p>
               <h4>Use code ${escapeHtml(code)} for 5% off your order.</h4>
@@ -1649,17 +1849,21 @@
           <button class="btn" id="retakeButton" type="button">Retake</button>
           <button class="btn btn-ghost" id="copyResultButton" type="button">Copy my result</button>
         </div>
+        <p class="note">Not today&rsquo;s mood? Retake the read.</p>
       `;
       bindResultActions(result, code);
     }
 
     function secondaryCard(item) {
+      const name = productDisplayName(item.product);
+      const quantity = productQuantityLabel(item.product);
       return `
         <article class="mini-product">
           <div class="mini-image" style="background-image: url('${item.product.image}')"></div>
           <div>
             <p class="eyebrow">Worth a look</p>
-            <h4>${escapeHtml(item.product.name)}</h4>
+            <h4>${escapeHtml(name)}</h4>
+            ${quantity ? `<p class="meta">${escapeHtml(quantity)}</p>` : ""}
             <p class="reason">${escapeHtml(item.reason)}</p>
             <a class="btn" href="${item.product.linkUrl}" target="_blank" rel="noopener" data-product-id="${item.product.id}" data-slot="secondary">View bake</a>
           </div>
@@ -1669,7 +1873,10 @@
 
     function bindResultActions(result, code) {
       screen.querySelectorAll("[data-product-id]").forEach((link) => {
-        link.addEventListener("click", () => trackEvent("order_clicked", eventBase({ product_id: link.dataset.productId, slot: link.dataset.slot })));
+        link.addEventListener("click", () => {
+          const product = productById[link.dataset.productId] || result.main.product;
+          trackEvent("order_clicked", eventBase({ product_id: link.dataset.productId, product_name: productDisplayName(product), slot: link.dataset.slot }));
+        });
       });
       document.getElementById("retakeButton").addEventListener("click", () => {
         trackEvent("retake_quiz", eventBase({ profile: result.profile.id }));
@@ -1677,12 +1884,25 @@
       });
       document.getElementById("copyResultButton").addEventListener("click", async () => {
         trackEvent("copy_result", eventBase({ profile: result.profile.id }));
-        await copyText(`My pastry mood today is ${result.profile.name}. I'd probably like ${result.profile.ideas.slice(0, 3).join(", ")}. Closest KRacked match: ${result.main.product.name}.`, "copyResultButton");
+        await copyText(shareText(result), "copyResultButton");
       });
       document.getElementById("copyCodeButton").addEventListener("click", async () => {
         trackEvent("discount_copied", eventBase({ code }));
         await copyText(`Use code ${code} for 5% off your order.`, "copyCodeButton", `Code: ${code}`);
       });
+    }
+
+    function shareText(result) {
+      const profileLine = {
+        dark: "apparently I want cocoa depth, soft centres, and dessert with actual weight",
+        butter: "apparently I want butter, soft crumb, and bakery comfort",
+        cream: "apparently I want cream, coffee, cocoa dust, and a mellow finish",
+        bright: "apparently I want fruit, crumble, and something that does not sit heavy",
+        local: "apparently I want familiar flavours with a bit of curiosity",
+        novelty: "apparently I like layered chaos and desserts that do not play it too safe",
+        gentle: "apparently I want something soft, balanced, and easy to finish"
+      }[result.profile.id] || `apparently I like ${result.profile.ideas.slice(0, 2).join(" and ")}`;
+      return `My KRacked craving profile is ${result.profile.name} — ${profileLine}. Closest KRacked pick: ${productDisplayName(result.main.product)}.`;
     }
 
     function resetQuiz() {
