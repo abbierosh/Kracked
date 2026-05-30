@@ -607,6 +607,18 @@
       margin: 0;
     }
 
+    .read-source {
+      margin-top: 2px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(240,226,207,0.08);
+    }
+
+    .read-source .eyebrow {
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
     .tag-row {
       display: flex;
       flex-wrap: wrap;
@@ -697,6 +709,17 @@
       background: rgba(198,162,97,0.08);
       font-size: 11px;
       font-weight: 850;
+    }
+
+    .match-bridge {
+      margin: 0 0 14px;
+      border: 1px solid rgba(228,199,127,0.18);
+      border-radius: 10px;
+      padding: 12px 14px;
+      color: var(--muted);
+      background: rgba(255,255,255,0.035);
+      font-size: 14px;
+      line-height: 1.45;
     }
 
     .result-hero {
@@ -806,6 +829,13 @@
       line-height: 1.4;
     }
 
+    .cta-note {
+      margin: -2px 0 4px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.4;
+    }
+
     .secondary {
       margin-top: 22px;
     }
@@ -824,22 +854,22 @@
       gap: 14px;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding: 12px;
-      background: rgba(255,255,255,0.045);
+      padding: 10px;
+      background: rgba(255,255,255,0.032);
     }
 
     .mini-image {
       position: relative;
       width: 100%;
       aspect-ratio: 16 / 10;
-      min-height: 190px;
+      min-height: 150px;
       overflow: hidden;
       border-radius: 6px;
       background-color: rgba(0,0,0,0.28);
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
-      filter: saturate(0.92) brightness(0.82) contrast(1.04);
+      filter: saturate(0.86) brightness(0.72) contrast(1.06);
     }
 
     .mini-product > div:last-child {
@@ -856,20 +886,20 @@
       overflow-wrap: anywhere;
       margin-bottom: 6px;
       color: var(--cream);
-      font-size: 19px;
+      font-size: 17px;
       line-height: 1.12;
     }
 
     .mini-product .reason {
       flex: 1;
       margin-bottom: 12px;
-      font-size: 15px;
+      font-size: 13px;
     }
 
     .mini-product .btn {
       margin-top: auto;
-      min-height: 42px;
-      padding: 10px 14px;
+      min-height: 38px;
+      padding: 9px 12px;
       align-self: flex-start;
     }
 
@@ -905,7 +935,7 @@
       .result-hero { grid-template-columns: 1fr; }
       .product-image { min-height: 280px; }
       .product-grid { grid-template-columns: 1fr; }
-      .mini-image { min-height: 170px; }
+      .mini-image { min-height: 150px; }
       .actions .btn, .main-pick .btn { width: 100%; }
     }
 
@@ -1090,7 +1120,7 @@
           title: "Creamy & Coffee",
           tags: "coffee · custard · soft",
           prompt: "What kind of creamy mood?",
-          profile: "The Coffee Cream Type",
+          profile: "The Café Cream Chaser",
           description: "You’re not chasing pure sugar today. You want something softer — cream, coffee, cocoa dust, and a mellow finish that feels like a slow café moment. This mood leans smooth instead of loud. A simple pastry is fine, but today it still needs a little texture, contrast, or a small twist.",
           ideas: ["tiramisu", "custard rolls", "cream buns", "coffee cream slices", "cocoa-dusted sponge"],
           ideaSummary: "Basically, you’re after soft layers, mellow sweetness, and café-style richness.",
@@ -1817,6 +1847,49 @@
       ].filter(Boolean);
     }
 
+    function readSourceSignals(result) {
+      const signals = [];
+      const family = quiz.families[state.answers.family];
+      const followup = family?.followups.find((option) => option.id === state.answers.followup);
+      const avoid = quiz.avoidanceOptions.find((option) => option.id === state.answers.avoid);
+      const textureIds = state.answers.textures || [];
+      const textureLabels = textureIds
+        .map((id) => quiz.textureOptions.find((option) => option.id === id)?.title?.toLowerCase())
+        .filter(Boolean);
+
+      if (result.profile.id === "cream") signals.push("creamy", "coffee-led");
+      else if (result.profile.id === "dark") signals.push("cocoa", "rich");
+      else if (result.profile.id === "butter") signals.push("buttery", "soft");
+      else if (result.profile.id === "bright") signals.push("bright", "fruit-led");
+      else if (result.profile.id === "local") signals.push("local", "familiar");
+      else if (result.profile.id === "novelty") signals.push("layered", "adventurous");
+      else if (result.profile.id === "gentle") signals.push("gentle", "balanced");
+
+      if (followup?.id === "tiramisu") signals.push("coffee-led");
+      if (followup?.id === "custard" || followup?.id === "creamRoll") signals.push("soft");
+      if (followup?.id === "savoury" || followup?.id === "salty") signals.push("salty");
+      if (followup?.id === "nostalgia") signals.push("nostalgic");
+      textureLabels.forEach((label) => signals.push(label.replace(" centre", "").replace(" middle", "")));
+      if (avoid?.id === "tooSweet") signals.push("not too sweet");
+      if (avoid?.id === "tooHeavy") signals.push("not too heavy");
+      if (avoid?.id === "tooSafe") signals.push("not too safe");
+      if (avoid?.id === "tooDry") signals.push("softness");
+      if (avoid?.id === "tooCreamy") signals.push("more bite");
+      return [...new Set(signals)].slice(0, 4);
+    }
+
+    function bridgeCopy(result) {
+      const unmet = result.unmetTags || [];
+      const hasLocalGap = result.profile.id === "local" || unmet.some((tag) => /kaya|pandan|sesame|local/.test(tag));
+      if (hasLocalGap) {
+        return "We don’t have a kaya, pandan, or sesame bake on the menu right now, but your read points toward familiar flavour with a little curiosity — so this is the closest KRacked match from our current menu.";
+      }
+      if (result.confidence === "weak") {
+        return "We don’t have every pastry in the world, but based on your read, this is the closest KRacked match right now.";
+      }
+      return "";
+    }
+
     function renderResult() {
       const result = state.result || readJson(STORAGE.result);
       if (!result) {
@@ -1826,21 +1899,31 @@
         return;
       }
       state.result = result;
+      const currentProfile = quiz.families[result.profile.id];
+      if (currentProfile?.profile) result.profile.name = currentProfile.profile;
       result.profile.tags = profileTags(result.profile.id);
       const code = assignDiscountCode();
       const mainName = productDisplayName(result.main.product);
       const mainQuantity = productQuantityLabel(result.main.product);
       const profileParagraphs = splitResultDescription(result.profile.description);
+      const sourceSignalsHtml = readSourceSignals(result)
+        .map((signal) => `<span class="signal">${escapeHtml(signal)}</span>`)
+        .join("");
       const matchSignalsHtml = (result.matchSignals || matchSignals(result.dims || {}))
         .slice(0, 4)
         .map((signal) => `<span class="signal">${escapeHtml(signal)}</span>`)
         .join("");
+      const bridge = bridgeCopy(result);
       screen.innerHTML = `
         <div class="result-head">
-          <p class="eyebrow">Your craving profile is&hellip;</p>
+          <p class="eyebrow">Today&rsquo;s dessert mood</p>
           <h2>${escapeHtml(result.profile.name)}</h2>
           <div class="copy result-copy">${profileParagraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("")}</div>
           <div class="tag-row">${result.profile.tags.map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}</div>
+          <div class="read-source">
+            <p class="eyebrow">Your read came from</p>
+            <div class="signal-row">${sourceSignalsHtml}</div>
+          </div>
         </div>
 
         <section class="idea-panel">
@@ -1850,6 +1933,7 @@
           <p class="did-you-know"><strong>Did you know:</strong> ${escapeHtml(result.profile.didYouKnow)}</p>
         </section>
 
+        ${bridge ? `<p class="match-bridge">${escapeHtml(bridge)}</p>` : ""}
         <div class="result-hero">
           <div class="product-image" style="background-image: url('${result.main.product.image}'); --image-position: ${escapeHtml(result.main.product.imagePosition || "center")}"></div>
           <article class="main-pick">
@@ -1859,6 +1943,7 @@
             ${mainQuantity ? `<p class="meta">${escapeHtml(mainQuantity)}</p>` : ""}
             <p class="price">${escapeHtml(result.main.product.priceLabel)}</p>
             <a class="btn btn-primary" href="${result.main.product.linkUrl}" target="_blank" rel="noopener" data-product-id="${result.main.product.id}" data-slot="main">Order this bake</a>
+            <p class="cta-note">Opens KRacked&rsquo;s order page.</p>
             <div class="why-match">
               <strong>Why this match?</strong>
               <p>Your answers pointed to:</p>
