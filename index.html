@@ -130,6 +130,10 @@
       align-content: center;
     }
 
+    .screen:focus {
+      outline: none;
+    }
+
     .screen.intro-screen {
       min-height: auto;
       padding: clamp(22px, 4vw, 34px);
@@ -563,6 +567,8 @@
     }
 
     .result-head {
+      position: relative;
+      overflow: hidden;
       display: grid;
       gap: 10px;
       margin-bottom: 18px;
@@ -570,8 +576,35 @@
       border: 1px solid rgba(228,199,127,0.22);
       border-radius: 14px;
       background:
-        radial-gradient(circle at 90% 12%, rgba(228,199,127,0.14), transparent 30%),
+        radial-gradient(circle at 88% 18%, rgba(228,199,127,0.18), transparent 34%),
+        radial-gradient(circle at 100% 82%, rgba(96,62,28,0.22), transparent 38%),
         rgba(255,255,255,0.04);
+    }
+
+    .result-head::after {
+      position: absolute;
+      inset: 0 0 0 auto;
+      width: 38%;
+      content: "";
+      background:
+        linear-gradient(90deg, transparent, rgba(198,162,97,0.06)),
+        radial-gradient(circle at 70% 42%, rgba(228,199,127,0.12), transparent 42%);
+      pointer-events: none;
+    }
+
+    .result-head > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .result-copy {
+      display: grid;
+      gap: 10px;
+      max-width: 76ch;
+    }
+
+    .result-copy p {
+      margin: 0;
     }
 
     .tag-row {
@@ -686,8 +719,8 @@
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
-      box-shadow: inset 0 -110px 100px rgba(0,0,0,0.44), inset 0 0 0 1px rgba(255,255,255,0.025);
-      filter: saturate(0.92) brightness(0.82) contrast(1.04);
+      box-shadow: inset 0 -130px 110px rgba(0,0,0,0.54), inset 0 0 0 1px rgba(255,255,255,0.025);
+      filter: saturate(0.86) brightness(0.72) contrast(1.08);
     }
 
     .product-image::after,
@@ -696,8 +729,8 @@
       inset: 0;
       content: "";
       background:
-        radial-gradient(circle at 52% 35%, transparent 42%, rgba(0,0,0,0.36)),
-        linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.36));
+        radial-gradient(circle at 52% 35%, transparent 34%, rgba(0,0,0,0.44)),
+        linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.5));
       pointer-events: none;
     }
 
@@ -1593,7 +1626,7 @@
         ideas: profileFamily.ideas,
         ideaSummary: profileFamily.ideaSummary,
         didYouKnow: profileFamily.didYouKnow,
-        tags: resultTags(dims)
+        tags: profileTags(profileFamily.id)
       };
 
       const rankedProducts = quiz.products
@@ -1713,10 +1746,9 @@
     }
 
     function matchSignals(dims) {
-      return Object.entries(dims)
+      const labels = Object.entries(dims)
         .filter(([, value]) => value > 0)
         .sort((a, b) => b[1] - a[1])
-        .slice(0, 4)
         .map(([key]) => ({
           dark: "cocoa",
           butter: "buttery",
@@ -1737,29 +1769,20 @@
           adventurous: "adventurous",
           familiarity: "familiar"
         }[key] || key));
+      return [...new Set(labels)].slice(0, 4);
     }
 
-    function resultTags(dims) {
-      return Object.entries(dims)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 3)
-        .map(([key]) => ({
-          lateNight: "late-night",
-          novelty: "curveball",
-          adventurous: "adventurous",
-          familiarity: "familiar",
-          brunch: "brunch",
-          chew: "chewy",
-          soft: "soft",
-          rich: "rich",
-          bright: "bright",
-          fruity: "fruity",
-          butter: "buttery",
-          cream: "creamy",
-          dark: "cocoa",
-          local: "nostalgic",
-          sharing: "sharing"
-        }[key] || key));
+    function profileTags(profileId) {
+      const tags = {
+        dark: ["cocoa", "rich", "chewy"],
+        cream: ["creamy", "coffee-led", "mellow"],
+        butter: ["buttery", "soft", "comforting"],
+        bright: ["bright", "fruity", "crumbly"],
+        local: ["familiar", "local", "curious"],
+        novelty: ["layered", "adventurous", "not-too-safe"],
+        gentle: ["gentle", "balanced", "soft"]
+      };
+      return tags[profileId] || ["balanced", "textured", "today"];
     }
 
     function productDisplayName(product = {}) {
@@ -1782,6 +1805,17 @@
       return `Set of ${quantity}`;
     }
 
+    function splitResultDescription(description = "") {
+      const sentences = description.match(/[^.!?]+[.!?]+(?:["”])?/g) || [description];
+      const clean = sentences.map((sentence) => sentence.trim()).filter(Boolean);
+      if (clean.length <= 2) return clean;
+      const midpoint = Math.ceil(clean.length / 2);
+      return [
+        clean.slice(0, midpoint).join(" "),
+        clean.slice(midpoint).join(" ")
+      ].filter(Boolean);
+    }
+
     function renderResult() {
       const result = state.result || readJson(STORAGE.result);
       if (!result) {
@@ -1791,10 +1825,11 @@
         return;
       }
       state.result = result;
-      const label = result.confidence === "weak" ? "Closest KRacked pick" : "KRacked would point you here";
+      result.profile.tags = profileTags(result.profile.id);
       const code = assignDiscountCode();
       const mainName = productDisplayName(result.main.product);
       const mainQuantity = productQuantityLabel(result.main.product);
+      const profileParagraphs = splitResultDescription(result.profile.description);
       const matchSignalsHtml = (result.matchSignals || matchSignals(result.dims || {}))
         .slice(0, 4)
         .map((signal) => `<span class="signal">${escapeHtml(signal)}</span>`)
@@ -1803,7 +1838,7 @@
         <div class="result-head">
           <p class="eyebrow">Your craving profile is&hellip;</p>
           <h2>${escapeHtml(result.profile.name)}</h2>
-          <p class="copy">${escapeHtml(result.profile.description)}</p>
+          <div class="copy result-copy">${profileParagraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("")}</div>
           <div class="tag-row">${result.profile.tags.map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}</div>
         </div>
 
@@ -1817,14 +1852,15 @@
         <div class="result-hero">
           <div class="product-image" style="background-image: url('${result.main.product.image}')"></div>
           <article class="main-pick">
-            <p class="eyebrow">${escapeHtml(label)}</p>
-            <p class="match-kicker"><strong>If we had to point you to one KRacked pick right now, it’d be this.</strong></p>
+            <p class="eyebrow">Your closest KRacked pick</p>
+            <p class="match-kicker"><strong>Based on your read, this is the closest match on our menu right now.</strong></p>
             <h3>${escapeHtml(mainName)}</h3>
             ${mainQuantity ? `<p class="meta">${escapeHtml(mainQuantity)}</p>` : ""}
             <p class="price">${escapeHtml(result.main.product.priceLabel)}</p>
             <a class="btn btn-primary" href="${result.main.product.linkUrl}" target="_blank" rel="noopener" data-product-id="${result.main.product.id}" data-slot="main">Order this bake</a>
             <div class="why-match">
               <strong>Why this match?</strong>
+              <p>Your answers pointed to:</p>
               <div class="signal-row">${matchSignalsHtml}</div>
               <p>${escapeHtml(result.main.reason)}</p>
             </div>
