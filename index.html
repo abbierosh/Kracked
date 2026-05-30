@@ -193,6 +193,7 @@
       background:
         linear-gradient(145deg, rgba(198,162,97,0.12), rgba(0,0,0,0.24)),
         rgba(255,255,255,0.035);
+      box-shadow: inset 0 0 80px rgba(0,0,0,0.55);
     }
 
     .hero-pastry-visual::after {
@@ -200,8 +201,9 @@
       inset: 0;
       content: "";
       background:
-        linear-gradient(90deg, rgba(0,0,0,0.26), transparent 42%),
-        linear-gradient(180deg, transparent 54%, rgba(0,0,0,0.32));
+        linear-gradient(90deg, rgba(13,11,9,0.86), rgba(13,11,9,0.28) 34%, transparent 62%),
+        radial-gradient(circle at 72% 48%, transparent 34%, rgba(0,0,0,0.54) 100%),
+        linear-gradient(180deg, rgba(0,0,0,0.18), transparent 45%, rgba(0,0,0,0.42));
       pointer-events: none;
     }
 
@@ -211,6 +213,8 @@
       display: block;
       object-fit: cover;
       object-position: 68% center;
+      filter: saturate(0.94) brightness(0.86) contrast(1.04);
+      transform: scale(1.01);
     }
 
     .eyebrow {
@@ -557,8 +561,7 @@
       font-weight: 850;
     }
 
-    .idea-panel,
-    .discount-box {
+    .idea-panel {
       border: 1px solid var(--line);
       border-radius: 12px;
       padding: 18px;
@@ -611,11 +614,29 @@
     }
 
     .product-image {
+      position: relative;
       min-height: 340px;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
       border: 1px solid var(--line);
       border-radius: 12px;
-      background: center / cover no-repeat;
-      box-shadow: inset 0 -90px 90px rgba(0,0,0,0.3);
+      background-color: rgba(0,0,0,0.28);
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      box-shadow: inset 0 -110px 100px rgba(0,0,0,0.44), inset 0 0 0 1px rgba(255,255,255,0.025);
+      filter: saturate(0.92) brightness(0.82) contrast(1.04);
+    }
+
+    .product-image::after,
+    .mini-image::after {
+      position: absolute;
+      inset: 0;
+      content: "";
+      background:
+        radial-gradient(circle at 52% 35%, transparent 42%, rgba(0,0,0,0.36)),
+        linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.36));
+      pointer-events: none;
     }
 
     .main-pick {
@@ -648,16 +669,18 @@
     }
 
     .discount-box {
-      margin-top: 10px;
+      margin-top: 6px;
+      border: 1px solid rgba(228,199,127,0.24);
+      border-radius: 10px;
+      padding: 12px;
       background:
-        radial-gradient(circle at 92% 10%, rgba(228,199,127,0.16), transparent 28%),
-        rgba(255,255,255,0.045);
+        linear-gradient(145deg, rgba(198,162,97,0.12), rgba(255,255,255,0.035));
     }
 
     .discount-box h4 {
-      margin-bottom: 8px;
+      margin-bottom: 0;
       color: var(--cream);
-      font-size: 18px;
+      font-size: 15px;
       line-height: 1.25;
     }
 
@@ -666,13 +689,13 @@
       flex-wrap: wrap;
       gap: 10px;
       align-items: center;
-      margin-top: 12px;
+      margin-top: 10px;
     }
 
     .discount-code {
       border: 1px solid rgba(228,199,127,0.42);
       border-radius: var(--radius);
-      padding: 10px 12px;
+      padding: 8px 10px;
       color: var(--gold-bright);
       background: rgba(0,0,0,0.22);
       font-weight: 900;
@@ -680,9 +703,9 @@
     }
 
     .note {
-      margin: 10px 0 0;
+      margin: 8px 0 0;
       color: var(--muted);
-      font-size: 12px;
+      font-size: 11px;
       line-height: 1.4;
     }
 
@@ -709,9 +732,16 @@
     }
 
     .mini-image {
+      position: relative;
+      overflow: hidden;
       min-height: 132px;
+      aspect-ratio: 4 / 5;
       border-radius: 6px;
-      background: center / cover no-repeat;
+      background-color: rgba(0,0,0,0.28);
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      filter: saturate(0.92) brightness(0.82) contrast(1.04);
     }
 
     .mini-product > div:last-child {
@@ -907,7 +937,7 @@
           tags: "cocoa · chewy · rich",
           prompt: "What kind of chocolate mood?",
           profile: "The Dark Comfort Seeker",
-          description: "You’re not just looking for sweet. You want depth, cocoa, chew, and something that feels like a proper reward. This kind of mood wants dessert to have weight.",
+          description: "You’re not just looking for sweet. You want depth, cocoa, chew, and something that feels like a proper reward. This is the kind of craving that wants dessert to have weight.",
           ideas: ["brownie cookies", "ganache tarts", "chocolate babka", "cocoa hazelnut rolls", "molten-centre bakes"],
           didYouKnow: "Cocoa bitterness can make a bake feel richer without making it taste simply sweeter. That’s why brownie-style cookies, ganache, and dark chocolate bakes feel more satisfying.",
           unmetTags: ["cocoa-depth", "molten-centre"],
@@ -945,7 +975,7 @@
           tags: "coffee · custard · soft",
           prompt: "What kind of creamy mood?",
           profile: "The Café Cloud Romantic",
-          description: "You’re in a softer café-dessert mood. Cream, cocoa, coffee, and smooth layers are doing more for you than pure sugar.",
+          description: "You’re not chasing pure sugar today. You want something softer — cream, coffee, cocoa dust, and a mellow finish that feels like a slow café moment.",
           ideas: ["tiramisu", "custard rolls", "cream buns", "coffee cream slices", "cocoa-dusted sponge"],
           didYouKnow: "Café-style desserts often balance sweetness with cream, coffee, and cocoa instead of just sugar.",
           unmetTags: ["coffee-cream", "custard"],
@@ -1002,7 +1032,7 @@
           tags: "limited · layered · unexpected",
           prompt: "What kind of wildcard?",
           profile: "The Wildcard Drop Hunter",
-          description: "You don’t really play it safe with dessert. You like bakes that feel layered, a bit extra, and not too predictable — something that gives you a reason to go “wait, that actually works.”",
+          description: "You don’t really play it safe with dessert. You like bakes that feel layered, a bit extra, and not too predictable — something that makes you go, ‘wait, that actually works.’",
           ideas: ["stuffed cookies", "brookies", "hybrid desserts", "limited drops", "sweet-savoury bakes"],
           didYouKnow: "Mash-up desserts work best when textures contrast, not when everything is just more.",
           unmetTags: ["hybrid-stuffed", "limited-drop"],
@@ -1135,8 +1165,8 @@
       const isResult = state.step === 7;
       backButton.hidden = state.step <= 1 || isIntro || isResult;
       progress.hidden = isIntro || isResult;
-      progressFill.style.width = `${Math.max(0, Math.min(100, (state.step / 6) * 100))}%`;
-      stepCopy.textContent = `${Math.min(state.step, 6)} of 6`;
+      progressFill.style.width = isIntro ? "0%" : `${Math.max(0, Math.min(100, (state.step / 6) * 100))}%`;
+      stepCopy.textContent = isIntro ? "" : `${Math.min(state.step, 6)} of 6`;
       screen.className = `screen${isIntro ? " intro-screen" : ""}${isResult ? " result-screen" : ""}`;
 
       if (isIntro) renderIntro();
@@ -1160,7 +1190,7 @@
             </div>
           </div>
           <div class="hero-pastry-visual">
-            <img src="assets/intro-pastry-hero.png" alt="Dark editorial pastry stack" loading="eager" decoding="async">
+            <img src="assets/intro-pastry-hero.png" alt="Dark editorial pastry stack" loading="eager" decoding="async" onerror="this.remove()">
           </div>
         </div>
       `;
@@ -1461,11 +1491,11 @@
       const reasons = {
         hot_cocoa_cookies: "This fits because you’re leaning toward cocoa comfort: soft centre, rich finish, and something that feels more like a proper dessert than a snack.",
         brookies: "This fits because you’re asking for contrast — brownie density, cookie chew, and a little “why not?” energy in one bite.",
-        tiramisu_rolls: "This fits because your answers point to cream, coffee, softness, and a mellow finish.",
+        tiramisu_rolls: "This fits because you’re leaning creamy, coffee-led, and soft — the kind of dessert that feels rich without being heavy.",
         french_brioche_loaf: "This fits because you’re craving the soft, buttery side of pastry — warm, simple, and not too loud.",
         streuseltalers: "This fits because you’re leaning brighter and more layered: fruit, crumble, and a finish that feels less heavy.",
-        triple_chocolate_cookies: "This fits because the read wants deeper chocolate and higher richness without turning the whole thing into pure sugar.",
-        marble_praline_hazelnut_cookies: "This fits because cocoa depth gets more interesting when it has a roasty hazelnut edge.",
+        triple_chocolate_cookies: "This fits because you want chocolate with weight — deep cocoa, chew, and a full dessert finish.",
+        marble_praline_hazelnut_cookies: "This fits because you’re leaning into cocoa depth with a nutty, roasted edge.",
         kannelbullar: "This fits because you’re pointing toward warm bakery comfort: soft dough, spice, and a familiar finish.",
         brioches_pepites_chocolat: "This fits because you want soft bread comfort with enough chocolate to keep it feeling like a treat.",
         garlic_butter_shio_pan: "This fits because your answers point to butter, salt, and comfort without going overly sweet."
@@ -1515,7 +1545,7 @@
         return;
       }
       state.result = result;
-      const label = result.confidence === "weak" ? "Closest fit on the current menu" : "Closest KRacked match right now";
+      const label = result.confidence === "weak" ? "Closest KRacked pick" : "KRacked would point you here";
       const code = assignDiscountCode();
       screen.innerHTML = `
         <div class="result-head">
@@ -1535,13 +1565,13 @@
           <div class="product-image" style="background-image: url('${result.main.product.image}')"></div>
           <article class="main-pick">
             <p class="eyebrow">${escapeHtml(label)}</p>
-            <p class="match-kicker"><strong>Based on that, KRacked would point you here.</strong></p>
+            <p class="match-kicker"><strong>If we had to point you to one KRacked pick right now, it’d be this.</strong></p>
             <h3>${escapeHtml(result.main.product.name)}</h3>
             <p class="price">${escapeHtml(result.main.product.priceLabel)}</p>
             <p class="reason">${escapeHtml(result.main.reason)}</p>
             <a class="btn btn-primary" href="${result.main.product.linkUrl}" target="_blank" rel="noopener" data-product-id="${result.main.product.id}" data-slot="main">Order this bake</a>
             <div class="discount-box">
-              <p class="eyebrow">Try this with 5% off</p>
+              <p class="eyebrow">5% off your first match</p>
               <h4>Use code ${escapeHtml(code)} for 5% off your order.</h4>
               <div class="code-row">
                 <span class="discount-code">${escapeHtml(code)}</span>
