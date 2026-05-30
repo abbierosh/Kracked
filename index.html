@@ -600,7 +600,7 @@
     .result-copy {
       display: grid;
       gap: 10px;
-      max-width: 76ch;
+      max-width: 670px;
     }
 
     .result-copy p {
@@ -716,7 +716,7 @@
       border: 1px solid var(--line);
       border-radius: 12px;
       background-color: rgba(0,0,0,0.28);
-      background-position: center;
+      background-position: var(--image-position, center);
       background-size: cover;
       background-repeat: no-repeat;
       box-shadow: inset 0 -130px 110px rgba(0,0,0,0.54), inset 0 0 0 1px rgba(255,255,255,0.025);
@@ -975,6 +975,7 @@
           priceLabel: "$12.90",
           linkUrl: "https://take.app/krackedbakes/p/cmmmesaaz000i04l14yc3kebn",
           image: "https://emofly.b-cdn.net/hbd_exvhac6ayb3ZKT/width:640/plain/https%3A%2F%2Fstorage.googleapis.com%2Ftakeapp%2Fmedia%2Fcmmono9vx000104l45e194ert.jpeg",
+          imagePosition: "center 38%",
           dims: { cream: 4, soft: 2, creamy: 4, sweet: 1, rich: 2, brunch: 1 }
         },
         {
@@ -1050,10 +1051,10 @@
           tags: "cocoa · chewy · rich",
           prompt: "What kind of chocolate mood?",
           profile: "The Dark Comfort Seeker",
-          description: "You’re not just looking for something sweet. You want depth, cocoa, chew, and a bake that feels like a proper reward. This is the kind of mood that wants dessert to have weight — not just sugar, but richness, softness, and a bit of drama. You’d probably enjoy dark chocolate, brownie centres, ganache, cocoa dust, or anything that feels dense in the best way.",
+          description: "You’re not just looking for sweet. You want depth, cocoa, chew, and a bake that feels like a proper reward. This mood wants dessert to have weight — richness, softness, and a bit of drama.",
           ideas: ["brownie cookies", "ganache tarts", "chocolate babka", "cocoa hazelnut rolls", "molten-centre bakes"],
           ideaSummary: "Basically, you’re after bakes with cocoa depth, soft centres, and a proper dessert finish.",
-          didYouKnow: "Brownie-style bakes feel richer because the texture holds moisture and cocoa intensity longer than a crisp cookie.",
+          didYouKnow: "Brownie-style bakes feel richer because their texture holds moisture and cocoa intensity longer than a crisp cookie.",
           unmetTags: ["cocoa-depth", "molten-centre"],
           dims: { dark: 4, rich: 2, chew: 1 },
           followups: [
@@ -1070,10 +1071,10 @@
           tags: "warm · bakery · comfort",
           prompt: "What kind of buttery mood?",
           profile: "The Butter-Led Loyalist",
-          description: "You’re craving comfort more than drama. You want butter, warmth, soft crumb, and something that feels easy to keep going back to. This pastry mood does not need to shout — it just needs to be soft, golden, and properly satisfying. You’d probably enjoy brioche, milk buns, croissants, shio pan, butter loaves, or anything that smells like a bakery in the morning.",
+          description: "You’re craving comfort more than drama. You want butter, warmth, soft crumb, and something easy to keep going back to. This mood does not need to shout — it just needs to be soft, golden, and properly satisfying.",
           ideas: ["brioche", "croissants", "milk buns", "butter loaves", "shio pan"],
           ideaSummary: "Basically, you’re after softness, warmth, and bakes that feel comforting without doing too much.",
-          didYouKnow: "Brioche feels soft and full because it is an enriched dough, usually made with butter, eggs, or milk.",
+          didYouKnow: "Brioche feels soft and full because it is enriched with butter, eggs, or milk worked into the dough.",
           unmetTags: ["savoury-buttery", "enriched-dough"],
           dims: { butter: 4, soft: 2, familiarity: 2 },
           followups: [
@@ -1089,11 +1090,11 @@
           title: "Creamy & Coffee",
           tags: "coffee · custard · soft",
           prompt: "What kind of creamy mood?",
-          profile: "The Café Cloud Romantic",
-          description: "You’re not chasing pure sugar today. You want something softer — cream, coffee, cocoa dust, and a mellow finish that feels like a slow café moment. This is the kind of mood that leans smooth instead of loud. You’d probably enjoy tiramisu, custard rolls, cream buns, coffee cream, soft sponge, or anything that feels rich without being too heavy.",
+          profile: "The Coffee Cream Type",
+          description: "You’re not chasing pure sugar today. You want something softer — cream, coffee, cocoa dust, and a mellow finish that feels like a slow café moment. This mood leans smooth instead of loud. A simple pastry is fine, but today it still needs a little texture, contrast, or a small twist.",
           ideas: ["tiramisu", "custard rolls", "cream buns", "coffee cream slices", "cocoa-dusted sponge"],
           ideaSummary: "Basically, you’re after soft layers, mellow sweetness, and café-style richness.",
-          didYouKnow: "Creamy café desserts work because coffee and cocoa add bitterness, which stops cream from feeling flat.",
+          didYouKnow: "Creamy café desserts work because coffee and cocoa bring bitterness, so the cream feels richer without tasting flat or overly sweet.",
           unmetTags: ["coffee-cream", "custard"],
           dims: { cream: 4, creamy: 3, soft: 1 },
           followups: [
@@ -1110,10 +1111,10 @@
           tags: "citrus · berry · sharp finish",
           prompt: "What kind of bright?",
           profile: "The Bright Crumble Type",
-          description: "You want something that lifts instead of sits heavy. Fruit, citrus, crumble, and a cleaner finish are probably what your sweet tooth is asking for today. This is not a too-much-chocolate kind of mood — it is more about brightness, texture, and a little sharpness to balance the sweet. You’d probably enjoy berry tarts, lemon blueberry bakes, fruit crumble, yuzu cream, or citrusy pastry.",
+          description: "You want something that lifts instead of sitting heavy. Fruit, citrus, crumble, and a cleaner finish are probably what your sweet tooth is asking for today. This is more about brightness, texture, and a little sharpness to balance the sweet.",
           ideas: ["fruit crumble", "lemon blueberry bakes", "berry tarts", "citrus cream pastries", "yuzu-style desserts"],
           ideaSummary: "Basically, you’re after fruit, crumble, and a finish that feels lifted rather than heavy.",
-          didYouKnow: "Fruit-led pastries feel lighter because acidity cuts through butter and sugar.",
+          didYouKnow: "Fruit-led pastries feel lighter because acidity cuts through butter and sugar instead of letting sweetness sit flat.",
           unmetTags: ["yuzu-citrus", "fruit-crumble"],
           dims: { bright: 4, fruity: 3, adventurous: 1 },
           followups: [
@@ -1130,10 +1131,10 @@
           tags: "local · layered · unexpected",
           prompt: "What kind of different are we doing?",
           profile: "The Wildcard Drop Hunter",
-          description: "You don’t really play it safe with dessert. You like bakes that feel layered, a bit extra, and not too predictable — something that gives you a reason to go, “wait, that actually works.” This is the mood for contrast: gooey with crisp, sweet with salty, familiar with weird, or classic with a twist. You’d probably enjoy stuffed cookies, brookies, hybrid desserts, limited drops, sweet-savoury bakes, or anything with a little chaos but still balanced.",
+          description: "You don’t really play it safe with dessert. You like bakes that feel layered, a bit extra, and not too predictable — something that makes you go, “wait, that actually works.” This is the mood for contrast: gooey with crisp, sweet with salty, familiar with weird.",
           ideas: ["stuffed cookies", "brookies", "hybrid desserts", "kaya buns", "pandan rolls"],
           ideaSummary: "Basically, you like desserts with texture, contrast, and a little “wait, that works?” moment.",
-          didYouKnow: "Mash-up desserts work best when textures contrast, not when everything is just more.",
+          didYouKnow: "Mash-up desserts work best when textures contrast, not when everything is simply more.",
           unmetTags: ["hybrid-stuffed", "kaya-pandan", "limited-drop"],
           dims: { novelty: 3, local: 2, adventurous: 2 },
           followups: [
@@ -1150,10 +1151,10 @@
           tags: "kaya · pandan · sesame",
           prompt: "What kind of familiar?",
           profile: "The Nostalgic Twist Chaser",
-          description: "You’re leaning toward flavours that feel familiar, but you still want them to do something interesting. Kaya, pandan, sesame, coconut, peanut, or yuzu-style notes would probably hit because they carry memory and curiosity at the same time. This is the kind of mood that wants comfort, but not something boring. You’d probably enjoy local-inspired buns, pandan rolls, black sesame cookies, coconut brioche, or peanut-sesame bakes.",
+          description: "You’re leaning toward flavours that feel familiar, but you still want them to do something interesting. Kaya, pandan, sesame, coconut, peanut, or yuzu-style notes hit because they carry memory and curiosity together. This mood wants comfort, but not something boring.",
           ideas: ["kaya buns", "pandan rolls", "black sesame cookies", "coconut brioche", "peanut-sesame bakes", "yuzu cream"],
           ideaSummary: "Basically, you’re after familiar flavours translated into a pastry format with a small twist.",
-          didYouKnow: "Flavours like kaya, pandan, sesame, and coconut work well in pastry because they feel familiar, but can still feel new in a different bake format.",
+          didYouKnow: "Kaya, pandan, sesame, and coconut work well in pastry because they feel familiar, then feel new again in a different bake format.",
           unmetTags: ["kaya-pandan", "black-sesame", "yuzu-citrus"],
           dims: { local: 5, nutty: 1, familiarity: 2 },
           followups: [
@@ -1170,10 +1171,10 @@
           tags: "limited · layered · unexpected",
           prompt: "What kind of wildcard?",
           profile: "The Wildcard Drop Hunter",
-          description: "You don’t really play it safe with dessert. You like bakes that feel layered, a bit extra, and not too predictable — something that gives you a reason to go, “wait, that actually works.” This is the mood for contrast: gooey with crisp, sweet with salty, familiar with weird, or classic with a twist. You’d probably enjoy stuffed cookies, brookies, hybrid desserts, limited drops, sweet-savoury bakes, or anything with a little chaos but still balanced.",
+          description: "You don’t really play it safe with dessert. You like bakes that feel layered, a bit extra, and not too predictable — something that makes you go, “wait, that actually works.” This is the mood for contrast: gooey with crisp, sweet with salty, familiar with weird.",
           ideas: ["stuffed cookies", "brookies", "hybrid desserts", "limited drops", "sweet-savoury bakes"],
           ideaSummary: "Basically, you like desserts with texture, contrast, and a little “wait, that works?” moment.",
-          didYouKnow: "Mash-up desserts work best when textures contrast, not when everything is just more.",
+          didYouKnow: "Mash-up desserts work best when textures contrast, not when everything is simply more.",
           unmetTags: ["hybrid-stuffed", "limited-drop"],
           dims: { novelty: 5, adventurous: 2, rich: 1 },
           followups: [
@@ -1190,10 +1191,10 @@
           tags: "balanced · soft · easy",
           prompt: "What kind of gentle?",
           profile: "The Gentle Sweet Tooth",
-          description: "You like dessert, but you do not want it to knock you out. You’re probably looking for something soft, balanced, and easy to finish without feeling like it is too much. This points to mellow sweetness, gentle textures, and bakes that feel comforting rather than intense. You’d probably enjoy brioche, tiramisu rolls, milk buns, soft cookies, cream buns, or light cocoa bakes.",
+          description: "You like dessert, but you do not want it to knock you out. You’re looking for something soft, balanced, and easy to finish without feeling like too much. This points to mellow sweetness, gentle textures, and bakes that feel comforting rather than intense.",
           ideas: ["brioche", "tiramisu rolls", "milk buns", "soft cookies", "cream buns", "light cocoa bakes"],
           ideaSummary: "Basically, you’re after a softer dessert lane: enough sweetness to feel like a treat, not enough to flatten you.",
-          didYouKnow: "Gentler desserts often feel more satisfying when they lean on texture, cream, butter, or cocoa bitterness instead of just sugar.",
+          didYouKnow: "Gentler desserts feel more satisfying when they lean on texture, cream, butter, or cocoa bitterness instead of just sugar.",
           unmetTags: ["balanced-sweetness", "light-cocoa"],
           dims: { soft: 2, cream: 1, butter: 1, sweet: -1 },
           followups: []
@@ -1850,7 +1851,7 @@
         </section>
 
         <div class="result-hero">
-          <div class="product-image" style="background-image: url('${result.main.product.image}')"></div>
+          <div class="product-image" style="background-image: url('${result.main.product.image}'); --image-position: ${escapeHtml(result.main.product.imagePosition || "center")}"></div>
           <article class="main-pick">
             <p class="eyebrow">Your closest KRacked pick</p>
             <p class="match-kicker"><strong>Based on your read, this is the closest match on our menu right now.</strong></p>
