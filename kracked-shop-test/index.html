@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>KRacked Shop Test Checkout</title>
+    <meta name="description" content="KRacked manual PayNow checkout test flow. Order received, payment pending verification.">
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#products">Skip to products</a>
+
+    <header class="site-header">
+      <a class="brand" href="/kracked-shop-test/" aria-label="KRacked shop test home">
+        <span class="brand-mark" aria-hidden="true">K</span>
+        <span>
+          <strong>KRacked</strong>
+          <small>shop test</small>
+        </span>
+      </a>
+      <button class="header-cart" type="button" data-open-cart>
+        <span>Your box</span>
+        <strong id="headerCartCount">0</strong>
+      </button>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="heroTitle">
+        <div class="hero-copy">
+          <p class="eyebrow">Manual PayNow checkout · pending verification · limited test flow</p>
+          <h1 id="heroTitle">Build your KRacked box.</h1>
+          <p>Pick your bakes, send payment, and we’ll confirm once it’s checked.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#products">Pick your bakes</a>
+            <button class="button ghost" type="button" data-open-cart>View box</button>
+          </div>
+        </div>
+      </section>
+
+      <div class="shop-shell">
+        <section class="product-area" id="products" aria-labelledby="productsTitle">
+          <div class="section-heading">
+            <p class="eyebrow">1 · Pick your bakes</p>
+            <h2 id="productsTitle">Dark comfort, butter, coffee, crumble.</h2>
+          </div>
+          <div class="category-filter" id="categoryFilter" aria-label="Product categories"></div>
+          <div class="product-grid" id="productGrid"></div>
+        </section>
+
+        <aside class="cart-panel" aria-labelledby="cartTitle">
+          <div class="section-heading compact">
+            <p class="eyebrow">2 · Your box</p>
+            <h2 id="cartTitle">Order summary</h2>
+          </div>
+          <div id="cartContent"></div>
+        </aside>
+      </div>
+
+      <section class="checkout-panel" id="checkout" aria-labelledby="checkoutTitle" hidden>
+        <div class="section-heading">
+          <p class="eyebrow">3 · Details</p>
+          <h2 id="checkoutTitle">Where should this go?</h2>
+        </div>
+
+        <form id="checkoutForm" novalidate>
+          <div class="form-grid">
+            <label>
+              Name
+              <input id="customerName" name="name" autocomplete="name" required>
+              <span class="field-error" data-error-for="name"></span>
+            </label>
+            <label>
+              Phone number
+              <input id="customerPhone" name="phone" autocomplete="tel" inputmode="tel" required>
+              <span class="field-error" data-error-for="phone"></span>
+            </label>
+            <label>
+              Instagram handle <span class="optional">optional</span>
+              <input id="instagramHandle" name="instagramHandle" autocomplete="off" placeholder="@krackedbakes">
+            </label>
+            <fieldset class="fulfilment-options">
+              <legend>Fulfilment type</legend>
+              <label class="radio-card">
+                <input type="radio" name="fulfilmentType" value="collection" checked>
+                <span>Self-collection</span>
+                <small>Details confirmed after payment verification.</small>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="fulfilmentType" value="delivery">
+                <span>Delivery</span>
+                <small>$5 flat placeholder · free over $50.</small>
+              </label>
+              <span class="field-error" data-error-for="fulfilmentType"></span>
+            </fieldset>
+            <div class="delivery-fields" id="deliveryFields" hidden>
+              <label>
+                Delivery address
+                <textarea id="deliveryAddress" name="address" rows="3" autocomplete="street-address"></textarea>
+                <span class="field-error" data-error-for="address"></span>
+              </label>
+              <label>
+                Postal code
+                <input id="postalCode" name="postalCode" inputmode="numeric" autocomplete="postal-code">
+                <span class="field-error" data-error-for="postalCode"></span>
+              </label>
+              <p class="trust-note">Delivery availability and final timing will be confirmed by KRacked.</p>
+            </div>
+            <label>
+              Preferred date
+              <input id="preferredDate" name="preferredDate" type="date" required>
+              <span class="field-error" data-error-for="preferredDate"></span>
+            </label>
+            <label>
+              Preferred time window
+              <select id="preferredTime" name="preferredTime" required>
+                <option value="">Choose a window</option>
+                <option>Morning</option>
+                <option>Afternoon</option>
+                <option>Evening</option>
+                <option>Flexible</option>
+              </select>
+              <span class="field-error" data-error-for="preferredTime"></span>
+            </label>
+            <label>
+              Notes <span class="optional">optional</span>
+              <textarea id="orderNotes" name="notes" rows="3" placeholder="Gift note, timing context, or anything KRacked should know."></textarea>
+            </label>
+            <label>
+              Allergies / dietary notes <span class="optional">optional</span>
+              <textarea id="allergies" name="allergies" rows="3" placeholder="Contains common bakery allergens unless confirmed otherwise."></textarea>
+            </label>
+          </div>
+
+          <p class="privacy-note">We only use your details to prepare, verify, and fulfil your order. We do not collect card details on this site. Payment happens through your banking app.</p>
+          <button class="button primary wide" type="submit">Continue to payment instructions</button>
+        </form>
+      </section>
+
+      <section class="payment-panel" id="payment" aria-labelledby="paymentTitle" hidden>
+        <div class="section-heading">
+          <p class="eyebrow">4 · Payment</p>
+          <h2 id="paymentTitle">Manual PayNow instructions</h2>
+        </div>
+        <div id="paymentContent"></div>
+      </section>
+
+      <section class="confirmation-panel" id="confirmation" aria-labelledby="confirmationTitle" hidden>
+        <div class="section-heading">
+          <p class="eyebrow">5 · Pending confirmation</p>
+          <h2 id="confirmationTitle">Order received — pending payment verification</h2>
+        </div>
+        <div id="confirmationContent"></div>
+      </section>
+
+      <section class="admin-test" aria-labelledby="adminTitle">
+        <details>
+          <summary id="adminTitle">Admin test export</summary>
+          <p>Local test orders only. This does not read from a backend.</p>
+          <div class="inline-actions">
+            <button class="button ghost" type="button" id="exportJsonButton">Export orders JSON</button>
+            <button class="button ghost" type="button" id="exportCsvButton">Export orders CSV</button>
+          </div>
+          <pre id="adminOutput" tabindex="0"></pre>
+        </details>
+      </section>
+    </main>
+
+    <div class="mobile-cart-bar" id="mobileCartBar">
+      <button type="button" data-open-cart>
+        <span><strong id="mobileCartCount">0</strong> items</span>
+        <span id="mobileCartTotal">$0.00</span>
+      </button>
+    </div>
+
+    <div class="cart-drawer" id="cartDrawer" aria-hidden="true">
+      <div class="drawer-backdrop" data-close-cart></div>
+      <section class="drawer-sheet" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" tabindex="-1">
+        <div class="drawer-header">
+          <h2 id="drawerTitle">Your KRacked box</h2>
+          <button class="icon-button" type="button" data-close-cart aria-label="Close cart">×</button>
+        </div>
+        <div id="drawerCartContent"></div>
+      </section>
+    </div>
+
+    <div class="product-modal" id="productModal" aria-hidden="true">
+      <div class="modal-backdrop" data-close-product></div>
+      <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalProductTitle" tabindex="-1">
+        <button class="icon-button modal-close" type="button" data-close-product aria-label="Close product details">×</button>
+        <div id="productModalContent"></div>
+      </section>
+    </div>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>
